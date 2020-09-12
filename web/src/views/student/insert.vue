@@ -50,8 +50,8 @@
           <el-form-item label="监护人电话" prop="phone">
             <el-input v-model="ruleForm1.phone"></el-input>
           </el-form-item>
-          <el-form-item label="等级" prop="leve">
-            <el-input v-model="ruleForm1.leve"></el-input>
+          <el-form-item label="段位" prop="level">
+            <el-input v-model="ruleForm1.level"></el-input>
           </el-form-item>
           <el-form-item label="意向类型" prop="type">
             <el-select v-model="ruleForm1.type">
@@ -73,6 +73,10 @@
               <el-option label="年卡" value="年卡"></el-option>
               <el-option label="私教卡" value="私教卡"></el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item prop="indate" label="办卡日期">
+            <el-date-picker type="date" v-model="ruleForm2.indate" style="width: 100%;">
+            </el-date-picker>
           </el-form-item>
           <el-form-item label="道馆选择" prop="rid">
             <el-select v-model="ruleForm2.rid" placeholder="请选择活动区域">
@@ -125,7 +129,7 @@
           pname: null,
           relation: null,
           phone: null,
-          leve: null,
+          level: null,
           type: null,
         },
         rules1: {
@@ -147,6 +151,7 @@
         },
         ruleForm2: {
           cardtype: null,
+          indate: null,
           rid: null,
           money: null,
           handler: null,
@@ -220,6 +225,7 @@
         }
         if (data.birthday !== null) {
           data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM")
+          data.indate = this.$moment(data.indate).format("YYYY-DD-MM")
         }
 
         await insert(data)
@@ -250,7 +256,7 @@
 
       .form {
         max-width: 800px;
-        padding: 80px 0;
+        padding: 30px 0;
         margin: auto;
 
         .avatarimg {

@@ -7,4 +7,8 @@ import ajax from './ajax';
  * @param type  请求方式
  */
 
-export const getvisit = () => ajax("/visit/get1", {}, "get")
+export const getbyname = data => ajax("/student/getbyname", data, "get")
+
+export const getbyid = data => ajax("/student/getbyid", data, "get")
+
+

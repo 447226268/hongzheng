@@ -7,7 +7,7 @@
 
       <el-menu-item index="1" route="/home">
         <i class="el-icon-s-home"></i>
-        <span slot="title">Home</span>
+        <span slot="title">首页</span>
       </el-menu-item>
 
       <el-submenu index="2">
@@ -28,27 +28,25 @@
         </template>
         <el-menu-item-groupd>
           <el-menu-item index="3-1" route="/studentinsert">学员信息添加</el-menu-item>
-          <el-menu-item index="3-2" route="/studentedit">学员信息修改</el-menu-item>
-          <el-menu-item index="3-3" route="/orderinsert">订单添加</el-menu-item>
-          <el-menu-item index="3-4" route="/orderedit">订单修改</el-menu-item>
+          <el-menu-item index="3-2" route="/orderinsert">订单添加</el-menu-item>
+          <el-menu-item index="3-3" route="/memberinsert">道馆添加</el-menu-item>
         </el-menu-item-groupd>
       </el-submenu>
 
       <el-submenu index="4">
         <template slot="title">
           <i class="el-icon-s-management"></i>
-          <span>馆长信息</span>
+          <span>道馆信息</span>
         </template>
         <el-menu-item-groupd>
+          <el-menu-item index="4-1" route="/memberinfo">道馆详情</el-menu-item>
           <el-menu-item index="4-1" route="/memberinfo">馆长信息</el-menu-item>
-          <el-menu-item index="4-2" route="/memberinsert">信息添加</el-menu-item>
-          <el-menu-item index="4-3" route="/placeinfo">道馆添加、分配</el-menu-item>
         </el-menu-item-groupd>
       </el-submenu>
 
       <el-menu-item index="5" route="/manage">
         <i class="el-icon-s-flag"></i>
-        <span slot="title">流水管理</span>
+        <span slot="title">订单管理</span>
       </el-menu-item>
 
       <el-menu-item index="6">
