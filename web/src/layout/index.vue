@@ -1,11 +1,13 @@
 <template>
   <div id="layout">
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="auto">
         <navmenu></navmenu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <hzheader></hzheader>
+        </el-header>
         <el-main>
           <router-view />
         </el-main>
@@ -16,20 +18,24 @@
 
 <script>
   import navmenu from "./navmenu"
+  import hzheader from "./header"
   export default {
     name: 'layout',
+    data() {
+      return {
+        
+      }
+    },
     components: {
-      navmenu
+      navmenu,
+      hzheader
     }
   }
 </script>
 
 <style>
-  .el-header,
-  .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
+  .el-header {
+    background-color: #ffffff;
     line-height: 60px;
   }
 
@@ -39,7 +45,6 @@
 
   .el-main {
     background-color: #f0f2f5;
-
   }
 
   .el-container {
