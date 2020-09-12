@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yxr.hz.dao.OrderDao">
+    <insert id="insert" parameterType="Order">
+        insert into `order` values(null,#{sid},#{cid},#{money},#{type},#{date},#{state},#{handler},#{reason},#{way})
+    </insert>
+    <select id="getAll" resultType="Order">
+        select * from `order`
+    </select>
+    <select id="getBySid">
+        select * from `order` where sid=#{sid}
+    </select>
+    <select id="getById" parameterType="Integer" resultType="Order">
+        select * from `order` where id=#{id}
+    </select>
+    <delete id="delete" parameterType="Integer">
+        delete from `order` where id=#{id}
+    </delete>
+    <update id="update" parameterType="Order">
+        update `order` set sid=#{sid},cid=#{cid},money=#{money},type=#{type},date=#{date},state=#{state},handler=#{handler},reason=#{reason},way=#{way} where id=#{id}
+    </update>
+</mapper>
