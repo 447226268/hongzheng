@@ -188,78 +188,68 @@
                     <el-form-item label="性别">
                       <span>{{ props.row.gender }}</span>
                     </el-form-item>
-                    <el-form-item label="所在道馆">
+                    <!-- <el-form-item label="所在道馆">
                       <span>{{ props.row.room.name }}</span>
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item label="教练">
                       <span>{{ props.row.coach }}</span>
                     </el-form-item>
                     <el-form-item label="状态">
                       <span>{{ props.row.state }}</span>
                     </el-form-item>
-                    <el-form-item label="admin">
-                      <span>{{ props.row.admin }}</span>
-                    </el-form-item>
                     <el-form-item label="生日">
                       <span>{{ props.row.birthday }}</span>
                     </el-form-item>
-                    <el-form-item label="cardtype">
+                    <el-form-item label="办卡类型">
                       <span>{{ props.row.cardtype }}</span>
                     </el-form-item>
-                    <el-form-item label="delaytime">
+                    <el-form-item label="延期日期">
                       <span>{{ props.row.delaytime }}</span>
                     </el-form-item>
-                    <el-form-item label="handler">
+                    <el-form-item label="处理人">
                       <span>{{ props.row.handler }}</span>
                     </el-form-item>
-                    <el-form-item label="image">
-                      <span>{{ props.row.image }}</span>
-                    </el-form-item>
-                    <el-form-item label="indate">
+                    <el-form-item label="办卡时间">
                       <span>{{ props.row.indate }}</span>
                     </el-form-item>
-                    <el-form-item label="info">
+                    <el-form-item label="备注">
                       <span>{{ props.row.info }}</span>
                     </el-form-item>
-                    <el-form-item label="level">
+                    <el-form-item label="段位">
                       <span>{{ props.row.level }}</span>
                     </el-form-item>
-                    <el-form-item label="money">
+                    <el-form-item label="金额">
                       <span>{{ props.row.money }}</span>
                     </el-form-item>
-                    <el-form-item label="num">
+                    <el-form-item label="上课次数">
                       <span>{{ props.row.num }}</span>
                     </el-form-item>
-                    <el-form-item label="orders">
-                      <span>{{ props.row.orders }}</span>
-                    </el-form-item>
-                    <el-form-item label="outdate">
+                    <el-form-item label="结课日期">
                       <span>{{ props.row.outdate }}</span>
                     </el-form-item>
-                    <el-form-item label="phone">
+                    <el-form-item label="家长电话">
                       <span>{{ props.row.phone }}</span>
                     </el-form-item>
-                    <el-form-item label="pname">
+                    <el-form-item label="家长姓名">
                       <span>{{ props.row.pname }}</span>
                     </el-form-item>
-                    <el-form-item label="reday">
+                    <el-form-item label="剩余时间">
                       <span>{{ props.row.reday }}</span>
                     </el-form-item>
-                    <el-form-item label="relation">
-                      <span>{{ props.row.relation }}</span>
-                    </el-form-item>
-                    <el-form-item label="rid">
-                      <span>{{ props.row.rid }}</span>
-                    </el-form-item>
-                    <el-form-item label="telephone">
+                    <el-form-item label="联系电话">
                       <span>{{ props.row.telephone }}</span>
                     </el-form-item>
-                    <el-form-item label="type">
+                    <el-form-item label="学员类型">
                       <span>{{ props.row.type }}</span>
                     </el-form-item>
                   </el-form>
                 </template>
               </el-table-column>
+              <!-- <el-table-column label="头像">
+                <template slot-scope="scope">
+                  <el-image ></el-image>
+                </template>
+              </el-table-column> -->
               <el-table-column label="学号" prop="id"></el-table-column>
               <el-table-column label="姓名" prop="name"></el-table-column>
               <el-table-column label="年龄" prop="age"></el-table-column>
@@ -306,7 +296,39 @@ export default {
         },
       ],
       value: "校区1",
-      tableData: [],
+      tableData: [
+        {
+          admin: null,
+          age: 18,
+          birthday: '1997-05-20',
+          cardtype: null,
+          coach: '周鑫',
+          delaytime: null,
+          gender: '男',
+          handler: null,
+          id: 2,
+          image: null,
+          indate: null,
+          info: null,
+          level: null,
+          money: null,
+          name: "yxr",
+          num: null,
+          orders: null,
+          outdate: null,
+          phone: null,
+          pname: null,
+          reday: null,
+          relation: null,
+          rid: null,
+          room: {
+            name: '孵化楼',
+          },
+          state: '冻结！',
+          telephone: null,
+          type: null,
+        },
+      ],
     };
   },
   created() {
@@ -315,7 +337,7 @@ export default {
   methods: {
     async getAllInfo() {
       let results = await getStudentInfo()
-      console.log(results)
+      console.log(await getStudentInfo())
       this.tableData = results.result
       console.log('this.tableData')
       console.log(this.tableData)
