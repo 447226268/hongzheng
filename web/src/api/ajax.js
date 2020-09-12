@@ -2,10 +2,10 @@
 // import localStore from "store";
 import axios from 'axios'
 
-// import {
-//   Message,
-//   MessageBox
-// } from 'element-ui'
+import {
+  Message,
+  MessageBox
+} from 'element-ui'
 
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API //默认所有请求地址添加baseurl
@@ -28,30 +28,20 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => { //响应成功后处理xx
     let code = response.data.code;
-    if (response.status === 200 && code === 0) {
+    if (response.status === 200 && (code === 100 || code === 0)) {
       return Promise.resolve(response.data);
     }
-    // if (code == -104) {
-    //   MessageBox.alert('token已过期或失效，请您重新登录。', '提示', {
-    //     confirmButtonText: '知道了',
-    //     showClose: false,
-    //     callback: () => {
-    //       window.location.href = '/login';
-    //     }
-    //   });
-    //   store.dispatch('logout');
-    // } else if (code == -103) {
-    //   MessageBox.alert('没有权限。', '警告', {
-    //     confirmButtonText: '知道了',
-    //     showClose: false,
-    //     callback: () => {
-    //       window.location.href = '/login';
-    //     }
-    //   });
-    //   store.dispatch('logout');
-    // } else {
-    //   Message.error(response.data.msg);
-    // }
+    if (code == -100) {
+      MessageBox.alert('用户信息错误，请重新登陆。', '提示', {
+        confirmButtonText: '知道了',
+        showClose: false,
+        callback: () => {
+          window.location.href = '/login';
+        }
+      });
+    } else {
+      Message.error(response.data.msg);
+    }
     return Promise.reject(response.data.msg);
   },
   error => { //响应失败后处理xx
