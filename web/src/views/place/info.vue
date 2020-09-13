@@ -56,7 +56,8 @@
     },
     methods: {
       async getAll() {
-        this.tableData = (await getall()).result
+        let result = (await getall()).result
+        this.tableData = result
       },
       async getAdminAll() {
         this.admin = (await getadminall()).result

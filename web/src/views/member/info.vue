@@ -58,7 +58,16 @@
     },
     methods: {
       async getAll() {
-        this.tableData = (await getall()).result
+        let result = (await getall()).result
+        result.forEach((e) => {
+          let s = []
+          for (let i of e.rooms) {
+            s.push(i.name)
+          }
+          e.rooms = s.join('、')
+          console.log(e.rooms)
+        })
+        this.tableData = result
       },
       insertMember() {
         this.isNew = true

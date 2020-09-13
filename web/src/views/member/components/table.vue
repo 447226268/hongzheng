@@ -10,7 +10,7 @@
           <el-tag :type="scope.row.state === '正常' ? 'success' : 'danger'" effect="dark">{{scope.row.state}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="分配道馆" align='center' prop="room.name"></el-table-column>
+      <el-table-column label="分配道馆" align='center' prop="rooms"></el-table-column>
       <el-table-column label="操作" align='center' width="250">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">修改</el-button>
