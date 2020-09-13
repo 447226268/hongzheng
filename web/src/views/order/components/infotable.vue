@@ -40,13 +40,6 @@
         </template>
       </el-table-column>
       <el-table-column label="日期" align='center' prop="date"></el-table-column>
-      <el-table-column label="操作" align='center' width='250'>
-        <template slot-scope="scope">
-          <el-button size="mini" @click="edit(scope.row)">修改</el-button>
-          <el-button size="mini" type="warning" @click="freezes(scope.row)">冻结</el-button>
-          <el-button size="mini" type="danger" @click="remove(scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -97,15 +90,6 @@
       this.tableData = this.value
     },
     methods: {
-      edit(row) {
-        this.$emit('edit', row)
-      },
-      remove(row) {
-        this.$emit('remove', row)
-      },
-      freezes(row) {
-        this.$emit('freezes', row)
-      }
     }
   }
 </script>

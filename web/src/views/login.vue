@@ -1,16 +1,26 @@
 <template>
   <div class="login">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="用户名">
-        <el-input v-model="form.username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="form.password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">登 陆</el-button>
-      </el-form-item>
-    </el-form>
+    <dvi class="form">
+      <div class="first">
+      </div>
+      <div class="seconed">
+        <div class="title">后台登录<div>Welcome!</div>
+        </div>
+
+        <div class="main">
+          <el-form ref="form" :model="form">
+            <el-form-item>
+              <el-input v-model="form.username" placeholder="用户名" prefix-icon="el-icon-user"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="form.password" placeholder="密码" prefix-icon="el-icon-lock"></el-input>
+            </el-form-item>
+          </el-form>
+          <el-button type="primary" @click="onSubmit">登 陆</el-button>
+        </div>
+      </div>
+
+    </dvi>
   </div>
 </template>
 
@@ -40,10 +50,63 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
   .login {
-    width: 300px;
-    margin-top: 100px;
-    margin-left: 45%;
+    width: 100vw;
+    height: 100vh;
+    background: url('../assets/images/login.jpg') no-repeat 100%;
+    background-size: cover;
+
+    .form {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 600px;
+      display: flex;
+
+      .first {
+        height: 100%;
+        width: 50%;
+        background: url('../assets/images/login_1.jpg') no-repeat 50%;
+        background-size: cover;
+      }
+
+      .seconed {
+        height: 100%;
+        width: 50%;
+        background-color: #fff;
+
+        .title {
+          width: 100%;
+          margin-top: 80px;
+          margin-bottom: 80px;
+          text-align: center;
+          font-size: 40px;
+          font-weight: 800;
+          color: #f54e40;
+
+          div {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #999;
+            font-weight: 100;
+          }
+        }
+
+        .main {
+          padding: 10px 76px 76px;
+
+          .el-button {
+            margin-top: 50px;
+            width: 300px;
+
+          }
+        }
+      }
+    }
+
   }
 </style>

@@ -48,9 +48,9 @@
         <span slot="title">订单管理</span>
       </el-menu-item>
 
-      <el-menu-item index="6">
+      <el-menu-item>
         <i class="el-icon-remove"></i>
-        <span slot="title">退出</span>
+        <span slot="title" @click="out">退出</span>
       </el-menu-item>
 
     </el-menu>
@@ -58,6 +58,9 @@
 </template>
 
 <script>
+  import {
+    logout
+  } from "@/api/user.js"
   export default {
     name: 'navmenu',
     data() {
@@ -65,6 +68,12 @@
         url: require('@/assets/images/logo.jpg')
       }
     },
+    methods: {
+      async out() {
+        await logout()
+        this.$router.push('/login')
+      }
+    }
 
   }
 </script>

@@ -13,6 +13,10 @@ export const getbyid = data => ajax("/student/getbyid", data, "get")
 
 export const insert = data => ajax("/order/insert", data, "post")
 
+export const remove = data => ajax("/order/delete", data, "get")
+
+export const updatestate = data => ajax("/order/updatestate", data, "get")
+
 export const number = () => ajax("/order/number", {}, "get")
 
 export const getrange = data => ajax("/order/getRange", data, "get")

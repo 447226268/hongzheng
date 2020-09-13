@@ -1,8 +1,8 @@
 <template>
   <div class="manage">
     <div class="table">
-      <hztable v-bind:value="tableData" ref="hztable" v-on:edit="editPlace" v-on:remove="removePlace"
-        v-on:freezes="freezesPlace"></hztable>
+      <hztable v-bind:value="tableData" ref="hztable" v-on:edit="editManage" v-on:remove="removeManage"
+        v-on:freezes="freezesManage"></hztable>
       <el-pagination class="pagination" background layout="prev, pager, next" :total="total" :current-page="current"
         @current-change="currentChange">
       </el-pagination>
@@ -13,7 +13,9 @@
 <script>
   import {
     number,
-    getrange
+    getrange,
+    remove,
+    updatestate
   } from "@/api/order.js"
   import hztable from "./components/table"
   export default {
@@ -40,7 +42,28 @@
           number2: this.size * this.current
         })).result
       },
+      async removeManage(row) {
+        await remove({
+          id: row.id
+        })
+        this.$message({
+          message: '删除成功！',
+          type: 'success'
+        });
+        this.getRange()
+      },
+      async freezesManage(row) {
+        await updatestate({
+          id: row.id
+        })
+        this.$message({
+          message: '冻结成功！',
+          type: 'success'
+        });
+        this.getRange()
+      },
       currentChange(page) {
+        this.getNumber()
         this.current = page
         this.getRange()
       },

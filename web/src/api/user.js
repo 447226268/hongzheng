@@ -10,3 +10,6 @@ import ajax from './ajax';
 export const login = data => ajax("/admin/login", data, "post")
 
 export const check = () => ajax("/admin/state", {}, "get")
+
+export const logout = () => ajax("/admin/layout", {}, "get")
+
