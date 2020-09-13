@@ -43,5 +43,7 @@
 <style>
   .login {
     width: 300px;
+    margin-top: 100px;
+    margin-left: 45%;
   }
 </style>
