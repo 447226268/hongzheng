@@ -65,102 +65,31 @@
           <div class="info-change">
             <div class="normal-box">
               <span class="info-change-title">学员招生占比</span>
-              <div class="info-allChange">
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{newStudentsAddedToday}}</span>
-                  </p>
-                  <p class="changetitle">今日新增学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{numberOfStudents}}</span>
-                  </p>
-                  <p class="changetitle">在读学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{birthdayThisMonth}}</span>
-                  </p>
-                  <p class="changetitle">本月生日学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{graduateStudent}}</span>
-                  </p>
-                  <p class="changetitle">毕业学员</p>
-                </div>
-              </div>
+              <ve-ring :data="chartData" :settings="chartSettings" :extend="barExtend"></ve-ring>
             </div>
           </div>
         </el-col>
 
         <el-col :span="10">
-          <!-- 学员招生占比 -->
+          <!-- 学员趋势 -->
           <div class="info-change">
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
-              <div class="info-allChange">
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{newStudentsAddedToday}}</span>
-                  </p>
-                  <p class="changetitle">今日新增学员</p>
+                <div class="show-line1">
+                  <ve-line :data="chartData" height="300px" width="600px"></ve-line>
                 </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{numberOfStudents}}</span>
-                  </p>
-                  <p class="changetitle">在读学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{birthdayThisMonth}}</span>
-                  </p>
-                  <p class="changetitle">本月生日学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{graduateStudent}}</span>
-                  </p>
-                  <p class="changetitle">毕业学员</p>
-                </div>
-              </div>
             </div>
           </div>
         </el-col>
 
         <el-col :span="24">
-          <!-- 学员招生占比 -->
+          <!-- 学员趋势 -->
           <div class="info-change">
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
-              <div class="info-allChange">
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{newStudentsAddedToday}}</span>
-                  </p>
-                  <p class="changetitle">今日新增学员</p>
+                <div class="show-line1">
+                  <ve-line :data="chartData" height="300px" width="1535px"></ve-line>
                 </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{numberOfStudents}}</span>
-                  </p>
-                  <p class="changetitle">在读学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{birthdayThisMonth}}</span>
-                  </p>
-                  <p class="changetitle">本月生日学员</p>
-                </div>
-                <div class="info-singelChange">
-                  <p class="changeNum">
-                    <span>{{graduateStudent}}</span>
-                  </p>
-                  <p class="changetitle">毕业学员</p>
-                </div>
-              </div>
             </div>
           </div>
         </el-col>
@@ -188,9 +117,9 @@
                     <el-form-item label="性别">
                       <span>{{ props.row.gender }}</span>
                     </el-form-item>
-                    <!-- <el-form-item label="所在道馆">
+                    <el-form-item label="所在道馆">
                       <span>{{ props.row.room.name }}</span>
-                    </el-form-item>-->
+                    </el-form-item>
                     <el-form-item label="教练">
                       <span>{{ props.row.coach }}</span>
                     </el-form-item>
@@ -211,9 +140,6 @@
                     </el-form-item>
                     <el-form-item label="办卡时间">
                       <span>{{ props.row.indate }}</span>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                      <span>{{ props.row.info }}</span>
                     </el-form-item>
                     <el-form-item label="段位">
                       <span>{{ props.row.level }}</span>
@@ -241,6 +167,10 @@
                     </el-form-item>
                     <el-form-item label="学员类型">
                       <span>{{ props.row.type }}</span>
+                    </el-form-item>
+                    <br>
+                    <el-form-item label="备注">
+                      <span v-html="props.row.info"></span>
                     </el-form-item>
                   </el-form>
                 </template>
@@ -280,6 +210,21 @@ import { getStudentInfo } from "@/api/studentinfo.js";
 export default {
   name: "sutdentinfo",
   data() {
+    this.chartSettings = {
+      radius: [70, 90],
+      offsetY: 120,
+    };
+    this.barExtend = {
+      legend: {
+        type:'scroll',
+        orient: 'vertical',
+        height: 'auto',
+        top: 10,
+        bottom: 10,
+        right: 30
+      },
+    };
+
     return {
       newStudentsAddedToday: -1,
       numberOfStudents: -1,
@@ -296,39 +241,18 @@ export default {
         },
       ],
       value: "校区1",
-      tableData: [
-        {
-          admin: null,
-          age: 18,
-          birthday: "1997-05-20",
-          cardtype: null,
-          coach: "周鑫",
-          delaytime: null,
-          gender: "男",
-          handler: null,
-          id: 2,
-          image: null,
-          indate: null,
-          info: null,
-          level: null,
-          money: null,
-          name: "yxr",
-          num: null,
-          orders: null,
-          outdate: null,
-          phone: null,
-          pname: null,
-          reday: null,
-          relation: null,
-          rid: null,
-          room: {
-            name: "孵化楼",
-          },
-          state: "冻结！",
-          telephone: null,
-          type: null,
-        },
-      ],
+      tableData: [],
+      chartData: {
+        columns: ["日期", "访问用户"],
+        rows: [
+          { 日期: "1/1", 访问用户: 1393 },
+          { 日期: "1/2", 访问用户: 3530 },
+          { 日期: "1/3", 访问用户: 2923 },
+          { 日期: "1/4", 访问用户: 1723 },
+          { 日期: "1/5", 访问用户: 3792 },
+          { 日期: "1/6", 访问用户: 4593 },
+        ],
+      },
     };
   },
   created() {
@@ -368,6 +292,15 @@ export default {
   .normal-box {
     padding: 16px 20px;
     background-color: #fff;
+    height: 270px;
+
+    .show-line1{
+      height: 260px;
+
+      .ve-line {
+        height: 260px;
+      }
+    }
   }
 
   .show1 {
