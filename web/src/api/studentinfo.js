@@ -9,4 +9,8 @@ import ajax from './ajax';
 
 export const getStudentInfo = () => ajax("/student/getall", {}, "get")
 
+export const getStudentNum = () => ajax("/student/number", {}, "get")
+
+export const getStudentData = data => ajax("/student/getRange", data, "get")
+
 export const getStudentInsert = () => ajax("/student/insert", {}, "post")
