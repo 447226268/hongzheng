@@ -75,9 +75,9 @@
           <div class="info-change">
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
-                <div class="show-line1">
-                  <ve-line :data="chartData" height="300px" width="600px"></ve-line>
-                </div>
+              <div class="show-line1">
+                <ve-line :data="chartData" height="300px" width="600px"></ve-line>
+              </div>
             </div>
           </div>
         </el-col>
@@ -87,9 +87,9 @@
           <div class="info-change">
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
-                <div class="show-line1">
-                  <ve-line :data="chartData" height="300px" width="1535px"></ve-line>
-                </div>
+              <div class="show-line1">
+                <ve-line :data="chartData" height="300px" width="1535px"></ve-line>
+              </div>
             </div>
           </div>
         </el-col>
@@ -101,7 +101,7 @@
       <el-row :gutter="20" justify="space-between">
         <el-col :span="24">
           <div class="show-table">
-            <el-table :data="tableData" style="width: 100%">
+            <el-table :data="tableData" style="width: 100%" :current-page.sync="current">
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" inline class="demo-table-expand">
@@ -168,26 +168,30 @@
                     <el-form-item label="学员类型">
                       <span>{{ props.row.type }}</span>
                     </el-form-item>
-                    <br>
+                    <br />
                     <el-form-item label="备注">
                       <span v-html="props.row.info"></span>
                     </el-form-item>
                   </el-form>
                 </template>
               </el-table-column>
-              <!-- <el-table-column label="头像">
+              <el-table-column label="头像" align="center" width="100px">
                 <template slot-scope="scope">
-                  <el-image ></el-image>
+                  <el-image 
+                    style="width: 60px; height: 60px; border-radius: 100px;"
+                    :src="scope.row.image"
+                    :fit="cover"
+                  ></el-image>
                 </template>
-              </el-table-column>-->
-              <el-table-column label="学号" prop="id"></el-table-column>
-              <el-table-column label="姓名" prop="name"></el-table-column>
-              <el-table-column label="年龄" prop="age"></el-table-column>
-              <el-table-column label="性别" prop="gender"></el-table-column>
-              <el-table-column label="所在道馆" prop="room.name"></el-table-column>
-              <el-table-column label="教练" prop="coach"></el-table-column>
-              <el-table-column label="状态" prop="state"></el-table-column>
-              <el-table-column label="操作">
+              </el-table-column>
+              <el-table-column label="学号" prop="id" align="center"></el-table-column>
+              <el-table-column label="姓名" prop="name" align="center"></el-table-column>
+              <el-table-column label="年龄" prop="age" align="center"></el-table-column>
+              <el-table-column label="性别" prop="gender" align="center"></el-table-column>
+              <el-table-column label="所在道馆" prop="room.name" align="center"></el-table-column>
+              <el-table-column label="教练" prop="coach" align="center"></el-table-column>
+              <el-table-column label="状态" prop="state" align="center"></el-table-column>
+              <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                   <el-button
@@ -200,13 +204,26 @@
             </el-table>
           </div>
         </el-col>
+
+        <el-col style="text-align:center">
+          <el-pagination
+            class="pagination"
+            background
+            layout="prev, pager, next"
+            :total="total"
+            :current-page="current"
+            @current-change="currentChange"
+            @prev-click="prevClick"
+            @next-click="nextClick"
+          ></el-pagination>
+        </el-col>
       </el-row>
     </div>
   </div>
 </template>
 
 <script>
-import { getStudentInfo } from "@/api/studentinfo.js";
+import { getStudentNum, getStudentData } from "@/api/studentinfo.js";
 export default {
   name: "sutdentinfo",
   data() {
@@ -216,20 +233,25 @@ export default {
     };
     this.barExtend = {
       legend: {
-        type:'scroll',
-        orient: 'vertical',
-        height: 'auto',
+        type: "scroll",
+        orient: "vertical",
+        height: "auto",
         top: 10,
         bottom: 10,
-        right: 30
+        right: 30,
       },
     };
 
     return {
+      current: 1,
+      total: null,
+      size: 10,
+      tableData: [],
       newStudentsAddedToday: -1,
       numberOfStudents: -1,
       birthdayThisMonth: -1,
       graduateStudent: -1,
+      value: "校区1",
       rooms: [
         {
           value: "选项1",
@@ -240,8 +262,6 @@ export default {
           label: "校区2",
         },
       ],
-      value: "校区1",
-      tableData: [],
       chartData: {
         columns: ["日期", "访问用户"],
         rows: [
@@ -256,21 +276,47 @@ export default {
     };
   },
   created() {
-    this.getAllInfo();
+    this.getStuNumber();
+    this.getStuRange();
   },
   methods: {
-    async getAllInfo() {
-      let results = await getStudentInfo();
-      console.log(await getStudentInfo());
-      this.tableData = results.result;
-      console.log("this.tableData");
+    async getStuNumber() {
+      this.total = (await getStudentNum()).result;
+      console.log(this.total);
+    },
+    async getStuRange() {
+      this.tableData = (
+        await getStudentData({
+          number1: this.size * (this.current - 1),
+          number2: this.size * this.current,
+        })
+      ).result;
       console.log(this.tableData);
     },
+
     handleEdit(index, row) {
       console.log(index, row);
     },
     handleDelete(index, row) {
       console.log(index, row);
+    },
+    currentChange(page) {
+      console.log(page);
+      this.current = page;
+      this.getStuNumber();
+      this.getStuRange();
+    },
+    prevClick(page) {
+      console.log(page);
+      this.current = page;
+      this.getStuNumber();
+      this.getStuRange();
+    },
+    nextClick(page) {
+      console.log(page);
+      this.current = page;
+      this.getStuNumber();
+      this.getStuRange();
     },
   },
 };
@@ -294,7 +340,7 @@ export default {
     background-color: #fff;
     height: 270px;
 
-    .show-line1{
+    .show-line1 {
       height: 260px;
 
       .ve-line {
