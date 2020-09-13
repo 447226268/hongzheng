@@ -5,6 +5,11 @@ import store from './store'
 import localStore from 'store'
 import moment from 'moment'//导入文件 
 
+
+import VCharts from 'v-charts'
+Vue.use(VCharts)
+
+
 import {
   check,
 } from "@/api/user.js"

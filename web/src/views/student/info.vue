@@ -190,7 +190,7 @@
                     </el-form-item>
                     <!-- <el-form-item label="所在道馆">
                       <span>{{ props.row.room.name }}</span>
-                    </el-form-item> -->
+                    </el-form-item>-->
                     <el-form-item label="教练">
                       <span>{{ props.row.coach }}</span>
                     </el-form-item>
@@ -249,7 +249,7 @@
                 <template slot-scope="scope">
                   <el-image ></el-image>
                 </template>
-              </el-table-column> -->
+              </el-table-column>-->
               <el-table-column label="学号" prop="id"></el-table-column>
               <el-table-column label="姓名" prop="name"></el-table-column>
               <el-table-column label="年龄" prop="age"></el-table-column>
@@ -300,11 +300,11 @@ export default {
         {
           admin: null,
           age: 18,
-          birthday: '1997-05-20',
+          birthday: "1997-05-20",
           cardtype: null,
-          coach: '周鑫',
+          coach: "周鑫",
           delaytime: null,
-          gender: '男',
+          gender: "男",
           handler: null,
           id: 2,
           image: null,
@@ -322,9 +322,9 @@ export default {
           relation: null,
           rid: null,
           room: {
-            name: '孵化楼',
+            name: "孵化楼",
           },
-          state: '冻结！',
+          state: "冻结！",
           telephone: null,
           type: null,
         },
@@ -336,12 +336,11 @@ export default {
   },
   methods: {
     async getAllInfo() {
-      let results = await getStudentInfo()
-      console.log(await getStudentInfo())
-      this.tableData = results.result
-      console.log('this.tableData')
-      console.log(this.tableData)
-
+      let results = await getStudentInfo();
+      console.log(await getStudentInfo());
+      this.tableData = results.result;
+      console.log("this.tableData");
+      console.log(this.tableData);
     },
     handleEdit(index, row) {
       console.log(index, row);
