@@ -15,7 +15,7 @@
       <el-table-column label="状态" align='center' prop="state"></el-table-column>
       <el-table-column label="操作" align='center'>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">确认</el-button>
+          <el-button size="mini" @click="handle(scope.row)">确认</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,7 +35,7 @@
       }
     },
     mouted() {
-
+      
     },
     methods: {
       async getByName(name) {
@@ -47,6 +47,9 @@
         this.tableData = [(await getbyid({
           id: id
         })).result]
+      },
+      handle(row){
+        this.$emit('confirm', row)
       },
     }
   }

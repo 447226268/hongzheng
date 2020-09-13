@@ -11,4 +11,6 @@ export const getbyname = data => ajax("/student/getbyname", data, "get")
 
 export const getbyid = data => ajax("/student/getbyid", data, "get")
 
+export const insert = data => ajax("/order/insert", data, "post")
+
 

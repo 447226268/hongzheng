@@ -29,7 +29,6 @@
         <el-menu-item-groupd>
           <el-menu-item index="3-1" route="/studentinsert">学员信息添加</el-menu-item>
           <el-menu-item index="3-2" route="/orderinsert">订单添加</el-menu-item>
-          <el-menu-item index="3-3" route="/memberinsert">道馆添加</el-menu-item>
         </el-menu-item-groupd>
       </el-submenu>
 
@@ -39,8 +38,8 @@
           <span>道馆信息</span>
         </template>
         <el-menu-item-groupd>
-          <el-menu-item index="4-1" route="/memberinfo">道馆详情</el-menu-item>
-          <el-menu-item index="4-1" route="/memberinfo">馆长信息</el-menu-item>
+          <el-menu-item index="4-1" route="/placeinfo">道馆详情</el-menu-item>
+          <el-menu-item index="4-2" route="/memberinfo">馆长信息</el-menu-item>
         </el-menu-item-groupd>
       </el-submenu>
 

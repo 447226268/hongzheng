@@ -90,8 +90,8 @@
             <el-input v-model="ruleForm2.handler"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="info">
+            <el-input type="textarea" :rows="15" v-model="ruleForm2.info"></el-input>
           </el-form-item>
-          <tinyeditor :str="ruleForm2.info" ref="tinyeditor"></tinyeditor>
         </el-form>
 
         <div class="pre-next-but">
@@ -110,7 +110,6 @@
     insert,
     getall
   } from "@/api/studentinsert.js"
-  import tinyeditor from "@/components/tinyEditor.vue"
   import avataruploader from "@/components/avatar-uploader.vue"
 
   export default {
@@ -174,7 +173,6 @@
               this.active = 1
             }
           } else {
-            this.ruleForm2['info'] = this.$refs['tinyeditor'].value
             this.active = 1
           }
         }
@@ -197,7 +195,6 @@
               }
             });
           } else {
-            this.ruleForm2['info'] = this.$refs['tinyeditor'].value
             this.active = 3
           }
         }
@@ -236,7 +233,6 @@
       }
     },
     components: {
-      tinyeditor,
       avataruploader,
     }
   }
