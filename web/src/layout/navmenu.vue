@@ -48,9 +48,9 @@
         <span slot="title">订单管理</span>
       </el-menu-item>
 
-      <el-menu-item>
+      <el-menu-item @click="out">
         <i class="el-icon-remove"></i>
-        <span slot="title" @click="out">退出</span>
+        <span slot="title">退出</span>
       </el-menu-item>
 
     </el-menu>
@@ -70,8 +70,8 @@
     },
     methods: {
       async out() {
-        await logout()
         this.$router.push('/login')
+        await logout()
       }
     }
 

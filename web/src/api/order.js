@@ -21,3 +21,6 @@ export const number = () => ajax("/order/number", {}, "get")
 
 export const getrange = data => ajax("/order/getRange", data, "get")
 
+export const getorderbyid = data => ajax("/order/getbyid", data, "get")
+
+export const update = data => ajax("/order/update", data, "post")
