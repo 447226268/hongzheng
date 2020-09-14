@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yxr.hz.dao.OrderDao">
     <insert id="insert" parameterType="Order">
-        insert into `order` values(null,#{sid},#{cid},#{money},#{type},#{date},#{state},#{handler},#{reason},#{way})
+        insert into `order` values(null,#{sid},#{rid},#{cardtype},#{money},#{type},#{date},#{state},#{handler},#{reason},#{way})
     </insert>
     <select id="getAll" resultType="Order">
         select * from `order`
     </select>
-    <select id="getBySid">
+    <select id="getBySId" resultType="Order">
         select * from `order` where sid=#{sid}
     </select>
     <select id="getById" parameterType="Integer" resultType="Order">
@@ -17,6 +17,6 @@
         delete from `order` where id=#{id}
     </delete>
     <update id="update" parameterType="Order">
-        update `order` set sid=#{sid},cid=#{cid},money=#{money},type=#{type},date=#{date},state=#{state},handler=#{handler},reason=#{reason},way=#{way} where id=#{id}
+        update `order` set sid=#{sid},rid=#{rid},cardtype=#{cardtype},money=#{money},type=#{type},date=#{date},state=#{state},handler=#{handler},reason=#{reason},way=#{way} where id=#{id}
     </update>
 </mapper>

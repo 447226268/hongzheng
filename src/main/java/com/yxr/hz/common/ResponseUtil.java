@@ -56,4 +56,16 @@ public class ResponseUtil {
         commonResponse.setMsg(msg);
         return commonResponse;
     }
+    public static <T> CommonResponse<T> auth_error(String msg) {
+        CommonResponse<T> commonResponse = new CommonResponse<>();
+        commonResponse.setMsg(msg);
+        commonResponse.setCode(ResultCode.AUTH_ERROR.code);
+        return commonResponse;
+    }
+    public static <T> CommonResponse<T> auth_success(String msg) {
+        CommonResponse<T> commonResponse = new CommonResponse<>();
+        commonResponse.setMsg(msg);
+        commonResponse.setCode(ResultCode.AUTH_SUCCESS.code);
+        return commonResponse;
+    }
 }

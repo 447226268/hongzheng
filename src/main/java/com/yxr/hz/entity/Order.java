@@ -6,7 +6,8 @@ import lombok.Data;
 public class Order {
     private Integer id;
     private Integer sid;
-    private Integer cid;
+    private Integer rid;
+    private String cardtype;
     private Integer money;
     private String type;
     private String date;
@@ -14,4 +15,6 @@ public class Order {
     private String handler;
     private String reason;
     private String way;
+    private Student student;
+    private Room room;
 }

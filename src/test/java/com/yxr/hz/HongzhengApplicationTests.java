@@ -17,11 +17,6 @@ private StudentService studentService;
 private OrderService orderService;
     @Test
     void contextLoads() {
-//        Order o=orderService.getById(1);
-//        o.setSid(4);
-//        orderService.update(o);
-        orderService.delete(1);
-        System.out.println(orderService.getAll());
     }
 
 }

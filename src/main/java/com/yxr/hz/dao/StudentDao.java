@@ -13,4 +13,5 @@ public interface StudentDao {
     void insert(Student student);
     void delete(Integer id);
     void update(Student student);
+    List<Student> findByRid(Integer rid);
 }

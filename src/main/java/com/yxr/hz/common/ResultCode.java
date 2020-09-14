@@ -27,7 +27,7 @@ public enum ResultCode {
 
 
     AUTH_ERROR(-100, "认证失败"),
-    ACCESS_ERROR(-101, "授权失败"),
+    AUTH_SUCCESS(100, "认证成功"),
     CACHE_MANAGER_NOT_FOUND(-102, "缓存管理器不存在"),
     ;
 
