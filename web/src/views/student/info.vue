@@ -129,13 +129,16 @@
                     <el-form-item label="生日">
                       <span>{{ props.row.birthday }}</span>
                     </el-form-item>
+                    <el-form-item label="身份证号">
+                      <span>{{ props.row.idnum }}</span>
+                    </el-form-item>
                     <el-form-item label="办卡类型">
                       <span>{{ props.row.cardtype }}</span>
                     </el-form-item>
                     <el-form-item label="延期日期">
                       <span>{{ props.row.delaytime }}</span>
                     </el-form-item>
-                    <el-form-item label="处理人">
+                    <el-form-item label="录入人">
                       <span>{{ props.row.handler }}</span>
                     </el-form-item>
                     <el-form-item label="办卡时间">
@@ -146,6 +149,9 @@
                     </el-form-item>
                     <el-form-item label="金额">
                       <span>{{ props.row.money }}</span>
+                    </el-form-item>
+                    <el-form-item label="缴费方式">
+                      <span>{{ props.row.way }}</span>
                     </el-form-item>
                     <el-form-item label="上课次数">
                       <span>{{ props.row.num }}</span>
@@ -177,7 +183,7 @@
               </el-table-column>
               <el-table-column label="头像" align="center" width="100px">
                 <template slot-scope="scope">
-                  <el-image 
+                  <el-image
                     style="width: 60px; height: 60px; border-radius: 100px;"
                     :src="scope.row.image"
                     :fit="cover"
@@ -282,7 +288,6 @@ export default {
   methods: {
     async getStuNumber() {
       this.total = (await getStudentNum()).result;
-      console.log(this.total);
     },
     async getStuRange() {
       this.tableData = (
@@ -291,7 +296,6 @@ export default {
           number2: this.size * this.current,
         })
       ).result;
-      console.log(this.tableData);
     },
 
     handleEdit(index, row) {
@@ -301,19 +305,16 @@ export default {
       console.log(index, row);
     },
     currentChange(page) {
-      console.log(page);
       this.current = page;
       this.getStuNumber();
       this.getStuRange();
     },
     prevClick(page) {
-      console.log(page);
       this.current = page;
       this.getStuNumber();
       this.getStuRange();
     },
     nextClick(page) {
-      console.log(page);
       this.current = page;
       this.getStuNumber();
       this.getStuRange();

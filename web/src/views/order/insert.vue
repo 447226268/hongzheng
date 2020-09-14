@@ -55,7 +55,7 @@
             <el-form-item label="学费金额" prop="money">
               <el-input v-model="ruleForm.money"></el-input>
             </el-form-item>
-            <el-form-item label="处理人" prop="handler">
+            <el-form-item label="录入人" prop="handler">
               <el-input v-model="ruleForm.handler"></el-input>
             </el-form-item>
             <el-form-item label="备注" prop="reason">

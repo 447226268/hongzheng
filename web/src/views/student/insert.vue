@@ -1,6 +1,5 @@
 <template>
   <div class="studentinsert">
-
     <div class="step">
       <el-steps :active="active" align-center>
         <el-step title="基本信息" description="输入学员信息"></el-step>
@@ -11,9 +10,14 @@
 
     <div class="main">
       <div class="form">
-
-        <el-form v-if="active===1" :model="ruleForm1" :rules="rules1" ref="ruleForm1" label-width="100px"
-          class="demo-ruleForm">
+        <el-form
+          v-if="active===1"
+          :model="ruleForm1"
+          :rules="rules1"
+          ref="ruleForm1"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
           <div class="avatarimg">
             <avataruploader ref="avataruploader" v-bind:image="ruleForm1.image" v-on:get="getImgae"></avataruploader>
           </div>
@@ -28,8 +32,10 @@
             </el-select>
           </el-form-item>
           <el-form-item prop="birthday" label="出生日期">
-            <el-date-picker type="date" v-model="ruleForm1.birthday" style="width: 100%;">
-            </el-date-picker>
+            <el-date-picker type="date" v-model="ruleForm1.birthday" style="width: 100%;"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="身份证号" prop="idnum">
+            <el-input v-model="ruleForm1.idnum"></el-input>
           </el-form-item>
           <el-form-item label="联系电话" prop="telephone">
             <el-input v-model="ruleForm1.telephone"></el-input>
@@ -62,8 +68,14 @@
           </el-form-item>
         </el-form>
 
-        <el-form v-if="active===2" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px"
-          class="demo-ruleForm">
+        <el-form
+          v-if="active===2"
+          :model="ruleForm2"
+          :rules="rules2"
+          ref="ruleForm2"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
           <el-form-item label="办卡类型" prop="cardtype">
             <el-select v-model="ruleForm2.cardtype" placeholder="请选择活动区域">
               <el-option label="日卡" value="日卡"></el-option>
@@ -75,8 +87,7 @@
             </el-select>
           </el-form-item>
           <el-form-item prop="indate" label="办卡日期">
-            <el-date-picker type="date" v-model="ruleForm2.indate" style="width: 100%;">
-            </el-date-picker>
+            <el-date-picker type="date" v-model="ruleForm2.indate" style="width: 100%;"></el-date-picker>
           </el-form-item>
           <el-form-item label="道馆选择" prop="rid">
             <el-select v-model="ruleForm2.rid" placeholder="请选择活动区域">
@@ -86,7 +97,15 @@
           <el-form-item label="缴纳金额" prop="money">
             <el-input v-model="ruleForm2.money"></el-input>
           </el-form-item>
-          <el-form-item label="处理人" prop="handler">
+          <el-form-item label="缴纳方式" prop="way">
+            <el-select v-model="ruleForm2.way">
+              <el-option label="微信" value="微信"></el-option>
+              <el-option label="支付宝" value="支付宝"></el-option>
+              <el-option label="现金" value="现金"></el-option>
+              <el-option label="刷卡" value="刷卡"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="录入人" prop="handler">
             <el-input v-model="ruleForm2.handler"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="info">
@@ -99,179 +118,187 @@
           <el-button v-if="active===3" @click="insertStudent" type="primary">提交</el-button>
           <el-button v-else @click="go" type="primary">下一步</el-button>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    insert,
-    getall
-  } from "@/api/studentinsert.js"
-  import avataruploader from "@/components/avatar-uploader.vue"
+import { insert, getall } from "@/api/studentinsert.js";
+import avataruploader from "@/components/avatar-uploader.vue";
 
-  export default {
-    name: 'studentinsert',
-    data() {
-      return {
-        active: 1,
-        room: [],
-        ruleForm1: {
-          name: null,
-          image: null,
-          gender: null,
-          birthday: null,
-          telephone: null,
-          coach: null,
-          pname: null,
-          relation: null,
-          phone: null,
-          level: null,
-          type: null,
-        },
-        rules1: {
-          name: [{
-            required: true,
-            message: '姓名不能为空',
-            trigger: 'blur'
-          }, ],
-          type: [{
-            required: true,
-            message: '请选择一个意向类型',
-            trigger: 'change'
-          }],
-          telephone: [{
-            required: true,
-            message: '请输入联系电话',
-            trigger: 'blur'
-          }]
-        },
-        ruleForm2: {
-          cardtype: null,
-          indate: null,
-          rid: null,
-          money: null,
-          handler: null,
-          info: null,
-        },
-      }
-    },
-    mounted() {
-      this.getAllRoom()
-    },
-    methods: {
-      back() {
-        if (this.active === 1) {
-          return
-        } else {
-          if (this.active === 3) {
-            if (this.ruleForm1['type'] === '购买课程') {
-              this.active = 2
-            } else {
-              this.active = 1
-            }
-          } else {
-            this.active = 1
-          }
-        }
+export default {
+  name: "studentinsert",
+  data() {
+    return {
+      active: 1,
+      room: [],
+      ruleForm1: {
+        name: null,
+        image: null,
+        gender: null,
+        birthday: null,
+        telephone: null,
+        idnum: null,
+        coach: null,
+        pname: null,
+        relation: null,
+        phone: null,
+        level: null,
+        type: null,
       },
-      go() {
+      rules1: {
+        name: [
+          {
+            required: true,
+            message: "姓名不能为空",
+            trigger: "blur",
+          },
+        ],
+        type: [
+          {
+            required: true,
+            message: "请选择一个意向类型",
+            trigger: "change",
+          },
+        ],
+        telephone: [
+          {
+            required: true,
+            message: "请输入联系电话",
+            trigger: "blur",
+          },
+        ],
+        idnum: [
+          {
+            required: true,
+            message: "请输入身份证号",
+            trigger: "blur",
+          },
+        ],
+      },
+      ruleForm2: {
+        cardtype: null,
+        indate: null,
+        rid: null,
+        money: null,
+        way: null,
+        handler: null,
+        info: null,
+      },
+    };
+  },
+  mounted() {
+    this.getAllRoom();
+  },
+  methods: {
+    back() {
+      if (this.active === 1) {
+        return;
+      } else {
         if (this.active === 3) {
-          return
-        } else {
-          if (this.active === 1) {
-            this.$refs['ruleForm1'].validate((valid) => {
-              if (valid) {
-                if (this.ruleForm1['type'] === '购买课程') {
-                  this.active = 2
-                } else {
-                  this.active = 3
-                }
-              } else {
-                console.log('error submit!!');
-                return false;
-              }
-            });
+          if (this.ruleForm1["type"] === "购买课程") {
+            this.active = 2;
           } else {
-            this.active = 3
-          }
-        }
-      },
-      getImgae() {
-        this.ruleForm1['image'] = this.$refs['avataruploader'].imageUrl
-      },
-      async getAllRoom() {
-        let result = (await getall()).result
-        this.room = result
-      },
-      async insertStudent() {
-        let data = {}
-        if (this.ruleForm1['type'] === '购买课程') {
-          for (let i in this.ruleForm1) {
-            data[i] = this.ruleForm1[i]
-          }
-          for (let i in this.ruleForm2) {
-            data[i] = this.ruleForm2[i]
+            this.active = 1;
           }
         } else {
-          for (let i in this.ruleForm1) {
-            data[i] = this.ruleForm1[i]
-          }
+          this.active = 1;
         }
-        if (data.birthday !== null) {
-          data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM")
-          data.indate = this.$moment(data.indate).format("YYYY-DD-MM")
-        }
-
-        await insert(data)
-        this.$message({
-          message: '提交成功！',
-          type: 'success'
-        });
       }
     },
-    components: {
-      avataruploader,
-    }
-  }
+    go() {
+      if (this.active === 3) {
+        return;
+      } else {
+        if (this.active === 1) {
+          this.$refs["ruleForm1"].validate((valid) => {
+            if (valid) {
+              if (this.ruleForm1["type"] === "购买课程") {
+                this.active = 2;
+              } else {
+                this.active = 3;
+              }
+            } else {
+              console.log("error submit!!");
+              return false;
+            }
+          });
+        } else {
+          this.active = 3;
+        }
+      }
+    },
+    getImgae() {
+      this.ruleForm1["image"] = this.$refs["avataruploader"].imageUrl;
+    },
+    async getAllRoom() {
+      let result = (await getall()).result;
+      this.room = result;
+    },
+    async insertStudent() {
+      let data = {};
+      if (this.ruleForm1["type"] === "购买课程") {
+        for (let i in this.ruleForm1) {
+          data[i] = this.ruleForm1[i];
+        }
+        for (let i in this.ruleForm2) {
+          data[i] = this.ruleForm2[i];
+        }
+      } else {
+        for (let i in this.ruleForm1) {
+          data[i] = this.ruleForm1[i];
+        }
+      }
+      if (data.birthday !== null) {
+        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+        data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
+      }
+
+      await insert(data);
+      this.$message({
+        message: "提交成功！",
+        type: "success",
+      });
+    },
+  },
+  components: {
+    avataruploader,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .studentinsert {
-
-    .step {
-      padding: 24px 0 24px 0;
-      background-color: #fff;
-    }
-
-    .main {
-      margin-top: 24px;
-      background-color: #fff;
-
-      .form {
-        max-width: 800px;
-        padding: 30px 0;
-        margin: auto;
-
-        .avatarimg {
-          margin-bottom: 30px;
-          text-align: center;
-        }
-      }
-
-      .pre-next-but {
-        margin-top: 60px;
-        text-align: center;
-
-        .el-button {
-          width: 150px;
-          margin-right: 50px;
-        }
-      }
-    }
-
-
+.studentinsert {
+  .step {
+    padding: 24px 0 24px 0;
+    background-color: #fff;
   }
+
+  .main {
+    margin-top: 24px;
+    background-color: #fff;
+
+    .form {
+      max-width: 800px;
+      padding: 30px 0;
+      margin: auto;
+
+      .avatarimg {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+    }
+
+    .pre-next-but {
+      margin-top: 60px;
+      text-align: center;
+
+      .el-button {
+        width: 150px;
+        margin-right: 50px;
+      }
+    }
+  }
+}
 </style>

@@ -25,7 +25,7 @@ public class Student {
     private Integer num;//上课次数
     private Integer rid;
     private Integer delaytime;//延期天数
-    private String handler;//处理人
+    private String handler;//录入人
     private String info;
     private Room room;
     private List<Order> orders;
