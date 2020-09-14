@@ -30,7 +30,7 @@ public class Student {
     private String type;
     private Integer rid;
     private Integer delaytime;//延期天数
-    private String handler;//处理人
+    private String handler;//录入人
     private String info;
     private Room room;
     private List<Order> orders;
