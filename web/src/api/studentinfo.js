@@ -13,6 +13,8 @@ export const getStudentNum = () => ajax("/student/number", {}, "get")
 
 export const getStudentData = data => ajax("/student/getRange", data, "get")
 
+export const getRoomList = () => ajax("/room/getall", {}, "get")
+
 export const getStudentInsert = () => ajax("/student/insert", {}, "post")
 
 export const deleteStudent = data => ajax("/student/delete", data, "get")

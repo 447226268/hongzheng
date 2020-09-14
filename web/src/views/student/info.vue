@@ -9,12 +9,12 @@
         <el-col align="right">
           <div>
             <span>校区：</span>
-            <el-select v-model="value" placeholder="校区1">
+            <el-select v-model="value" :placeholder="roomList[0].name" @change="changeRoomId">
               <el-option
-                v-for="item in rooms"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in roomList"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
@@ -186,7 +186,7 @@
                   <el-image
                     style="width: 60px; height: 60px; border-radius: 100px;"
                     :src="scope.row.image"
-                    :fit="cover"
+                    fit="cover"
                   ></el-image>
                 </template>
               </el-table-column>
@@ -200,11 +200,13 @@
               <el-table-column label="操作" align="center" width="200px">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                  <el-popconfirm style="margin-left:10px;" title="请确定是否删除？" @onConfirm="handleDelete(scope.$index, scope.row)">
-                    <el-button slot="reference" size="mini" type="danger" >删除</el-button>
+                  <el-popconfirm
+                    style="margin-left:10px;"
+                    title="请确定是否删除？"
+                    @onConfirm="handleDelete(scope.$index, scope.row)"
+                  >
+                    <el-button slot="reference" size="mini" type="danger">删除</el-button>
                   </el-popconfirm>
-                  
-                  
                 </template>
               </el-table-column>
             </el-table>
@@ -229,7 +231,12 @@
 </template>
 
 <script>
-import { getStudentNum, getStudentData, deleteStudent } from "@/api/studentinfo.js";
+import {
+  getStudentNum,
+  getStudentData,
+  deleteStudent,
+  getRoomList,
+} from "@/api/studentinfo.js";
 export default {
   name: "sutdentinfo",
   data() {
@@ -250,24 +257,16 @@ export default {
 
     return {
       current: 1,
+      currentroomid: 1,
       total: null,
       size: 10,
+      value: "",
       tableData: [],
       newStudentsAddedToday: -1,
       numberOfStudents: -1,
       birthdayThisMonth: -1,
       graduateStudent: -1,
-      value: "校区1",
-      rooms: [
-        {
-          value: "选项1",
-          label: "校区1",
-        },
-        {
-          value: "选项2",
-          label: "校区2",
-        },
-      ],
+      roomList: null,
       chartData: {
         columns: ["日期", "访问用户"],
         rows: [
@@ -284,6 +283,13 @@ export default {
   created() {
     this.getStuNumber();
     this.getStuRange();
+    this.getRoom();
+  },
+  watch: {
+    current() {
+      this.getStuNumber();
+      this.getStuRange();
+    },
   },
   methods: {
     async getStuNumber() {
@@ -294,37 +300,42 @@ export default {
         await getStudentData({
           number1: this.size * (this.current - 1),
           number2: this.size * this.current,
+          number3: this.currentroomid,
         })
       ).result;
     },
+    async getRoom() {
+      let result = (await getRoomList()).result;
+      this.roomList = result;
+      this.currentroomid = result[0].id;
+    },
     handleEdit(index, row) {
-      this.$router.push(`/studentedit/${row.id}`)
+      this.$router.push(`/studentedit/${row.id}`);
     },
     async handleDelete(index, row) {
-      console.log(index)
-      await (deleteStudent({id : row.id}))
-       this.$message({
+      console.log(index);
+      await deleteStudent({ id: row.id });
+      this.$message({
         message: "删除成功！",
         type: "success",
       });
-      await this.getStuNumber()
-      this.getStuRange()
-
+      await this.getStuNumber();
+      this.getStuRange();
+    },
+    changeRoomId(id) {
+      this.currentroomid = id;
+      console.log(this.currentroomid);
+      this.getStuNumber();
+      this.getStuRange();
     },
     currentChange(page) {
       this.current = page;
-      this.getStuNumber();
-      this.getStuRange();
     },
     prevClick(page) {
       this.current = page;
-      this.getStuNumber();
-      this.getStuRange();
     },
     nextClick(page) {
       this.current = page;
-      this.getStuNumber();
-      this.getStuRange();
     },
   },
 };
