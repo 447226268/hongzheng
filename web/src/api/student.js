@@ -10,3 +10,9 @@ import ajax from './ajax';
 export const insert = data => ajax("/student/insert", data, "post")
 
 export const getall = () => ajax("/room/getall", {}, "get")
+
+export const getbyid = data => ajax("/student/getbyid", data, "get")
+
+export const update = data => ajax("/student/update", data, "post")
+
+

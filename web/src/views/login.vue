@@ -71,6 +71,7 @@
         height: 100%;
         width: 50%;
         background: url('../assets/images/login_1.jpg') no-repeat 50%;
+        opacity: 0.7;
         background-size: cover;
       }
 

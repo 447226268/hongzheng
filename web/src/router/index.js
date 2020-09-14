@@ -23,7 +23,7 @@ const routes = [{
         component: () => import("../views/student/insert.vue"),
       },
       {
-        path: 'studentedit',
+        path: 'studentedit/:id',
         name: 'Studentedit',
         component: () => import("../views/student/edit.vue"),
       },

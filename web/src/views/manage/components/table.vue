@@ -40,11 +40,13 @@
         </template>
       </el-table-column>
       <el-table-column label="日期" align='center' prop="date"></el-table-column>
-      <el-table-column label="操作" align='center' width='250'>
+      <el-table-column label="操作" align='center' width='250px'>
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">修改</el-button>
           <el-button size="mini" type="warning" @click="freezes(scope.row)">冻结</el-button>
-          <el-button size="mini" type="danger" @click="remove(scope.row)">删除</el-button>
+          <el-popconfirm style="margin-left:10px;" title="请确定是否删除？" @onConfirm="remove(scope.row)">
+            <el-button slot="reference" size="mini" type="danger">删除</el-button>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>

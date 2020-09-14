@@ -3,7 +3,8 @@
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="头像" align='center'>
         <template slot-scope="scope">
-          <el-image style="width: 70px;height:auto;border-radius: 100px;" :src="scope.row.image"></el-image>
+          <el-image style="width:70px;height:auro;border-radius:100px;" :src="scope.row.image" fit="scale-down">
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column label="学号" align='center' prop="id"></el-table-column>
@@ -35,7 +36,7 @@
       }
     },
     mouted() {
-      
+
     },
     methods: {
       async getByName(name) {
@@ -48,7 +49,7 @@
           id: id
         })).result]
       },
-      handle(row){
+      handle(row) {
         this.$emit('confirm', row)
       },
     }

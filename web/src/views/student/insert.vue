@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { insert, getall } from "@/api/studentinsert.js";
+import { insert, getall } from "@/api/student.js";
 import avataruploader from "@/components/avatar-uploader.vue";
 
 export default {
@@ -260,6 +260,7 @@ export default {
         message: "提交成功！",
         type: "success",
       });
+      this.$router.push('/studentinfo')
     },
   },
   components: {

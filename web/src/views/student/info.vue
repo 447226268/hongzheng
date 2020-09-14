@@ -197,14 +197,14 @@
               <el-table-column label="所在道馆" prop="room.name" align="center"></el-table-column>
               <el-table-column label="教练" prop="coach" align="center"></el-table-column>
               <el-table-column label="状态" prop="state" align="center"></el-table-column>
-              <el-table-column label="操作" align="center">
+              <el-table-column label="操作" align="center" width="200px">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                  <el-button
-                    size="mini"
-                    type="danger"
-                    @click="handleDelete(scope.$index, scope.row)"
-                  >删除</el-button>
+                  <el-popconfirm style="margin-left:10px;" title="请确定是否删除？" @onConfirm="handleDelete(scope.$index, scope.row)">
+                    <el-button slot="reference" size="mini" type="danger" >删除</el-button>
+                  </el-popconfirm>
+                  
+                  
                 </template>
               </el-table-column>
             </el-table>
@@ -229,7 +229,7 @@
 </template>
 
 <script>
-import { getStudentNum, getStudentData } from "@/api/studentinfo.js";
+import { getStudentNum, getStudentData, deleteStudent } from "@/api/studentinfo.js";
 export default {
   name: "sutdentinfo",
   data() {
@@ -297,12 +297,19 @@ export default {
         })
       ).result;
     },
-
     handleEdit(index, row) {
-      console.log(index, row);
+      this.$router.push(`/studentedit/${row.id}`)
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    async handleDelete(index, row) {
+      console.log(index)
+      await (deleteStudent({id : row.id}))
+       this.$message({
+        message: "删除成功！",
+        type: "success",
+      });
+      await this.getStuNumber()
+      this.getStuRange()
+
     },
     currentChange(page) {
       this.current = page;
