@@ -186,6 +186,11 @@
       },
       async submit() {
         await insert(this.ruleForm)
+        this.$message({
+          message: '添加成功！',
+          type: 'success'
+        });
+        this.$router.push('/orderinsert')
       }
     },
     components: {

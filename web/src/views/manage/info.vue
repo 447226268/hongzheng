@@ -42,6 +42,9 @@
           number2: this.size * this.current
         })).result
       },
+      editManage(row) {
+        this.$router.push(`/orderedit/${row.id}`)
+      },
       async removeManage(row) {
         await remove({
           id: row.id
