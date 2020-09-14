@@ -19,10 +19,15 @@ public class Student {
     private String relation;//关系
     private String level;
     private String state;
+    private Integer money;
+    private String idnum;
+    private String way;
     private String indate;
     private String outdate;
     private Integer reday;//剩余天数
     private Integer num;//上课次数
+    private String cardtype;
+    private String type;
     private Integer rid;
     private Integer delaytime;//延期天数
     private String handler;//处理人
