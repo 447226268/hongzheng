@@ -1,9 +1,17 @@
+<!--
+ * @Author: ld
+ * @Date: 2020-09-15 10:07:11
+ * @LastEditors: ld
+ * @LastEditTime: 2020-09-15 17:03:40
+ * @Description: file content
+ * @FilePath: \hongzheng\web\src\layout\navmenu.vue
+-->
 <template>
   <div id="layout">
     <el-menu router default-active="1" class="el-menu-vertical-demo"
       :collapse="$store.getters.flag === 'false' ? false : true">
 
-      <el-image class="logo" v-if="$store.getters.flag === 'false' ? true : false" :src="url" :fit="fit"></el-image>
+      <el-image class="logo" v-if="$store.getters.flag === 'false' ? true : false" :src="url" fit="fit"></el-image>
 
       <el-menu-item index="1" route="/home">
         <i class="el-icon-s-home"></i>

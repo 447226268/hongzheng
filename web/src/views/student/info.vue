@@ -6,7 +6,7 @@
         <el-col>
           <p>统计分析</p>
         </el-col>
-        <el-col align="right">
+        <el-col align="right" >
           <div>
             <span>校区：</span>
             <el-select v-model="value" :placeholder="roomList[0].name" @change="changeRoomId">
@@ -76,7 +76,7 @@
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
               <div class="show-line1">
-                <ve-line :data="chartData" height="300px" width="600px"></ve-line>
+                <ve-line :data="chartData" height="300px" width="100%"></ve-line>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
             <div class="normal-box">
               <span class="info-change-title">学员趋势</span>
               <div class="show-line1">
-                <ve-line :data="chartData" height="300px" width="1535px"></ve-line>
+                <ve-line :data="chartData" height="300px" width="100%"></ve-line>
               </div>
             </div>
           </div>
@@ -256,6 +256,7 @@ export default {
     };
 
     return {
+      lostInfo: false,
       current: 1,
       currentroomid: 1,
       total: null,
@@ -266,7 +267,11 @@ export default {
       numberOfStudents: -1,
       birthdayThisMonth: -1,
       graduateStudent: -1,
-      roomList: null,
+      roomList: [{
+        name: null,
+        id: null,
+      }],
+      
       chartData: {
         columns: ["日期", "访问用户"],
         rows: [
@@ -307,7 +312,13 @@ export default {
     async getRoom() {
       let result = (await getRoomList()).result;
       this.roomList = result;
-      this.currentroomid = result[0].id;
+      if (result.length == 0) {
+        console.log('NULL');
+        this.lostInfo = !this.lostInfo
+      }else {
+        this.currentroomid = result[0].id;
+      }
+
     },
     handleEdit(index, row) {
       this.$router.push(`/studentedit/${row.id}`);

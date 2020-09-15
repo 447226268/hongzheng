@@ -1,3 +1,11 @@
+/*
+ * @Author: ld
+ * @Date: 2020-09-15 10:07:11
+ * @LastEditors: ld
+ * @LastEditTime: 2020-09-15 19:02:16
+ * @Description: file content
+ * @FilePath: \hongzheng\web\src\router\index.js
+ */
 import Vue from "vue";
 import VueRouter from "vue-router";
 
@@ -6,6 +14,7 @@ Vue.use(VueRouter);
 const routes = [{
     path: "/",
     name: "Layout",
+    redirect: 'home',
     component: () => import("../layout/index.vue"),
     children: [{
         path: 'home',
