@@ -131,7 +131,7 @@ public class BStudentController {
         bStudentService.update(bStudent);
         return ResponseUtil.success();
     }
-    @GetMapping("/addinfo")
+    @PostMapping("/addinfo")
     public CommonResponse addinfo(@RequestBody BStudent student) throws ParseException {
 //        HttpSession session = request.getSession();
 //        Admin admin=(Admin)session.getAttribute("admin");
