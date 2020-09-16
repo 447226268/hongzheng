@@ -45,11 +45,10 @@ public class BStudentController {
                     list.addAll(list1);
                 }
             }
-            ResponseUtil.success(list.size());
+            return ResponseUtil.success(list.size());
         }else{
-            ResponseUtil.success(bStudentService.selectByRid(number1));
+            return ResponseUtil.success(bStudentService.selectByRid(number1).size());
         }
-        return null;
     }
     @GetMapping("/getRange")
     public CommonResponse<List<BStudent>> getNumber(@RequestParam("number1") Integer number1, @RequestParam("number2") Integer number2, @RequestParam("number3") Integer number3, HttpServletRequest request) throws ParseException {
