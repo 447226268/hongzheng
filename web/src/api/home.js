@@ -10,7 +10,17 @@ import ajax from './ajax';
 
 export const getRoomList = () => ajax("/room/getall", {}, "get")
 
-export const insert = data => ajax("/student/insert", data, "post")
+export const getBStudentNum = data => ajax("/bstudent/number", data, "get")
+
+export const getBStudentData = data => ajax("/bstudent/getRange", data, "get")
+
+export const insert = data => ajax("/bstudent/insert", data, "post")
+
+export const update = data => ajax("/bstudent/update", data, "post")
+
+export const deleteBStudent = data => ajax("/bstudent/delete", data, "get")
+
+export const getbyid = data => ajax("/bstudent/getbyid", data, "get")
 
 
 

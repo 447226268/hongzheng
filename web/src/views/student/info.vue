@@ -6,7 +6,7 @@
         <el-col>
           <p>统计分析</p>
         </el-col>
-        <el-col align="right" >
+        <el-col align="right">
           <div>
             <span>校区：</span>
             <el-select v-model="value" :placeholder="roomList[0].name" @change="changeRoomId">
@@ -25,7 +25,7 @@
     <!-- 总体信息 -->
     <div class="show2">
       <el-row :gutter="20" justify="space-between">
-        <el-col :span="5">
+        <el-col :span="7">
           <!-- 学员数据变动 -->
           <div class="info-change">
             <div class="normal-box">
@@ -70,26 +70,23 @@
           </div>
         </el-col>
 
-        <el-col :span="10">
-          <!-- 学员趋势 -->
+        <el-col :span="8">
+          <!-- 生日学员 -->
           <div class="info-change">
             <div class="normal-box">
-              <span class="info-change-title">学员趋势</span>
-              <div class="show-line1">
-                <ve-line :data="chartData" height="300px" width="100%"></ve-line>
+              <div class="title-inline">
+                <div>
+                  <i class="el-icon-date"></i>
+                  <span class="info-change-title">生日学员</span>
+                </div>
+                <span style="font-weight: 800; margin-right: 20px">{{birthdayNum}}</span>
               </div>
-            </div>
-          </div>
-        </el-col>
-
-        <el-col :span="24">
-          <!-- 学员趋势 -->
-          <div class="info-change">
-            <div class="normal-box">
-              <span class="info-change-title">学员趋势</span>
-              <div class="show-line1">
-                <ve-line :data="chartData" height="300px" width="100%"></ve-line>
-              </div>
+              <el-table :data="birthTable" height="250px" border style="width: 100%">
+                <el-table-column prop="name" label="姓名"></el-table-column>
+                <el-table-column prop="birthday" label="生日"></el-table-column>
+                <el-table-column prop="room.name" label="所属校区"></el-table-column>
+                <el-table-column prop="telephone" label="电话"></el-table-column>
+              </el-table>
             </div>
           </div>
         </el-col>
@@ -117,9 +114,9 @@
                     <el-form-item label="性别">
                       <span>{{ props.row.gender }}</span>
                     </el-form-item>
-                    <el-form-item label="所在道馆">
+                    <!-- <el-form-item label="所在道馆">
                       <span>{{ props.row.room.name }}</span>
-                    </el-form-item>
+                    </el-form-item>-->
                     <el-form-item label="教练">
                       <span>{{ props.row.coach }}</span>
                     </el-form-item>
@@ -217,7 +214,7 @@
           <el-pagination
             class="pagination"
             background
-            layout="prev, pager, next"
+            layout="total, prev, pager, next"
             :total="total"
             :current-page="current"
             @current-change="currentChange"
@@ -256,7 +253,6 @@ export default {
     };
 
     return {
-      lostInfo: false,
       current: 1,
       currentroomid: 1,
       total: null,
@@ -267,11 +263,13 @@ export default {
       numberOfStudents: -1,
       birthdayThisMonth: -1,
       graduateStudent: -1,
-      roomList: [{
-        name: null,
-        id: null,
-      }],
-      
+      birthdayNum: 5,
+      roomList: [
+        {
+          name: null,
+          id: null,
+        },
+      ],
       chartData: {
         columns: ["日期", "访问用户"],
         rows: [
@@ -283,9 +281,19 @@ export default {
           { 日期: "1/6", 访问用户: 4593 },
         ],
       },
+      birthTable: [
+        {
+          name: "王小虎",
+          birthday: "2016-05-03",
+          room: {
+            name: "校区1",
+          },
+          telephone: 123213,
+        },
+      ],
     };
   },
-  created() {
+  mounted() {
     this.getStuNumber();
     this.getStuRange();
     this.getRoom();
@@ -310,15 +318,13 @@ export default {
       ).result;
     },
     async getRoom() {
-      let result = (await getRoomList()).result;
+      let result = (
+        await getRoomList({
+          number1: this.currentroomid,
+        })
+      ).result;
       this.roomList = result;
-      if (result.length == 0) {
-        console.log('NULL');
-        this.lostInfo = !this.lostInfo
-      }else {
-        this.currentroomid = result[0].id;
-      }
-
+      this.currentroomid = result[0].id;
     },
     handleEdit(index, row) {
       this.$router.push(`/studentedit/${row.id}`);
@@ -369,6 +375,12 @@ export default {
     padding: 16px 20px;
     background-color: #fff;
     height: 270px;
+
+    .title-inline {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     .show-line1 {
       height: 260px;

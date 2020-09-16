@@ -3,7 +3,7 @@
     <div class="table">
       <infotable v-bind:value="tableData" ref="hztable" v-on:edit="editPlace" v-on:remove="removePlace"
         v-on:freezes="freezesPlace"></infotable>
-      <el-pagination class="pagination" background layout="prev, pager, next" :total="total" :current-page="current"
+      <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total" :current-page="current"
         @current-change="currentChange">
       </el-pagination>
     </div>

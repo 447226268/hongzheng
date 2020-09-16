@@ -162,6 +162,13 @@ export default {
             trigger: "change",
           },
         ],
+        room: [
+          {
+            required: true,
+            message: "请选择一个意向类型",
+            trigger: "change",
+          },
+        ],
         telephone: [
           {
             required: true,
@@ -185,6 +192,10 @@ export default {
         way: null,
         handler: null,
         info: null,
+        room: {
+          id: null,
+          name: null,
+        },
       },
     };
   },
@@ -242,6 +253,11 @@ export default {
         for (let i in this.ruleForm1) {
           data[i] = this.ruleForm1[i];
         }
+        console.log(this.ruleForm2.room.id);
+        console.log(this.ruleForm2.rid);
+        this.ruleForm2.room.id = this.ruleForm2.rid;
+        console.log("rid:");
+        console.log(this.ruleForm2.room.id);
         for (let i in this.ruleForm2) {
           data[i] = this.ruleForm2[i];
         }
@@ -260,7 +276,7 @@ export default {
         message: "提交成功！",
         type: "success",
       });
-      this.$router.push('/studentinfo')
+      this.$router.push("/studentinfo");
     },
   },
   components: {

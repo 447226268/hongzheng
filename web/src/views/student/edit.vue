@@ -1,5 +1,5 @@
 <template>
-  <div class="studenteditt">
+  <div class="studentedit">
     <div class="step">
       <el-steps :active="active" align-center>
         <el-step title="基本信息" description="输入学员信息"></el-step>
@@ -120,7 +120,7 @@
   import avataruploader from "@/components/avatar-uploader.vue";
 
   export default {
-    name: "studentinsert",
+    name: "studentedit",
     data() {
       return {
         active: 1,
@@ -265,7 +265,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .studenteditt {
+  .studentedit {
     .step {
       padding: 24px 0 24px 0;
       background-color: #fff;

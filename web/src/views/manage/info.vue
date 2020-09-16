@@ -12,7 +12,7 @@
       <el-pagination
         class="pagination"
         background
-        layout="prev, pager, next"
+        layout="total, prev, pager, next"
         :total="total"
         :current-page="current"
         @current-change="currentChange"

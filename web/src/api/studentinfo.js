@@ -1,3 +1,11 @@
+/*
+ * @Author: ld
+ * @Date: 2020-09-15 10:07:11
+ * @LastEditors: ld
+ * @LastEditTime: 2020-09-16 11:36:27
+ * @Description: file content
+ * @FilePath: \hongzheng\web\src\api\studentinfo.js
+ */
 import ajax from './ajax';
 
 /**
@@ -9,7 +17,7 @@ import ajax from './ajax';
 
 export const getStudentInfo = () => ajax("/student/getall", {}, "get")
 
-export const getStudentNum = () => ajax("/student/number", {}, "get")
+export const getStudentNum = data => ajax("/student/number", data, "get")
 
 export const getStudentData = data => ajax("/student/getRange", data, "get")
 
