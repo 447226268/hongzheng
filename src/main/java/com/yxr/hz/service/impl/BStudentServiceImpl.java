@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Service
 public class BStudentServiceImpl implements BStudentService {
@@ -17,12 +19,15 @@ public class BStudentServiceImpl implements BStudentService {
     private RoomDao roomDao;
     @Override
     public void insert(BStudent student) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String now=df.format(new Date());
+        student.setDate(now);
         bStudentDao.insert(student);
     }
 
     @Override
     public void update(BStudent student) {
-        bStudentDao.insert(student);
+        bStudentDao.update(student);
     }
 
     @Override
