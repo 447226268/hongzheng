@@ -54,6 +54,11 @@ public class OrderServiceImpl implements OrderService {
     public void delete(Integer id) throws ParseException {
         Order order=orderDao.getById(id);
         Student s = studentDao.findById(order.getSid());
+        if(order.getState()==null||order.getState().equals("失效")){
+            orderDao.delete(order.getId());
+            return ;
+        }
+        System.out.println(123);
         if(order.getType().equals("续费")){
             String date = OutDateUtil.back(s.getOutdate(), order.getCardtype());
             s.setCardtype(order.getCardtype());

@@ -37,7 +37,6 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list=studentDao.findAll();
         Order order=new Order();
         order.setSid(list.get(list.size()-1).getId());
-        order.setSid(student.getId());
         order.setRoom(student.getRoom());
         order.setState("待确认");
         order.setMoney(student.getMoney());
@@ -51,6 +50,8 @@ public class StudentServiceImpl implements StudentService {
         order.setWay(student.getWay());
         order.setReason(student.getInfo());
         orderDao.insert(order);
+        System.out.println(student);
+        System.out.println(order);
         }
     }
 
