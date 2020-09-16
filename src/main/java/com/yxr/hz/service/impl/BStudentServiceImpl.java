@@ -22,7 +22,7 @@ public class BStudentServiceImpl implements BStudentService {
 
     @Override
     public void update(BStudent student) {
-
+        bStudentDao.insert(student);
     }
 
     @Override
@@ -41,12 +41,12 @@ public class BStudentServiceImpl implements BStudentService {
 
     @Override
     public List<BStudent> selectByName(String name) throws ParseException {
-        return null;
+        return bStudentDao.findByName(name);
     }
 
     @Override
     public BStudent selectById(Integer id) throws ParseException {
-        return null;
+        return bStudentDao.findById(id);
     }
 
     @Override

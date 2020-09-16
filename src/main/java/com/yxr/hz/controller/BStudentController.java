@@ -89,4 +89,22 @@ public class BStudentController {
         bStudentService.delete(id);
         return  ResponseUtil.success("删除成功");
     }
+    @PostMapping("/update")
+    public CommonResponse update(@RequestBody BStudent student ) throws ParseException {
+        bStudentService.update(student);
+        return  ResponseUtil.success("修改成功");
+    }
+    @GetMapping("/change")
+    public CommonResponse<Student> change(@RequestParam("id") Integer id) throws ParseException {
+//        HttpSession session = request.getSession();
+//        Admin admin=(Admin)session.getAttribute("admin");
+        Student student=new Student();
+        BStudent bStudent=bStudentService.selectById(id);
+        student.setName(bStudent.getName());
+        student.setGender(bStudent.getGender());
+        student.setBirthday(bStudent.getBirthday());
+        student.setTelephone(bStudent.getTelephone());
+        student.setInfo("意向学员转正式学员");
+        return ResponseUtil.success(student);
+    }
 }
