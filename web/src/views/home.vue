@@ -111,7 +111,10 @@
                     <el-table-column label="是否试听" align="center" prop="islisten"></el-table-column>
                     <el-table-column label="操作" align="center" width="200px">
                       <template slot-scope="scope">
+                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">报名</el-button>
                         <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">试听</el-button>
+                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">添加线索</el-button>
                         <el-popconfirm
                           style="margin-left:10px;"
                           title="请确定是否删除？"
@@ -150,9 +153,6 @@
                   label-width="100px"
                   class="demo-ruleForm"
                 >
-                  <el-form-item label="编号" prop="id">
-                    <el-input v-model="ruleForm.id"></el-input>
-                  </el-form-item>
                   <el-form-item label="姓名" prop="name">
                     <el-input v-model="ruleForm.name"></el-input>
                   </el-form-item>
@@ -268,13 +268,6 @@ export default {
       },
       ruleForm: {},
       rules: {
-        id: [
-          {
-            required: true,
-            message: "编请输入编号",
-            trigger: "blur",
-          },
-        ],
         name: [
           {
             required: true,
@@ -298,14 +291,14 @@ export default {
         ],
       },
       chartData: {
-        columns: ["日期", "访问用户"],
+        columns: ["日期", "人数"],
         rows: [
-          { 日期: "1/1", 访问用户: 1393 },
-          { 日期: "1/2", 访问用户: 3530 },
-          { 日期: "1/3", 访问用户: 2923 },
-          { 日期: "1/4", 访问用户: 1723 },
-          { 日期: "1/5", 访问用户: 3792 },
-          { 日期: "1/6", 访问用户: 4593 },
+          { 日期: "1/1", 人数: 1393 },
+          { 日期: "1/2", 人数: 3530 },
+          { 日期: "1/3", 人数: 2923 },
+          { 日期: "1/4", 人数: 1723 },
+          { 日期: "1/5", 人数: 3792 },
+          { 日期: "1/6", 人数: 4593 },
         ],
       },
     };
