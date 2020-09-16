@@ -19,4 +19,9 @@
     <update id="update" parameterType="Order">
         update `order` set sid=#{sid},rid=#{rid},cardtype=#{cardtype},money=#{money},type=#{type},date=#{date},state=#{state},handler=#{handler},reason=#{reason},way=#{way} where id=#{id}
     </update>
+    <select id="getByRId" parameterType="Integer" resultType="Order">
+        select * from `order` where rid=#{rid}
+    </select>
+
+
 </mapper>

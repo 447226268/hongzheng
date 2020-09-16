@@ -6,10 +6,9 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class Home {
-    private Integer birthday;
     private List<Student> birthdayStudent;
-    private Integer stuSum;
-    private Integer inSchool;
+    private Integer numberOfStudents;
+    private Integer birthdayThisMonth;
     private Integer graduate;
-    private Integer newStudent;
+    private Integer newStudentsAddedToday;
 }

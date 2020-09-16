@@ -30,32 +30,32 @@ public class OrderServiceImpl implements OrderService {
         if(order.getType().equals("退费")){
             order.setMoney(-order.getMoney());
         }
+        Student s1=studentDao.findById(order.getSid());
+        s1.setState("退款待确认");
+        studentDao.update(s1);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
         order.setDate(now);
-        orderDao.insert(order);
         if(order.getType().equals("续费")) {
             Student s = studentDao.findById(order.getSid());
             String date = OutDateUtil.add(s.getOutdate(), order.getCardtype());
+            s.setCardtype(order.getCardtype());
             s.setOutdate(date);
             studentDao.update(s);
-        }else{
-            Student s = studentDao.findById(order.getSid());
-            s.setOutdate(OutDateUtil.add(s.getIndate(),s.getCardtype()));
-            s.setCardtype(order.getCardtype());
-            studentDao.update(s);
         }
+        orderDao.insert(order);
     }
 
     @Override
     public void delete(Integer id) throws ParseException {
         Order order=orderDao.getById(id);
-        order.setState("冻结");
+        order.setState("失效");
         orderDao.update(order);
     }
 
     @Override
     public void update(Order order) {
+        order.setState("修改待确认");
         orderDao.update(order);
     }
 
@@ -64,7 +64,6 @@ public class OrderServiceImpl implements OrderService {
         List<Order> list=orderDao.getAll();
         for(Order order:list){
             order.setStudent(studentDao.findById(order.getSid()));
-
             order.setRoom(roomDao.getById(order.getRid()));
         }
         return list;
@@ -72,11 +71,24 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getById(Integer id) {
-        return orderDao.getById(id);
+        Order o=orderDao.getById(id);
+        o.setStudent(studentDao.findById(o.getSid()));
+        o.setRoom(roomDao.getById(o.getRid()));
+        return o;
     }
 
     @Override
     public List<Order> getBySId(Integer sid) {
         return orderDao.getBySId(sid);
+    }
+
+    @Override
+    public List<Order> getByRid(Integer rid) {
+        List<Order> list=orderDao.getByRId(rid);
+        for(Order order:list){
+            order.setStudent(studentDao.findById(order.getSid()));
+            order.setRoom(roomDao.getById(order.getRid()));
+        }
+        return list;
     }
 }

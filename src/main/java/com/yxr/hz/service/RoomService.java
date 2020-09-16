@@ -11,4 +11,8 @@ public interface RoomService {
     Room findById(Integer id);
     List<Room> findAll();
     void update(Room room);
+
+
+
+
 }

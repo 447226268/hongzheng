@@ -28,8 +28,9 @@ public class RoomController {
         }
         if(admin.getLevel()==1){
             return ResponseUtil.success(roomService.findAll());
+        }else{
+            return ResponseUtil.success(roomService.findByAid(admin.getId()));
         }
-        return null;
     }
     @PostMapping("/insert")
     public CommonResponse insert(@RequestBody Room room ){
