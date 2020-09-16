@@ -40,7 +40,7 @@
         </el-menu-item-groupd>
       </el-submenu>
 
-      <el-submenu index="4">
+      <el-submenu index="4" v-if="$store.getters.token === 1">
         <template slot="title">
           <i class="el-icon-s-management"></i>
           <span>道馆信息</span>
@@ -51,7 +51,7 @@
         </el-menu-item-groupd>
       </el-submenu>
 
-      <el-menu-item index="5" route="/manage">
+      <el-menu-item index="5" route="/manage" v-if="$store.getters.token === 1">
         <i class="el-icon-s-flag"></i>
         <span slot="title">订单管理</span>
       </el-menu-item>
@@ -80,6 +80,7 @@
       async out() {
         this.$router.push('/login')
         await logout()
+        this.$store.dispatch('logout')
       }
     }
 

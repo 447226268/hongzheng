@@ -62,8 +62,8 @@
           <el-form-item label="意向类型" prop="type">
             <el-select v-model="ruleForm1.type">
               <el-option label="购买课程" value="购买课程"></el-option>
-              <el-option label="意向咨询" value="意向咨询"></el-option>
-              <el-option label="其他" value="其他"></el-option>
+              <!-- <el-option label="意向咨询" value="意向咨询"></el-option>
+              <el-option label="其他" value="其他"></el-option> -->
             </el-select>
           </el-form-item>
         </el-form>

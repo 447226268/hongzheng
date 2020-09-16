@@ -10,12 +10,7 @@
           <div>
             <span>校区：</span>
             <el-select v-model="value" :placeholder="roomList[0].name" @change="changeRoomId">
-              <el-option
-                v-for="item in roomList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="item in roomList" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -98,7 +93,8 @@
       <el-row :gutter="20" justify="space-between">
         <el-col :span="24">
           <div class="show-table">
-            <el-table :data="tableData" style="width: 100%" :current-page.sync="current">
+            <el-table :data="tableData" style="width: 100%" :current-page.sync="current"
+              :row-class-name="tableRowClassName">
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" inline class="demo-table-expand">
@@ -180,28 +176,28 @@
               </el-table-column>
               <el-table-column label="头像" align="center" width="100px">
                 <template slot-scope="scope">
-                  <el-image
-                    style="width: 60px; height: 60px; border-radius: 100px;"
-                    :src="scope.row.image"
-                    fit="cover"
-                  ></el-image>
+                  <el-image style="width: 60px; height: 60px; border-radius: 100px;" :src="scope.row.image" fit="cover">
+                  </el-image>
                 </template>
               </el-table-column>
               <el-table-column label="学号" prop="id" align="center"></el-table-column>
               <el-table-column label="姓名" prop="name" align="center"></el-table-column>
               <el-table-column label="年龄" prop="age" align="center"></el-table-column>
               <el-table-column label="性别" prop="gender" align="center"></el-table-column>
-              <el-table-column label="所在道馆" prop="room.name" align="center"></el-table-column>
+              <el-table-column label="剩余时间" prop="reday" align="center"></el-table-column>
               <el-table-column label="教练" prop="coach" align="center"></el-table-column>
-              <el-table-column label="状态" prop="state" align="center"></el-table-column>
-              <el-table-column label="操作" align="center" width="200px">
+              <el-table-column label="状态" align="center">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.state === '正常' ? 'success' : 'danger'" effect="dark">{{scope.row.state}}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" align="center" width="250px">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                  <el-popconfirm
-                    style="margin-left:10px;"
-                    title="请确定是否删除？"
-                    @onConfirm="handleDelete(scope.$index, scope.row)"
-                  >
+                  <el-button size="mini" type="success" @click="handleConfirm(scope.$index, scope.row)">确认</el-button>
+                  <el-popconfirm style="margin-left:10px;" title="请确定是否删除？"
+                    @onConfirm="handleDelete(scope.$index, scope.row)">
                     <el-button slot="reference" size="mini" type="danger">删除</el-button>
                   </el-popconfirm>
                 </template>
@@ -211,16 +207,9 @@
         </el-col>
 
         <el-col style="text-align:center">
-          <el-pagination
-            class="pagination"
-            background
-            layout="total, prev, pager, next"
-            :total="total"
-            :current-page="current"
-            @current-change="currentChange"
-            @prev-click="prevClick"
-            @next-click="nextClick"
-          ></el-pagination>
+          <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total"
+            :current-page="current" @current-change="currentChange" @prev-click="prevClick" @next-click="nextClick">
+          </el-pagination>
         </el-col>
       </el-row>
     </div>
@@ -228,239 +217,283 @@
 </template>
 
 <script>
-import {
-  getStudentNum,
-  getStudentData,
-  deleteStudent,
-  getRoomList,
-} from "@/api/studentinfo.js";
-export default {
-  name: "sutdentinfo",
-  data() {
-    this.chartSettings = {
-      radius: [70, 90],
-      offsetY: 120,
-    };
-    this.barExtend = {
-      legend: {
-        type: "scroll",
-        orient: "vertical",
-        height: "auto",
-        top: 10,
-        bottom: 10,
-        right: 30,
-      },
-    };
+  import {
+    getStudentNum,
+    getStudentData,
+    deleteStudent,
+    getRoomList,
+    queren
+  } from "@/api/studentinfo.js";
+  export default {
+    name: "sutdentinfo",
+    data() {
+      this.chartSettings = {
+        radius: [70, 90],
+        offsetY: 120,
+      };
+      this.barExtend = {
+        legend: {
+          type: "scroll",
+          orient: "vertical",
+          height: "auto",
+          top: 10,
+          bottom: 10,
+          right: 30,
+        },
+      };
 
-    return {
-      current: 1,
-      currentroomid: 1,
-      total: null,
-      size: 10,
-      value: "",
-      tableData: [],
-      newStudentsAddedToday: -1,
-      numberOfStudents: -1,
-      birthdayThisMonth: -1,
-      graduateStudent: -1,
-      birthdayNum: 5,
-      roomList: [
-        {
+      return {
+        current: 1,
+        currentroomid: 1,
+        total: null,
+        size: 10,
+        value: "",
+        tableData: [],
+        newStudentsAddedToday: -1,
+        numberOfStudents: -1,
+        birthdayThisMonth: -1,
+        graduateStudent: -1,
+        birthdayNum: 5,
+        roomList: [{
           name: null,
           id: null,
+        }, ],
+        chartData: {
+          columns: ["日期", "访问用户"],
+          rows: [{
+              日期: "1/1",
+              访问用户: 1393
+            },
+            {
+              日期: "1/2",
+              访问用户: 3530
+            },
+            {
+              日期: "1/3",
+              访问用户: 2923
+            },
+            {
+              日期: "1/4",
+              访问用户: 1723
+            },
+            {
+              日期: "1/5",
+              访问用户: 3792
+            },
+            {
+              日期: "1/6",
+              访问用户: 4593
+            },
+          ],
         },
-      ],
-      chartData: {
-        columns: ["日期", "访问用户"],
-        rows: [
-          { 日期: "1/1", 访问用户: 1393 },
-          { 日期: "1/2", 访问用户: 3530 },
-          { 日期: "1/3", 访问用户: 2923 },
-          { 日期: "1/4", 访问用户: 1723 },
-          { 日期: "1/5", 访问用户: 3792 },
-          { 日期: "1/6", 访问用户: 4593 },
-        ],
-      },
-      birthTable: [
-        {
+        birthTable: [{
           name: "王小虎",
           birthday: "2016-05-03",
           room: {
             name: "校区1",
           },
           telephone: 123213,
-        },
-      ],
-    };
-  },
-  mounted() {
-    this.getStuNumber();
-    this.getStuRange();
-    this.getRoom();
-  },
-  watch: {
-    current() {
+        }, ],
+      };
+    },
+    async mounted() {
+      await this.getRoom();
       this.getStuNumber();
       this.getStuRange();
+
     },
-  },
-  methods: {
-    async getStuNumber() {
-      this.total = (
-        await getStudentNum({
-          rid: this.currentroomid,
+    watch: {
+      current() {
+        this.getStuNumber();
+        this.getStuRange();
+      },
+    },
+    methods: {
+      async getStuNumber() {
+        this.total = (
+          await getStudentNum({
+            rid: this.currentroomid,
+          })
+        ).result;
+      },
+      async getStuRange() {
+        this.tableData = (
+          await getStudentData({
+            number1: this.size * (this.current - 1),
+            number2: this.size * this.current,
+            number3: this.currentroomid,
+          })
+        ).result;
+      },
+      async getRoom() {
+        let result = (
+          await getRoomList({
+            number1: this.currentroomid,
+          })
+        ).result;
+        this.roomList = result;
+        this.currentroomid = result[0].id;
+      },
+      handleEdit(index, row) {
+        this.$router.push(`/studentedit/${row.id}`);
+      },
+      async handleDelete(index, row) {
+        console.log(index);
+        await deleteStudent({
+          id: row.id
+        });
+        this.$message({
+          message: "删除成功！",
+          type: "success",
+        });
+        await this.getStuNumber();
+        this.getStuRange();
+      },
+      changeRoomId(id) {
+        this.currentroomid = id;
+        console.log(this.currentroomid);
+        this.getStuNumber();
+        this.getStuRange();
+      },
+      currentChange(page) {
+        this.current = page;
+      },
+      prevClick(page) {
+        this.current = page;
+      },
+      nextClick(page) {
+        this.current = page;
+      },
+      tableRowClassName({
+        row,
+        rowIndex
+      }) {
+        if (row.reday < 30) {
+          console.log(row.reday, rowIndex)
+          return 'warning-row';
+        }
+        return '';
+      },
+      async handleConfirm(index, row) {
+        console.log(index, row)
+        await queren({
+          id: row.id
         })
-      ).result;
+        await this.getStuNumber();
+        this.getStuRange();
+      }
     },
-    async getStuRange() {
-      this.tableData = (
-        await getStudentData({
-          number1: this.size * (this.current - 1),
-          number2: this.size * this.current,
-          number3: this.currentroomid,
-        })
-      ).result;
-    },
-    async getRoom() {
-      let result = (
-        await getRoomList({
-          number1: this.currentroomid,
-        })
-      ).result;
-      this.roomList = result;
-      this.currentroomid = result[0].id;
-    },
-    handleEdit(index, row) {
-      this.$router.push(`/studentedit/${row.id}`);
-    },
-    async handleDelete(index, row) {
-      console.log(index);
-      await deleteStudent({ id: row.id });
-      this.$message({
-        message: "删除成功！",
-        type: "success",
-      });
-      await this.getStuNumber();
-      this.getStuRange();
-    },
-    changeRoomId(id) {
-      this.currentroomid = id;
-      console.log(this.currentroomid);
-      this.getStuNumber();
-      this.getStuRange();
-    },
-    currentChange(page) {
-      this.current = page;
-    },
-    prevClick(page) {
-      this.current = page;
-    },
-    nextClick(page) {
-      this.current = page;
-    },
-  },
-};
+  };
 </script>
 
+<style>
+  .el-table .warning-row {
+    /* color: #f54e40; */
+    background-color: #fdf5e6;
+  }
+</style>
+
 <style scoped lang="scss">
-.sutdentinfo {
-  overflow-x: hidden;
-  width: 100% !important;
-  box-sizing: border-box;
-
-  .el-row {
-    position: relative;
+  .sutdentinfo {
+    overflow-x: hidden;
+    width: 100% !important;
     box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-  }
 
-  .normal-box {
-    padding: 16px 20px;
-    background-color: #fff;
-    height: 270px;
-
-    .title-inline {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+    .el-row {
+      position: relative;
+      box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
     }
 
-    .show-line1 {
-      height: 260px;
+    .normal-box {
+      padding: 16px 20px;
+      background-color: #fff;
+      height: 270px;
 
-      .ve-line {
-        height: 260px;
-      }
-    }
-  }
-
-  .show1 {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .show2 {
-    width: 100%;
-    position: relative;
-    height: auto;
-    zoom: 1;
-    display: flex;
-    flex-flow: row wrap;
-
-    .info-change {
-      margin-bottom: 24px;
-
-      .info-change-title {
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-      }
-
-      .info-allChange {
-        height: 236px;
-        text-align: center !important;
+      .title-inline {
         display: flex;
-        flex-flow: row wrap;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+      }
 
-        .info-singelChange {
-          padding-left: 12px;
-          padding-right: 12px;
-          display: block;
-          box-sizing: border-box;
-          width: 50%;
+      .show-line1 {
+        height: 260px;
+
+        .ve-line {
+          height: 260px;
+        }
+      }
+    }
+
+    .show1 {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .show2 {
+      width: 100%;
+      position: relative;
+      height: auto;
+      zoom: 1;
+      display: flex;
+      flex-flow: row wrap;
+
+      .info-change {
+        margin-bottom: 24px;
+
+        .info-change-title {
+          font-size: 16px;
+          font-weight: 500;
+          color: #333;
+        }
+
+        .info-allChange {
+          height: 236px;
           text-align: center !important;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
 
-          .changeNum {
-            font-size: 20px;
-            margin: 0 0 8px 0;
-          }
+          .info-singelChange {
+            padding-left: 12px;
+            padding-right: 12px;
+            display: block;
+            box-sizing: border-box;
+            width: 50%;
+            text-align: center !important;
 
-          .changetitle {
-            font-size: 14px;
-            color: #999;
+            .changeNum {
+              font-size: 20px;
+              margin: 0 0 8px 0;
+            }
+
+            .changetitle {
+              font-size: 14px;
+              color: #999;
+            }
           }
         }
       }
     }
-  }
 
-  .show3 {
-    .show-table {
-      .demo-table-expand {
-        font-size: 0;
-      }
-      .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-      }
-      .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
+    .show3 {
+      .show-table {
+        .demo-table-expand {
+          font-size: 0;
+        }
+
+        .demo-table-expand label {
+          width: 90px;
+          color: #99a9bf;
+        }
+
+        .demo-table-expand .el-form-item {
+          margin-right: 0;
+          margin-bottom: 0;
+          width: 50%;
+        }
       }
     }
   }
-}
 </style>

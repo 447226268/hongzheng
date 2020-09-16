@@ -10,12 +10,7 @@
           <div>
             <span>校区：</span>
             <el-select v-model="value" :placeholder="roomList[0].name" @change="changeRoomId">
-              <el-option
-                v-for="item in roomList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="item in roomList" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </div>
         </el-col>
@@ -108,29 +103,20 @@
                     <el-table-column label="是否试听" align="center" prop="islisten"></el-table-column>
                     <el-table-column label="操作" align="center" width="300px">
                       <template slot-scope="scope">
-                        <el-button size="mini" type="success" @click="handleChange(scope.$index, scope.row)">报名</el-button>
+                        <el-button size="mini" type="success" @click="handleChange(scope.$index, scope.row)">报名
+                        </el-button>
                         <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-popconfirm
-                          style="margin-left:10px;"
-                          title="请确定是否删除？"
-                          @onConfirm="handleDelete(scope.$index, scope.row)"
-                        >
+                        <el-popconfirm style="margin-left:10px;" title="请确定是否删除？"
+                          @onConfirm="handleDelete(scope.$index, scope.row)">
                           <el-button slot="reference" size="mini" type="danger">删除</el-button>
                         </el-popconfirm>
                       </template>
                     </el-table-column>
                   </el-table>
                 </div>
-                <el-pagination
-                  class="pagination"
-                  background
-                  layout="total, prev, pager, next"
-                  :total="total"
-                  :current-page="current"
-                  @current-change="currentChange"
-                  @prev-click="prevClick"
-                  @next-click="nextClick"
-                ></el-pagination>
+                <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total"
+                  :current-page="current" @current-change="currentChange" @prev-click="prevClick"
+                  @next-click="nextClick"></el-pagination>
               </div>
             </div>
           </div>
@@ -141,13 +127,7 @@
           <div class="info-change">
             <div class="normal-box2">
               <div class="form">
-                <el-form
-                  :model="ruleForm"
-                  :rules="rules"
-                  ref="ruleForm"
-                  label-width="100px"
-                  class="demo-ruleForm"
-                >
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                   <el-form-item label="姓名" prop="name">
                     <el-input v-model="ruleForm.name"></el-input>
                   </el-form-item>
@@ -165,12 +145,8 @@
                   </el-form-item>
                   <el-form-item label="咨询校区" prop="rid">
                     <el-select v-model="ruleForm.rid">
-                      <el-option
-                        v-for="item in roomList"
-                        :label="item.name"
-                        :value="item.id"
-                        :key="item.id"
-                      ></el-option>
+                      <el-option v-for="item in roomList" :label="item.name" :value="item.id" :key="item.id">
+                      </el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="跟踪状态" prop="state">
@@ -214,13 +190,7 @@
         <div class="info-change">
           <div class="normal-box2">
             <div class="form">
-              <el-form
-                :model="ruleForm"
-                :rules="rules"
-                ref="ruleForm"
-                label-width="100px"
-                class="demo-ruleForm"
-              >
+              <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="姓名" prop="name">
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
@@ -238,12 +208,7 @@
                 </el-form-item>
                 <el-form-item label="咨询校区" prop="rid">
                   <el-select v-model="ruleForm.rid">
-                    <el-option
-                      v-for="item in roomList"
-                      :label="item.name"
-                      :value="item.id"
-                      :key="item.id"
-                    ></el-option>
+                    <el-option v-for="item in roomList" :label="item.name" :value="item.id" :key="item.id"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="跟踪状态" prop="state">
@@ -286,318 +251,329 @@
 </template>
 
 <script>
-import {
-  getBStudentNum,
-  getBStudentData,
-  getRoomList,
-  deleteBStudent,
-  insert,
-  update,
-  getbyid,
-} from "@/api/home.js";
-export default {
-  name: "home",
-  data() {
-    return {
-      current: 1,
-      currentroomid: 1,
-      total: null,
-      size: 10,
-      value: "",
-      dialogFormVisible: false,
-      tableData: [],
-      roomList: [
-        {
+  import {
+    getBStudentNum,
+    getBStudentData,
+    getRoomList,
+    deleteBStudent,
+    insert,
+    update,
+    getbyid,
+  } from "@/api/home.js";
+  export default {
+    name: "home",
+    data() {
+      return {
+        current: 1,
+        currentroomid: 1,
+        total: null,
+        size: 10,
+        value: "",
+        dialogFormVisible: false,
+        tableData: [],
+        roomList: [{
           name: null,
           id: null,
-        },
-      ],
-      showTable: true,
-      ruleForm: {},
-      rules: {
-        name: [
-          {
+        }, ],
+        showTable: true,
+        ruleForm: {},
+        rules: {
+          name: [{
             required: true,
             message: "请输入姓名",
             trigger: "blur",
-          },
-        ],
-        telephone: [
-          {
+          }, ],
+          telephone: [{
             required: true,
             message: "请输入联系电话",
             trigger: "blur",
-          },
-        ],
-        rid: [
-          {
+          }, ],
+          rid: [{
             required: true,
             message: "请选择一个校区",
             trigger: "change",
-          },
-        ],
+          }, ],
+        },
+        chartData: {
+          columns: ["日期", "人数"],
+          rows: [{
+              日期: "1/1",
+              人数: 1393
+            },
+            {
+              日期: "1/2",
+              人数: 3530
+            },
+            {
+              日期: "1/3",
+              人数: 2923
+            },
+            {
+              日期: "1/4",
+              人数: 1723
+            },
+            {
+              日期: "1/5",
+              人数: 3792
+            },
+            {
+              日期: "1/6",
+              人数: 4593
+            },
+          ],
+        },
+      };
+    },
+    async mounted() {
+      await this.getRoom();
+      this.getBStuNumber();
+      this.getBStuRange();
+    },
+    watch: {
+      current() {
+        this.getBStuNumber();
+        this.getBStuRange();
       },
-      chartData: {
-        columns: ["日期", "人数"],
-        rows: [
-          { 日期: "1/1", 人数: 1393 },
-          { 日期: "1/2", 人数: 3530 },
-          { 日期: "1/3", 人数: 2923 },
-          { 日期: "1/4", 人数: 1723 },
-          { 日期: "1/5", 人数: 3792 },
-          { 日期: "1/6", 人数: 4593 },
-        ],
+    },
+    methods: {
+      async getBStuNumber() {
+        this.total = (
+          await await getBStudentNum({
+            number1: this.currentroomid,
+          })
+        ).result;
       },
-    };
-  },
-  mounted() {
-    this.getRoom();
-    this.getBStuNumber();
-    this.getBStuRange();
-  },
-  watch: {
-    current() {
-      this.getBStuNumber();
-      this.getBStuRange();
-    },
-  },
-  methods: {
-    async getBStuNumber() {
-      this.total = (
-        await await getBStudentNum({
-          number1: this.currentroomid,
-        })
-      ).result;
-    },
-    async getBStuRange() {
-      this.tableData = (
-        await getBStudentData({
-          number1: this.size * (this.current - 1),
-          number2: this.size * this.current,
-          number3: this.currentroomid,
-        })
-      ).result;
-    },
-    async getRoom() {
-      let result = (await getRoomList()).result;
-      this.roomList = result;
-      this.currentroomid = result[0].id;
-    },
-    changeRoomId(id) {
-      this.currentroomid = id;
-      console.log(this.currentroomid);
-      this.getBStuNumber();
-      this.getBStuRange();
-    },
-    btnClick() {
+      async getBStuRange() {
+        this.tableData = (
+          await getBStudentData({
+            number1: this.size * (this.current - 1),
+            number2: this.size * this.current,
+            number3: this.currentroomid,
+          })
+        ).result;
+      },
+      async getRoom() {
+        let result = (await getRoomList()).result;
+        this.roomList = result;
+        this.currentroomid = result[0].id;
+      },
+      changeRoomId(id) {
+        this.currentroomid = id;
+        console.log(this.currentroomid);
+        this.getBStuNumber();
+        this.getBStuRange();
+      },
+      btnClick() {
 
-      this.showTable = !this.showTable;
-    },
-    back() {
-      this.showTable = !this.showTable;
-    },
-    async insertBStudent() {
-      let data = {};
-      for (let i in this.ruleForm) {
-        data[i] = this.ruleForm[i];
-      }
-      if (data.birthday !== null) {
-        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
-        data.date = this.$moment(data.date).format("YYYY-DD-MM");
-      }
-      await insert(data);
-      this.$message({
-        message: "提交成功！",
-        type: "success",
-      });
+        this.showTable = !this.showTable;
+      },
+      back() {
+        this.showTable = !this.showTable;
+      },
+      async insertBStudent() {
+        let data = {};
+        for (let i in this.ruleForm) {
+          data[i] = this.ruleForm[i];
+        }
+        if (data.birthday !== null) {
+          data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+          data.date = this.$moment(data.date).format("YYYY-DD-MM");
+        }
+        await insert(data);
+        this.$message({
+          message: "提交成功！",
+          type: "success",
+        });
 
-      this.ruleForm = {};
-      this.showTable = !this.showTable;
-      this.getBStuNumber();
-      this.getBStuRange();
-    },
-    async handleEdit(index, row) {
-      this.dialogFormVisible = true;
-      console.log();
-      let result = (
-        await getbyid({
-          id: row.id,
-        })
-      ).result;
+        this.ruleForm = {};
+        this.showTable = !this.showTable;
+        this.getBStuNumber();
+        this.getBStuRange();
+      },
+      async handleEdit(index, row) {
+        this.dialogFormVisible = true;
+        console.log();
+        let result = (
+          await getbyid({
+            id: row.id,
+          })
+        ).result;
 
-      this.ruleForm = result;
-      this.ruleForm.id = row.id;
-      this.dialogFormVisible = true;
+        this.ruleForm = result;
+        this.ruleForm.id = row.id;
+        this.dialogFormVisible = true;
+      },
+      async updatebStudent() {
+        let data = {};
+        for (let i in this.ruleForm) {
+          data[i] = this.ruleForm[i];
+        }
+        if (data.birthday !== null) {
+          data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+          data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
+        }
+        await update(data);
+        this.$message({
+          message: "修改成功！",
+          type: "success",
+        });
+        this.dialogFormVisible = false;
+        this.getBStuNumber();
+        this.getBStuRange();
+      },
+      async handleChange(index, row) {
+        console.log(index);
+        this.$router.push(`/studentinsert/${row.id}`);
+      },
+      async handleDelete(index, row) {
+        console.log(index);
+        await deleteBStudent({
+          id: row.id
+        });
+        this.$message({
+          message: "删除成功！",
+          type: "success",
+        });
+        await this.getBStuNumber();
+        this.getBStuRange();
+      },
+      currentChange(page) {
+        this.current = page;
+      },
+      prevClick(page) {
+        this.current = page;
+      },
+      nextClick(page) {
+        this.current = page;
+      },
     },
-    async updatebStudent() {
-      let data = {};
-      for (let i in this.ruleForm) {
-        data[i] = this.ruleForm[i];
-      }
-      if (data.birthday !== null) {
-        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
-        data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
-      }
-      await update(data);
-      this.$message({
-        message: "修改成功！",
-        type: "success",
-      });
-      this.dialogFormVisible = false;
-      this.getBStuNumber();
-      this.getBStuRange();
-    },
-    async handleChange(index, row) {
-      console.log(index);
-      this.$router.push(`/studentinsert/${row.id}`);
-    },
-    async handleDelete(index, row) {
-      console.log(index);
-      await deleteBStudent({ id: row.id });
-      this.$message({
-        message: "删除成功！",
-        type: "success",
-      });
-      await this.getBStuNumber();
-      this.getBStuRange();
-    },
-    currentChange(page) {
-      this.current = page;
-    },
-    prevClick(page) {
-      this.current = page;
-    },
-    nextClick(page) {
-      this.current = page;
-    },
-  },
-};
+  };
 </script>
 
 <style scoped lang="scss">
-.home {
-  overflow-x: hidden;
-  width: 100% !important;
-  box-sizing: border-box;
-
-  .el-row {
-    position: relative;
+  .home {
+    overflow-x: hidden;
+    width: 100% !important;
     box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-  }
 
-  .normal-box {
-    padding: 16px 20px;
-    background-color: #fff;
-    height: 270px;
-  }
-
-  .normal-box2 {
-    padding: 16px 20px;
-    background-color: #fff;
-    height: auto;
-
-    .title-inline {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  }
-
-  .show1 {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .show2 {
-    width: 100%;
-    position: relative;
-    height: auto;
-    zoom: 1;
-    display: flex;
-    flex-flow: row wrap;
-
-    .form {
-      max-width: 800px;
-      padding: 30px 0;
-      margin: auto;
-
-      .pre-next-but {
-        margin-top: 60px;
-        text-align: center;
-
-        .el-button {
-          width: 150px;
-          margin-right: 50px;
-        }
-      }
+    .el-row {
+      position: relative;
+      box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
     }
 
-    .info-change {
-      margin-bottom: 24px;
+    .normal-box {
+      padding: 16px 20px;
+      background-color: #fff;
+      height: 270px;
+    }
 
-      .info-change-title {
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-      }
+    .normal-box2 {
+      padding: 16px 20px;
+      background-color: #fff;
+      height: auto;
 
-      .info-allChange {
-        height: 236px;
-        text-align: center !important;
+      .title-inline {
         display: flex;
-        flex-flow: row wrap;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
 
-        .info-singelChange {
-          padding-left: 12px;
-          padding-right: 12px;
-          display: block;
-          box-sizing: border-box;
-          width: 50%;
-          text-align: center !important;
+    .show1 {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-          .changeNum {
-            font-size: 20px;
-            margin: 0 0 8px 0;
+    .show2 {
+      width: 100%;
+      position: relative;
+      height: auto;
+      zoom: 1;
+      display: flex;
+      flex-flow: row wrap;
+
+      .form {
+        max-width: 800px;
+        padding: 30px 0;
+        margin: auto;
+
+        .pre-next-but {
+          margin-top: 60px;
+          text-align: center;
+
+          .el-button {
+            width: 150px;
+            margin-right: 50px;
           }
+        }
+      }
 
-          .changetitle {
-            font-size: 14px;
-            color: #999;
+      .info-change {
+        margin-bottom: 24px;
+
+        .info-change-title {
+          font-size: 16px;
+          font-weight: 500;
+          color: #333;
+        }
+
+        .info-allChange {
+          height: 236px;
+          text-align: center !important;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+
+          .info-singelChange {
+            padding-left: 12px;
+            padding-right: 12px;
+            display: block;
+            box-sizing: border-box;
+            width: 50%;
+            text-align: center !important;
+
+            .changeNum {
+              font-size: 20px;
+              margin: 0 0 8px 0;
+            }
+
+            .changetitle {
+              font-size: 14px;
+              color: #999;
+            }
           }
         }
       }
     }
-  }
 
-  .table {
-    padding: 24px 24px 24px 24px;
-    background-color: #fff;
+    .table {
+      padding: 24px 24px 24px 24px;
+      background-color: #fff;
 
-    .pagination {
-      margin-top: 40px;
-      margin-bottom: 20px;
-      text-align: center;
+      .pagination {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    }
+
+    .degreetablet {
+      .demo-table-expand {
+        font-size: 0;
+      }
+
+      .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+      }
+
+      .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+      }
     }
   }
-
-  .degreetablet {
-    .demo-table-expand {
-      font-size: 0;
-    }
-
-    .demo-table-expand label {
-      width: 90px;
-      color: #99a9bf;
-    }
-
-    .demo-table-expand .el-form-item {
-      margin-right: 0;
-      margin-bottom: 0;
-      width: 50%;
-    }
-  }
-}
 </style>

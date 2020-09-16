@@ -40,7 +40,9 @@
     },
     methods: {
       async Login() {
-        await login(this.form)
+        let result = (await login(this.form)).result
+        this.$store.dispatch('userName', result.name)
+        this.$store.dispatch('token', result.level)
         this.$router.push('/')
       },
       onSubmit() {

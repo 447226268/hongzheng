@@ -24,3 +24,6 @@ export const getRoomList = () => ajax("/room/getall", {}, "get")
 export const getStudentInsert = () => ajax("/student/insert", {}, "post")
 
 export const deleteStudent = data => ajax("/student/delete", data, "get")
+
+export const queren = data => ajax("/student/queren", data, "get")
+

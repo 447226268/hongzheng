@@ -10,8 +10,15 @@ body {
     margin: 0;
 }
 
-.el-table thead{
-    font-size: large;
-    font-weight: 800;
-    font-family: Microsoft YaHei;
+.el-table thead {
+    font-size: 20px;
+    font-weight: 600;
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+    border-top: 1px solid red;
+}
+
+.el-table__header-wrapper {
+    border-top: 1px solid #ebeef5;
 }

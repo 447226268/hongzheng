@@ -38,7 +38,7 @@
             <el-form-item label="订单类型" prop="type">
               <el-select v-model="ruleForm.type">
                 <el-option label="续费" value="续费"></el-option>
-                <el-option label="开课" value="开课"></el-option>
+                <!-- <el-option label="开课" value="开课"></el-option> -->
                 <el-option label="退课" value="退课"></el-option>
               </el-select>
             </el-form-item>

@@ -6,7 +6,7 @@
       <span>{{item[$route.name]}}</span>
     </div>
     <div>
-      <span>晏先瑞</span>
+      <span>欢迎您，{{$store.getters.userName}}</span>
     </div>
   </div>
 </template>
