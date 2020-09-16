@@ -40,7 +40,9 @@ public class BStudentController {
             for(Room room:rooms){
                 System.out.println(room.getId());
                 List<BStudent> list1=bStudentService.selectByRid(room.getId());
-                System.out.println(list1);
+                for(BStudent bStudent:list1){
+                    bStudent.setRoom(roomService.findById(bStudent.getRid()));
+                }
                 if(list1!=null) {
                     list.addAll(list1);
                 }
@@ -59,11 +61,18 @@ public class BStudentController {
         if(number3==-1){
             for(Room room:rooms){
                 if(bStudentService.selectByRid(room.getId())!=null) {
-                    ll.addAll(bStudentService.selectByRid(room.getId()));
+                    List<BStudent> list1=bStudentService.selectByRid(room.getId());
+                    for(BStudent bStudent:list1){
+                        bStudent.setRoom(roomService.findById(bStudent.getRid()));
+                    }
+                    ll.addAll(list1);
                 }
             }
         }else{
             ll=bStudentService.selectByRid(number3);
+            for(BStudent bStudent:ll){
+                bStudent.setRoom(roomService.findById(bStudent.getRid()));
+            }
         }
         if(number2>ll.size()){
             List<BStudent> list=new ArrayList<>();
@@ -84,7 +93,7 @@ public class BStudentController {
         bStudentService.insert(student);
         return  ResponseUtil.success("添加成功");
     }
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public CommonResponse delete(@RequestParam("id") Integer id ) throws ParseException {
         bStudentService.delete(id);
         return  ResponseUtil.success("删除成功");
@@ -107,4 +116,23 @@ public class BStudentController {
         student.setInfo("意向学员转正式学员");
         return ResponseUtil.success(student);
     }
+    @GetMapping("/listen")
+    public CommonResponse listen(@RequestParam("id") Integer id) throws ParseException {
+//        HttpSession session = request.getSession();
+//        Admin admin=(Admin)session.getAttribute("admin");
+        BStudent bStudent=bStudentService.selectById(id);
+        bStudent.setIslisten("是");
+        bStudentService.update(bStudent);
+        return ResponseUtil.success();
+    }
+    @GetMapping("/addinfo")
+    public CommonResponse addinfo(@RequestBody BStudent student) throws ParseException {
+//        HttpSession session = request.getSession();
+//        Admin admin=(Admin)session.getAttribute("admin");
+        BStudent bStudent=bStudentService.selectById(student.getId());
+        bStudent.setInfo(student.getInfo());
+        bStudentService.update(bStudent);
+        return ResponseUtil.success();
+    }
+
 }
