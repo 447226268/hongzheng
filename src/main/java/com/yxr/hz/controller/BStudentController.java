@@ -30,6 +30,12 @@ public class BStudentController {
 //        Admin admin=(Admin)session.getAttribute("admin");
         return ResponseUtil.success(bStudentService.findAll());
     }
+    @GetMapping("/getbyid")
+    public CommonResponse<BStudent> getById(@RequestParam("id") Integer id) throws ParseException {
+//        HttpSession session = request.getSession();
+//        Admin admin=(Admin)session.getAttribute("admin");
+        return ResponseUtil.success(bStudentService.selectById(id));
+    }
     @GetMapping("/number")
     public CommonResponse<Integer> number(@RequestParam("number1") Integer number1,HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
