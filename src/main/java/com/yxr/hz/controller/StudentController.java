@@ -26,7 +26,6 @@ public class StudentController {
     }
     @PostMapping("/insert")
     public CommonResponse insert(@RequestBody Student student ) throws ParseException {
-        System.out.println(student);
         studentService.insert(student);
         return  ResponseUtil.success();
     }
@@ -45,8 +44,10 @@ public class StudentController {
         return  ResponseUtil.success(studentService.selectById(id));
     }
     @GetMapping("/number")
-    public CommonResponse<Integer> number() throws ParseException {
-        return ResponseUtil.success(studentService.findAll().size());
+    public CommonResponse<Integer> number(@RequestParam("rid") Integer rid,HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        Admin admin=(Admin)session.getAttribute("admin");
+        return ResponseUtil.success(studentService.selectByRid(rid,admin.getLevel()).size());
     }
     @GetMapping("/getRange")
     public CommonResponse<List<Student>> getNumber(@RequestParam("number1") Integer number1, @RequestParam("number2") Integer number2, @RequestParam("number3") Integer number3,HttpServletRequest request) throws ParseException {

@@ -34,7 +34,9 @@ public class StudentServiceImpl implements StudentService {
         if(student.getCardtype()!=null) {
             student.setOutdate(OutDateUtil.add(student.getIndate(), student.getCardtype()));
         studentDao.insert(student);
+        List<Student> list=studentDao.findAll();
         Order order=new Order();
+        order.setSid(list.get(list.size()-1).getId());
         order.setSid(student.getId());
         order.setRoom(student.getRoom());
         order.setState("待确认");
@@ -43,7 +45,6 @@ public class StudentServiceImpl implements StudentService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
         order.setDate(now);
-        order.setSid(student.getId());
         order.setCardtype(student.getCardtype());
         order.setRid(student.getRid());
         order.setHandler(student.getHandler());
@@ -63,10 +64,11 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list=studentDao.findAll();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now=df.format(new Date());
-        Integer reday=0;
+
         Room room;
         List<Order> list1=new ArrayList<>();
         for(Student s:list){
+            Integer reday=0;
             list1=orderDao.getBySId(s.getId());
             Integer money=0;
             for(Order order:list1){
@@ -100,10 +102,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> selectByName(String name) throws ParseException {
         List<Student> list=studentDao.findByName(name);
-        System.out.println(list.size());
+
+
         if(list.size()==1) {
             for (Student s : list) {
-                System.out.println(s.getState());
                 if ( s.getState().equals("冻结")) {
                     list.remove(s);
                     return null;
@@ -128,7 +130,9 @@ public class StudentServiceImpl implements StudentService {
             }
             room=roomDao.getById(s.getRid());
             if(s.getOutdate()!=null) {
-                reday = TimeReverse.surplus(s.getOutdate(), now);
+
+                reday = TimeReverse.surplus(now,s.getOutdate());
+//                System.out.println(reday);
             }
             s.setRoom(room);
             s.setReday(reday);
@@ -156,7 +160,7 @@ public class StudentServiceImpl implements StudentService {
         Room room=roomDao.getById(s.getRid());
         Integer reday=0;
         if(s.getOutdate()!=null) {
-             reday = TimeReverse.surplus(s.getOutdate(), now);
+             reday = TimeReverse.surplus( now,s.getOutdate());
         }
         s.setRoom(room);
         s.setReday(reday);
@@ -182,7 +186,8 @@ public class StudentServiceImpl implements StudentService {
                 s.setAge((TimeReverse.surplus(s.getBirthday(), now)/365));
             }
             if(s.getOutdate()!=null) {
-                 reday = TimeReverse.surplus(s.getOutdate(), now);
+                 reday = TimeReverse.surplus(now,s.getOutdate() );
+
             }
             Room room=roomDao.getById(s.getRid());
             s.setRoom(room);
