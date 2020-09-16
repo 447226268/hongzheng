@@ -17,7 +17,7 @@ public class BStudentServiceImpl implements BStudentService {
     private RoomDao roomDao;
     @Override
     public void insert(BStudent student) throws ParseException {
-
+        bStudentDao.insert(student);
     }
 
     @Override
