@@ -27,11 +27,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void insert(Order order) throws ParseException {
-        if(order.getType().equals("退费")){
+        if(order.getType().equals("退课")){
             order.setMoney(-order.getMoney());
             Student s1=studentDao.findById(order.getSid());
-            s1.setState("退费待确认");
-            order.setState("续费待确认");
+            s1.setState("退课待确认");
+            order.setState("退课待确认");
             studentDao.update(s1);
         }
 

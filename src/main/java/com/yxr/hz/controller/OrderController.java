@@ -2,6 +2,7 @@ package com.yxr.hz.controller;
 
 import com.yxr.hz.common.CommonResponse;
 import com.yxr.hz.common.ResponseUtil;
+import com.yxr.hz.dao.OrderDao;
 import com.yxr.hz.entity.Admin;
 import com.yxr.hz.entity.Order;
 import com.yxr.hz.entity.Room;
@@ -27,6 +28,8 @@ public class OrderController {
     private RoomService roomService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private OrderDao orderDao;
     @GetMapping("/getall")
     public CommonResponse<List<Order>> getAll(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -94,12 +97,11 @@ public class OrderController {
     @GetMapping("/updatestate")
     public CommonResponse updatestate(@RequestParam("id") Integer id){
         Order room=orderService.getById(id);
-        if(room.getState().equals("正常")){
-            room.setState("冻结");
-        }else{
-            room.setState("正常");
+        if(room.getState().equals("失效")||room.getState().equals("冻结")){
+            return  ResponseUtil.success("修改成功");
         }
-        orderService.update(room);
+        room.setState("正常");
+        orderDao.update(room);
         return  ResponseUtil.success("修改成功");
     }
 }

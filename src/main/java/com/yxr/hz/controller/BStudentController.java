@@ -99,6 +99,8 @@ public class BStudentController {
         bStudentService.insert(student);
         return  ResponseUtil.success("添加成功");
     }
+
+
     @GetMapping("/delete")
     public CommonResponse delete(@RequestParam("id") Integer id ) throws ParseException {
         bStudentService.delete(id);
@@ -115,6 +117,7 @@ public class BStudentController {
 //        Admin admin=(Admin)session.getAttribute("admin");
         Student student=new Student();
         BStudent bStudent=bStudentService.selectById(id);
+        student.setId(id);
         student.setName(bStudent.getName());
         student.setGender(bStudent.getGender());
         student.setBirthday(bStudent.getBirthday());

@@ -3,8 +3,10 @@ package com.yxr.hz.controller;
 import com.yxr.hz.common.CommonResponse;
 import com.yxr.hz.common.ResponseUtil;
 import com.yxr.hz.entity.Admin;
+import com.yxr.hz.entity.BStudent;
 import com.yxr.hz.entity.Order;
 import com.yxr.hz.entity.Student;
+import com.yxr.hz.service.BStudentService;
 import com.yxr.hz.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private BStudentService bStudentService;
     @GetMapping("/getall")
     public CommonResponse<List<Student>> getAll() throws ParseException {
         return  ResponseUtil.success(studentService.findAll());
@@ -27,6 +31,9 @@ public class StudentController {
     @PostMapping("/insert")
     public CommonResponse insert(@RequestBody Student student ) throws ParseException {
         studentService.insert(student);
+        if(student.getId()!=null){
+            bStudentService.delete(student.getId());
+        }
         return  ResponseUtil.success();
     }
     @PostMapping("/update")

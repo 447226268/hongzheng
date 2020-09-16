@@ -30,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
     private OrderDao orderDao;
     @Override
     public void insert(Student student) throws ParseException {
-        student.setState("待确认");
+        student.setState("添加待确认");
         if(student.getCardtype()!=null) {
             student.setOutdate(OutDateUtil.add(student.getIndate(), student.getCardtype()));
         studentDao.insert(student);
@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
         Order order=new Order();
         order.setSid(list.get(list.size()-1).getId());
         order.setRoom(student.getRoom());
-        order.setState("待确认");
+        order.setState("添加待确认");
         order.setMoney(student.getMoney());
         order.setType("开课");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,6 +57,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void update(Student student) {
+        student.setState("修改待确认");
         studentDao.update(student);
     }
 
@@ -65,7 +66,6 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list=studentDao.findAll();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now=df.format(new Date());
-
         Room room;
         List<Order> list1=new ArrayList<>();
         for(Student s:list){
@@ -133,7 +133,6 @@ public class StudentServiceImpl implements StudentService {
             if(s.getOutdate()!=null) {
 
                 reday = TimeReverse.surplus(now,s.getOutdate());
-//                System.out.println(reday);
             }
             s.setRoom(room);
             s.setReday(reday);
@@ -209,10 +208,10 @@ public class StudentServiceImpl implements StudentService {
     public void updateState(Integer id,Integer level) {
         Student s=studentDao.findById(id);
         if(level==1){
-            s.setState("失效");
+            s.setState("失效待确认");
         }else{
 
-            s.setState("待删除");
+            s.setState("删除待确认");
 
         }
         studentDao.update(s);
