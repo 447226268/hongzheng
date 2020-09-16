@@ -4,6 +4,7 @@ import com.yxr.hz.common.CommonResponse;
 import com.yxr.hz.common.ResponseUtil;
 import com.yxr.hz.entity.Admin;
 import com.yxr.hz.entity.Order;
+import com.yxr.hz.entity.PUser;
 import com.yxr.hz.entity.Room;
 import com.yxr.hz.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,17 +58,20 @@ public class AdminController {
         return  ResponseUtil.success();
     }
     @PostMapping("/login")
-    public CommonResponse<Integer> login(@RequestBody Admin admin , HttpServletRequest request){
+    public CommonResponse<PUser> login(@RequestBody Admin admin , HttpServletRequest request){
         System.out.println(admin);
+        PUser puser=new PUser();
         HttpSession session = request.getSession();
         Admin admin1=adminService.findByUsername(admin.getUsername());
+        puser.setLevel(admin1.getLevel());
+        puser.setName(admin1.getName());
         if(admin1!=null){
             if(admin.getPassword().equals(admin1.getPassword())){
                 if(admin1.getState().equals("冻结")){
                     return ResponseUtil.error("用户被冻结，请联系管理员");
                 }else{
                     session.setAttribute("admin",admin1);
-                    return ResponseUtil.success(admin1.getLevel(),"登陆成功");
+                    return ResponseUtil.success(puser,"登陆成功");
                 }
             }else{
                 return ResponseUtil.error("用户名或者密码错误");
