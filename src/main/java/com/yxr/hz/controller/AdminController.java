@@ -57,7 +57,7 @@ public class AdminController {
         return  ResponseUtil.success();
     }
     @PostMapping("/login")
-    public CommonResponse login(@RequestBody Admin admin , HttpServletRequest request){
+    public CommonResponse<Integer> login(@RequestBody Admin admin , HttpServletRequest request){
         System.out.println(admin);
         HttpSession session = request.getSession();
         Admin admin1=adminService.findByUsername(admin.getUsername());
@@ -67,7 +67,7 @@ public class AdminController {
                     return ResponseUtil.error("用户被冻结，请联系管理员");
                 }else{
                     session.setAttribute("admin",admin1);
-                    return ResponseUtil.success("登陆成功");
+                    return ResponseUtil.success(admin1.getLevel(),"登陆成功");
                 }
             }else{
                 return ResponseUtil.error("用户名或者密码错误");
