@@ -29,10 +29,12 @@ public class OrderServiceImpl implements OrderService {
     public void insert(Order order) throws ParseException {
         if(order.getType().equals("退费")){
             order.setMoney(-order.getMoney());
+            Student s1=studentDao.findById(order.getSid());
+            s1.setState("退费待确认");
+            order.setState("续费待确认");
+            studentDao.update(s1);
         }
-        Student s1=studentDao.findById(order.getSid());
-        s1.setState("退款待确认");
-        studentDao.update(s1);
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
         order.setDate(now);
@@ -42,13 +44,22 @@ public class OrderServiceImpl implements OrderService {
             s.setCardtype(order.getCardtype());
             s.setOutdate(date);
             studentDao.update(s);
+            order.setState("续费待确认");
         }
         orderDao.insert(order);
+
     }
 
     @Override
     public void delete(Integer id) throws ParseException {
         Order order=orderDao.getById(id);
+        Student s = studentDao.findById(order.getSid());
+        if(order.getType().equals("续费")){
+            String date = OutDateUtil.back(s.getOutdate(), order.getCardtype());
+            s.setCardtype(order.getCardtype());
+            s.setOutdate(date);
+            studentDao.update(s);
+        }
         order.setState("失效");
         orderDao.update(order);
     }

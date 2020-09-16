@@ -12,7 +12,7 @@ public interface StudentService {
     void delete(Integer id);
     List<Student> selectByName(String name) throws ParseException;
     Student selectById(Integer id) throws ParseException;
-    List<Student> selectByRid(Integer rid,Integer level);
+    List<Student> selectByRid(Integer rid,Integer level) throws ParseException;
     void updateState(Integer id,Integer level);
 
 
