@@ -58,7 +58,9 @@ public class BStudentController {
         List<Room> rooms=roomService.findByAid(admin.getId());
         if(number3==-1){
             for(Room room:rooms){
-                ll.addAll(bStudentService.selectByRid(room.getId()));
+                if(bStudentService.selectByRid(room.getId())!=null) {
+                    ll.addAll(bStudentService.selectByRid(room.getId()));
+                }
             }
         }else{
             ll=bStudentService.selectByRid(number3);
