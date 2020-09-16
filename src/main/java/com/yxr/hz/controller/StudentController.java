@@ -2,6 +2,7 @@ package com.yxr.hz.controller;
 
 import com.yxr.hz.common.CommonResponse;
 import com.yxr.hz.common.ResponseUtil;
+import com.yxr.hz.dao.StudentDao;
 import com.yxr.hz.entity.Admin;
 import com.yxr.hz.entity.BStudent;
 import com.yxr.hz.entity.Order;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,8 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private BStudentService bStudentService;
+    @Autowired
+    private StudentDao studentDao;
     @GetMapping("/getall")
     public CommonResponse<List<Student>> getAll() throws ParseException {
         return  ResponseUtil.success(studentService.findAll());
@@ -62,6 +67,12 @@ public class StudentController {
         HttpSession session = request.getSession();
         Admin admin=(Admin)session.getAttribute("admin");
         List<Student> ll=studentService.selectByRid(number3,admin.getLevel());
+        Collections.sort(ll, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o1.getReday().compareTo(o2.getReday());
+            }
+        });
         if(number2>ll.size()){
             List<Student> list=new ArrayList<>();
             for(int i=number1;i<ll.size();i++){
@@ -73,6 +84,13 @@ public class StudentController {
             for(int i=number1;i<number2;i++){
                 list.add(ll.get(i));
             }
+
+            Collections.sort(list, new Comparator<Student>() {
+                @Override
+                public int compare(Student o1, Student o2) {
+                    return o1.getReday().compareTo(o2.getReday());
+                }
+            });
             return ResponseUtil.success(list);
         }
     }
@@ -86,6 +104,18 @@ public class StudentController {
         Integer level=admin.getLevel();
         studentService.updateState(id,level);
         return ResponseUtil.success("删除成功");
+    }
+
+    @GetMapping("/queren")
+    public CommonResponse queren(@RequestParam("id") Integer id) throws ParseException {
+        Student student=studentService.selectById(id);
+        if(student.getState().equals("失效待确认")||student.getState().equals("失效")){
+            student.setState("失效");
+        }else{
+            student.setState("正常");
+        }
+        studentDao.update(student);
+        return ResponseUtil.success("已确认");
     }
 
 }

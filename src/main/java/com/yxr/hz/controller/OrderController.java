@@ -78,8 +78,18 @@ public class OrderController {
         return ResponseUtil.success("删除成功");
     }
     @GetMapping("/getRange")
-    public CommonResponse<List<Order>> getNumber(@RequestParam("number1") Integer number1, @RequestParam("number2") Integer number2){
-       List<Order> ll=orderService.getAll();
+    public CommonResponse<List<Order>> getNumber(@RequestParam("number1") Integer number1, @RequestParam("number2") Integer number2,HttpServletRequest request){
+        List<Order> ll=new ArrayList<>();
+        HttpSession session = request.getSession();
+        Admin admin=(Admin)session.getAttribute("admin");
+        if(admin.getLevel()==1){
+            ll=orderService.getAll();
+        }else{
+            List<Room> list=roomService.findByAid(admin.getId());
+            for(Room room:list){
+                ll.addAll(orderService.getByRid(room.getId()));
+            }
+        }
         if(number2>ll.size()){
             List<Order> list=new ArrayList<>();
             for(int i=number1;i<ll.size();i++){

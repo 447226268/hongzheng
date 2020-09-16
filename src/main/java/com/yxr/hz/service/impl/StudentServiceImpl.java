@@ -172,8 +172,8 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> selectByRid(Integer rid,Integer level) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now=df.format(new Date());
-
         List<Student> list=studentDao.findByRid(rid);
+        System.out.println(list);
         List<Student> list1=new ArrayList<>();
         for(Student s:list){
             List<Order> list2=orderDao.getBySId(s.getId());
