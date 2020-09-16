@@ -38,7 +38,12 @@ public class BStudentController {
         if(number1==-1){
             List<BStudent> list=new ArrayList<>();
             for(Room room:rooms){
-                list.addAll(bStudentService.selectByRid(room.getId()));
+                System.out.println(room.getId());
+                List<BStudent> list1=bStudentService.selectByRid(room.getId());
+                System.out.println(list1);
+                if(list1!=null) {
+                    list.addAll(list1);
+                }
             }
             ResponseUtil.success(list.size());
         }else{

@@ -51,7 +51,7 @@ public class BStudentServiceImpl implements BStudentService {
 
     @Override
     public List<BStudent> selectByRid(Integer rid) {
-        return null;
+        return bStudentDao.findByRid(rid);
     }
 
     @Override
