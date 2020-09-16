@@ -10,8 +10,14 @@
 
     <div class="main">
       <div class="form">
-        <el-form v-if="active===1" :model="ruleForm1" :rules="rules1" ref="ruleForm1" label-width="100px"
-          class="demo-ruleForm">
+        <el-form
+          v-if="active===1"
+          :model="ruleForm1"
+          :rules="rules1"
+          ref="ruleForm1"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
           <div class="avatarimg">
             <avataruploader ref="avataruploader" v-bind:image="ruleForm1.image" v-on:get="getImgae"></avataruploader>
           </div>
@@ -62,8 +68,14 @@
           </el-form-item>
         </el-form>
 
-        <el-form v-if="active===2" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px"
-          class="demo-ruleForm">
+        <el-form
+          v-if="active===2"
+          :model="ruleForm2"
+          :rules="rules2"
+          ref="ruleForm2"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
           <el-form-item label="办卡类型" prop="cardtype">
             <el-select v-model="ruleForm2.cardtype" placeholder="请选择活动区域">
               <el-option label="日卡" value="日卡"></el-option>
@@ -112,189 +124,195 @@
 </template>
 
 <script>
-  import {
-    update,
-    getall,
-    getbyid
-  } from "@/api/student.js";
-  import avataruploader from "@/components/avatar-uploader.vue";
+import { update, getall, getbyid } from "@/api/student.js";
+import avataruploader from "@/components/avatar-uploader.vue";
 
-  export default {
-    name: "studentedit",
-    data() {
-      return {
-        active: 1,
-        room: [],
-        ruleForm1: {
-          id: null,
-          name: null,
-          image: null,
-          gender: null,
-          birthday: null,
-          telephone: null,
-          idnum: null,
-          coach: null,
-          pname: null,
-          relation: null,
-          phone: null,
-          level: null,
-          type: null,
-        },
-        rules1: {
-          name: [{
+export default {
+  name: "studentedit",
+  data() {
+    return {
+      active: 1,
+      room: [],
+      ruleForm1: {
+        id: null,
+        name: null,
+        image: null,
+        gender: null,
+        birthday: null,
+        telephone: null,
+        idnum: null,
+        coach: null,
+        pname: null,
+        relation: null,
+        phone: null,
+        level: null,
+        type: null,
+      },
+      rules1: {
+        name: [
+          {
             required: true,
             message: "姓名不能为空",
             trigger: "blur",
-          }, ],
-          type: [{
+          },
+        ],
+        type: [
+          {
             required: true,
             message: "请选择一个意向类型",
             trigger: "change",
-          }, ],
-          telephone: [{
+          },
+        ],
+        telephone: [
+          {
             required: true,
             message: "请输入联系电话",
             trigger: "blur",
-          }, ],
-          idnum: [{
+          },
+        ],
+        idnum: [
+          {
             required: true,
             message: "请输入身份证号",
             trigger: "blur",
-          }, ],
-        },
-        ruleForm2: {
-          cardtype: null,
-          indate: null,
-          rid: null,
-          money: null,
-          way: null,
-          handler: null,
-          info: null,
-        },
-      };
-    },
-    async mounted() {
-      this.getAllRoom();
-      let result = (await getbyid({
-        id: this.$route.params.id
-      })).result
-      for (let i in this.ruleForm1) {
-        this.ruleForm1[i] = result[i]
-      }
-      for (let i in this.ruleForm2) {
-        this.ruleForm2[i] = result[i]
-      }
-      this.ruleForm1.id = this.$route.params.id
-    },
-    methods: {
-      back() {
-        if (this.active === 1) {
-          return;
-        } else {
-          if (this.active === 3) {
-            if (this.ruleForm1["type"] === "购买课程") {
-              this.active = 2;
-            } else {
-              this.active = 1;
-            }
+          },
+        ],
+      },
+      ruleForm2: {
+        cardtype: null,
+        indate: null,
+        rid: null,
+        money: null,
+        way: null,
+        handler: null,
+        info: null,
+      },
+    };
+  },
+  async mounted() {
+    this.getAllRoom();
+    let result = (
+      await getbyid({
+        id: this.$route.params.id,
+      })
+    ).result;
+    for (let i in this.ruleForm1) {
+      this.ruleForm1[i] = result[i];
+    }
+    for (let i in this.ruleForm2) {
+      this.ruleForm2[i] = result[i];
+    }
+    this.ruleForm1.id = this.$route.params.id;
+  },
+  methods: {
+    back() {
+      if (this.active === 1) {
+        return;
+      } else {
+        if (this.active === 3) {
+          if (this.ruleForm1["type"] === "购买课程") {
+            this.active = 2;
           } else {
             this.active = 1;
           }
-        }
-      },
-      go() {
-        if (this.active === 3) {
-          return;
         } else {
-          if (this.active === 1) {
-            this.$refs["ruleForm1"].validate((valid) => {
-              if (valid) {
-                if (this.ruleForm1["type"] === "购买课程") {
-                  this.active = 2;
-                } else {
-                  this.active = 3;
-                }
+          this.active = 1;
+        }
+      }
+    },
+    go() {
+      if (this.active === 3) {
+        return;
+      } else {
+        if (this.active === 1) {
+          this.$refs["ruleForm1"].validate((valid) => {
+            if (valid) {
+              if (this.ruleForm1["type"] === "购买课程") {
+                this.active = 2;
               } else {
-                console.log("error submit!!");
-                return false;
+                this.active = 3;
               }
-            });
-          } else {
-            this.active = 3;
-          }
-        }
-      },
-      getImgae() {
-        this.ruleForm1["image"] = this.$refs["avataruploader"].imageUrl;
-      },
-      async getAllRoom() {
-        let result = (await getall()).result;
-        this.room = result;
-      },
-      async insertStudent() {
-        let data = {};
-        if (this.ruleForm1["type"] === "购买课程") {
-          for (let i in this.ruleForm1) {
-            data[i] = this.ruleForm1[i];
-          }
-          for (let i in this.ruleForm2) {
-            data[i] = this.ruleForm2[i];
-          }
+            } else {
+              console.log("error submit!!");
+              return false;
+            }
+          });
         } else {
-          for (let i in this.ruleForm1) {
-            data[i] = this.ruleForm1[i];
-          }
+          this.active = 3;
         }
-        if (data.birthday !== null) {
-          data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
-          data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
+      }
+    },
+    getImgae() {
+      this.ruleForm1["image"] = this.$refs["avataruploader"].imageUrl;
+    },
+    async getAllRoom() {
+      let result = (await getall()).result;
+      this.room = result;
+    },
+    async insertStudent() {
+      let data = {};
+      if (this.ruleForm1["type"] === "购买课程") {
+        for (let i in this.ruleForm1) {
+          data[i] = this.ruleForm1[i];
         }
+        for (let i in this.ruleForm2) {
+          data[i] = this.ruleForm2[i];
+        }
+      } else {
+        for (let i in this.ruleForm1) {
+          data[i] = this.ruleForm1[i];
+        }
+      }
+      if (data.birthday !== null) {
+        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+        data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
+      }
 
-        await update(data);
-        this.$message({
-          message: "修改成功！",
-          type: "success",
-        });
-        this.$router.push('/studentinfo')
-      },
+      await update(data);
+      this.$message({
+        message: "修改成功！",
+        type: "success",
+      });
+      this.$router.push("/studentinfo");
     },
-    components: {
-      avataruploader,
-    },
-  };
+  },
+  components: {
+    avataruploader,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .studentedit {
-    .step {
-      padding: 24px 0 24px 0;
-      background-color: #fff;
+.studentedit {
+  .step {
+    padding: 24px 0 24px 0;
+    background-color: #fff;
+  }
+
+  .main {
+    margin-top: 24px;
+    background-color: #fff;
+
+    .form {
+      max-width: 800px;
+      padding: 30px 0;
+      margin: auto;
+
+      .avatarimg {
+        margin-bottom: 30px;
+        text-align: center;
+      }
     }
 
-    .main {
-      margin-top: 24px;
-      background-color: #fff;
+    .pre-next-but {
+      margin-top: 60px;
+      text-align: center;
 
-      .form {
-        max-width: 800px;
-        padding: 30px 0;
-        margin: auto;
-
-        .avatarimg {
-          margin-bottom: 30px;
-          text-align: center;
-        }
-      }
-
-      .pre-next-but {
-        margin-top: 60px;
-        text-align: center;
-
-        .el-button {
-          width: 150px;
-          margin-right: 50px;
-        }
+      .el-button {
+        width: 150px;
+        margin-right: 50px;
       }
     }
   }
+}
 </style>

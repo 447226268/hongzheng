@@ -306,7 +306,11 @@ export default {
   },
   methods: {
     async getStuNumber() {
-      this.total = (await getStudentNum()).result;
+      this.total = (
+        await getStudentNum({
+          rid: this.currentroomid,
+        })
+      ).result;
     },
     async getStuRange() {
       this.tableData = (

@@ -9,3 +9,9 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 body {
     margin: 0;
 }
+
+.el-table thead{
+    font-size: large;
+    font-weight: 800;
+    font-family: Microsoft YaHei;
+}

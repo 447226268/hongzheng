@@ -2,7 +2,7 @@
  * @Author: ld
  * @Date: 2020-09-15 10:07:11
  * @LastEditors: ld
- * @LastEditTime: 2020-09-15 19:02:16
+ * @LastEditTime: 2020-09-16 19:10:45
  * @Description: file content
  * @FilePath: \hongzheng\web\src\router\index.js
  */
@@ -28,6 +28,11 @@ const routes = [{
       },
       {
         path: 'studentinsert',
+        name: 'Studentinsert',
+        component: () => import("../views/student/insert.vue"),
+      },
+      {
+        path: 'studentinsert/:id',
         name: 'Studentinsert',
         component: () => import("../views/student/insert.vue"),
       },

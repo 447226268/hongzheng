@@ -90,11 +90,8 @@
                     <el-table-column type="expand">
                       <template slot-scope="props">
                         <el-form label-position="left" inline class="demo-table-expand">
-                          <el-form-item label="意向程度">
-                            <span>{{ props.row.degree }}</span>
-                          </el-form-item>
-                          <el-form-item label="跟踪状态">
-                            <span>{{ props.row.state }}</span>
+                          <el-form-item label="线索">
+                            <span style="white-space:pre-wrap;">{{ props.row.info }}</span>
                           </el-form-item>
                         </el-form>
                       </template>
@@ -106,15 +103,13 @@
                     <el-table-column label="手机号" align="center" prop="telephone"></el-table-column>
                     <el-table-column label="咨询校区" align="center" prop="room.name"></el-table-column>
                     <el-table-column label="录入人" align="center" prop="handler"></el-table-column>
-                    <el-table-column label="录入时间" align="center" prop="date"></el-table-column>
-                    <el-table-column label="线索" align="center" prop="info"></el-table-column>
+                    <el-table-column label="意向程度" align="center" prop="degree"></el-table-column>
+                    <el-table-column label="跟踪状态" align="center" prop="state"></el-table-column>
                     <el-table-column label="是否试听" align="center" prop="islisten"></el-table-column>
-                    <el-table-column label="操作" align="center" width="200px">
+                    <el-table-column label="操作" align="center" width="300px">
                       <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">报名</el-button>
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">试听</el-button>
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">添加线索</el-button>
+                        <el-button size="mini" type="success" @click="handleChange(scope.$index, scope.row)">报名</el-button>
+                        <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-popconfirm
                           style="margin-left:10px;"
                           title="请确定是否删除？"
@@ -195,11 +190,8 @@
                   <el-form-item label="录入人" prop="handler">
                     <el-input v-model="ruleForm.handler"></el-input>
                   </el-form-item>
-                  <el-form-item label="录入时间" prop="date">
-                    <el-date-picker type="date" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
-                  </el-form-item>
                   <el-form-item label="线索" prop="info">
-                    <el-input v-model="ruleForm.info"></el-input>
+                    <el-input type="textarea" autosize v-model="ruleForm.info"></el-input>
                   </el-form-item>
                   <el-form-item label="是否试听" prop="islisten">
                     <el-select v-model="ruleForm.islisten">
@@ -217,6 +209,78 @@
           </div>
         </el-col>
       </el-row>
+
+      <el-dialog title="编辑信息" :visible.sync="dialogFormVisible" @closed="ruleForm = {}">
+        <div class="info-change">
+          <div class="normal-box2">
+            <div class="form">
+              <el-form
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="100px"
+                class="demo-ruleForm"
+              >
+                <el-form-item label="姓名" prop="name">
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="性别" prop="gender">
+                  <el-select v-model="ruleForm.gender">
+                    <el-option label="男" value="男"></el-option>
+                    <el-option label="女" value="女"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="生日" prop="birthday">
+                  <el-date-picker type="date" v-model="ruleForm.birthday" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="手机号" prop="telephone">
+                  <el-input v-model="ruleForm.telephone"></el-input>
+                </el-form-item>
+                <el-form-item label="咨询校区" prop="rid">
+                  <el-select v-model="ruleForm.rid">
+                    <el-option
+                      v-for="item in roomList"
+                      :label="item.name"
+                      :value="item.id"
+                      :key="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="跟踪状态" prop="state">
+                  <el-select v-model="ruleForm.state">
+                    <el-option label="未跟踪" value="未跟踪"></el-option>
+                    <el-option label="跟踪中" value="跟踪中"></el-option>
+                    <el-option label="放弃跟踪" value="放弃跟踪"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="意向程度" prop="degree">
+                  <el-select v-model="ruleForm.degree">
+                    <el-option label="高" value="高"></el-option>
+                    <el-option label="中" value="中"></el-option>
+                    <el-option label="低" value="低"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="录入人" prop="handler">
+                  <el-input v-model="ruleForm.handler"></el-input>
+                </el-form-item>
+                <el-form-item label="线索" prop="info" height="auto">
+                  <el-input type="textarea" autosize v-model="ruleForm.info"></el-input>
+                </el-form-item>
+                <el-form-item label="是否试听" prop="islisten">
+                  <el-select v-model="ruleForm.islisten">
+                    <el-option label="是" value="是"></el-option>
+                    <el-option label="否" value="否"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false; ruleForm = {}">取 消</el-button>
+          <el-button type="primary" @click="updatebStudent">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -240,6 +304,7 @@ export default {
       total: null,
       size: 10,
       value: "",
+      dialogFormVisible: false,
       tableData: [],
       roomList: [
         {
@@ -248,24 +313,6 @@ export default {
         },
       ],
       showTable: true,
-      emptyForm: {
-        id: null,
-        name: null,
-        gender: null,
-        birthday: null,
-        telephone: null,
-        rid: null,
-        state: null,
-        degree: null,
-        handler: null,
-        date: null,
-        info: null,
-        islisten: null,
-        room: {
-          name: null,
-          id: null,
-        },
-      },
       ruleForm: {},
       rules: {
         name: [
@@ -305,7 +352,6 @@ export default {
   },
   mounted() {
     this.getRoom();
-    this.ruleForm = this.emptyForm;
     this.getBStuNumber();
     this.getBStuRange();
   },
@@ -344,6 +390,7 @@ export default {
       this.getBStuRange();
     },
     btnClick() {
+
       this.showTable = !this.showTable;
     },
     back() {
@@ -356,41 +403,53 @@ export default {
       }
       if (data.birthday !== null) {
         data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+        data.date = this.$moment(data.date).format("YYYY-DD-MM");
       }
       await insert(data);
       this.$message({
         message: "提交成功！",
         type: "success",
       });
-      this.$router.push("/home");
+
+      this.ruleForm = {};
       this.showTable = !this.showTable;
-      this.ruleForm = this.emptyForm;
+      this.getBStuNumber();
+      this.getBStuRange();
     },
     async handleEdit(index, row) {
-      console.log(index, row);
+      this.dialogFormVisible = true;
+      console.log();
       let result = (
         await getbyid({
           id: row.id,
         })
       ).result;
-      for (let i in this.ruleForm) {
-        this.ruleForm[i] = result[i];
-      }
+
+      this.ruleForm = result;
       this.ruleForm.id = row.id;
+      this.dialogFormVisible = true;
+    },
+    async updatebStudent() {
       let data = {};
       for (let i in this.ruleForm) {
-        data[i] = this.ruleForm;
+        data[i] = this.ruleForm[i];
       }
       if (data.birthday !== null) {
         data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
+        data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
       }
       await update(data);
       this.$message({
         message: "修改成功！",
         type: "success",
       });
-      this.ruleForm = this.emptyForm;
-      this.$router.push("/home");
+      this.dialogFormVisible = false;
+      this.getBStuNumber();
+      this.getBStuRange();
+    },
+    async handleChange(index, row) {
+      console.log(index);
+      this.$router.push(`/studentinsert/${row.id}`);
     },
     async handleDelete(index, row) {
       console.log(index);
@@ -401,6 +460,15 @@ export default {
       });
       await this.getBStuNumber();
       this.getBStuRange();
+    },
+    currentChange(page) {
+      this.current = page;
+    },
+    prevClick(page) {
+      this.current = page;
+    },
+    nextClick(page) {
+      this.current = page;
     },
   },
 };

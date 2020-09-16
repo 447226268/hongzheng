@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { insert, getall } from "@/api/student.js";
+import { insert, getall, change } from "@/api/student.js";
 import avataruploader from "@/components/avatar-uploader.vue";
 
 export default {
@@ -199,8 +199,22 @@ export default {
       },
     };
   },
-  mounted() {
+  async mounted() {
     this.getAllRoom();
+    if (this.$route.params.id) {
+      let result = (
+        await change({
+          id: this.$route.params.id,
+        })
+      ).result;
+      for (let i in this.ruleForm1) {
+        this.ruleForm1[i] = result[i];
+      }
+      for (let i in this.ruleForm2) {
+        this.ruleForm2[i] = result[i];
+      }
+      this.ruleForm1.id = this.$route.params.id;
+    }
   },
   methods: {
     back() {
@@ -253,11 +267,6 @@ export default {
         for (let i in this.ruleForm1) {
           data[i] = this.ruleForm1[i];
         }
-        console.log(this.ruleForm2.room.id);
-        console.log(this.ruleForm2.rid);
-        this.ruleForm2.room.id = this.ruleForm2.rid;
-        console.log("rid:");
-        console.log(this.ruleForm2.room.id);
         for (let i in this.ruleForm2) {
           data[i] = this.ruleForm2[i];
         }
@@ -276,6 +285,11 @@ export default {
         message: "提交成功！",
         type: "success",
       });
+
+      if (this.$route.params.id) {
+        console.log("delate")
+      }
+
       this.$router.push("/studentinfo");
     },
   },
