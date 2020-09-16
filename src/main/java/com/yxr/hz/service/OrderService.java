@@ -12,5 +12,6 @@ public interface OrderService {
     List<Order> getAll();
     Order getById(Integer id);
     List<Order> getBySId(Integer sid);
+    List<Order> getByRid(Integer rid);
 
 }

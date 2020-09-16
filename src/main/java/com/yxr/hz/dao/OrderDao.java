@@ -13,4 +13,5 @@ public interface OrderDao {
     Order getById(Integer id);
     void delete(Integer id);
     void update(Order order);
+    List<Order> getByRId(Integer rid);
 }

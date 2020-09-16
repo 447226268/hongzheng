@@ -99,10 +99,17 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> selectByName(String name) throws ParseException {
         List<Student> list=studentDao.findByName(name);
-        for(Student s:list){
-            if(s.getState().equals("冻结")){
-                list.remove(s);
+        System.out.println(list.size());
+        if(list.size()==1) {
+            for (Student s : list) {
+                System.out.println(s.getState());
+                if ( s.getState().equals("冻结")) {
+                    list.remove(s);
+                    return null;
+                }
             }
+        }else if(list.size()==0){
+            return null;
         }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now=df.format(new Date());
@@ -132,6 +139,9 @@ public class StudentServiceImpl implements StudentService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now=df.format(new Date());
         Student s=studentDao.findById(id);
+        if(s.getState().equals("冻结")){
+            return null;
+        }
         List<Order> list1=orderDao.getBySId(s.getId());
         Integer money=0;
         for(Order order:list1){
@@ -162,6 +172,19 @@ public class StudentServiceImpl implements StudentService {
         }else{
             return list1;
         }
+    }
+
+    @Override
+    public void updateState(Integer id,Integer level) {
+        Student s=studentDao.findById(id);
+        if(level==1){
+            s.setState("失效");
+        }else{
+
+            s.setState("待删除");
+
+        }
+        studentDao.update(s);
     }
 
 

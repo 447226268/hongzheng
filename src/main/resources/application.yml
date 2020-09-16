@@ -16,6 +16,8 @@ server:
   servlet:
     encoding:
       charset: UTF-8
+    session:
+      timeout: 3000
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.yxr.hz.entity

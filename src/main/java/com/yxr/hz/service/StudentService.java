@@ -13,5 +13,10 @@ public interface StudentService {
     List<Student> selectByName(String name) throws ParseException;
     Student selectById(Integer id) throws ParseException;
     List<Student> selectByRid(Integer rid,Integer level);
+    void updateState(Integer id,Integer level);
+
+
+
+
 
 }

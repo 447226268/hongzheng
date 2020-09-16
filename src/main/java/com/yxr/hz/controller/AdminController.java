@@ -80,7 +80,10 @@ public class AdminController {
         HttpSession session = request.getSession();
         Admin admin=(Admin)session.getAttribute("admin");
         session.removeAttribute("admin");
-        return ResponseUtil.success(admin.getUsername()+"退出成功");
+        if(admin==null){
+            ResponseUtil.error("用户已过期");
+        }
+        return ResponseUtil.error(admin.getUsername()+"退出成功");
     }
     @GetMapping("/state")
     public CommonResponse state(HttpServletRequest request) {
