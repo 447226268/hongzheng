@@ -3,7 +3,8 @@
     <div class="table">
       <infotable v-bind:value="tableData" ref="hztable" v-on:edit="editPlace" v-on:remove="removePlace"
         v-on:freezes="freezesPlace"></infotable>
-      <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total" :current-page="current"
+      <el-pagination class="pagination" background layout="total, sizes, prev, pager, next, jumper" :total="total"
+        :current-page="current" :page-sizes="[10, 20, 50, 100]" @size-change="sizeChange"
         @current-change="currentChange">
       </el-pagination>
     </div>
@@ -45,6 +46,11 @@
         this.current = page
         this.getRange()
       },
+      sizeChange(size){
+        this.getNumber()
+        this.size = size
+        this.getRange()
+      }
     },
     components: {
       infotable

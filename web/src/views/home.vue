@@ -98,9 +98,19 @@
                     <el-table-column label="手机号" align="center" prop="telephone"></el-table-column>
                     <el-table-column label="咨询校区" align="center" prop="room.name"></el-table-column>
                     <el-table-column label="录入人" align="center" prop="handler"></el-table-column>
-                    <el-table-column label="意向程度" align="center" prop="degree"></el-table-column>
+                    <el-table-column label="意向程度" align="center" prop="degree">
+                      <template slot-scope="scope">
+                        <el-tag :type="scope.row.degree === '高' ? 'success' : 'danger'" effect="dark">
+                          {{scope.row.degree}}</el-tag>
+                      </template>
+                    </el-table-column>
                     <el-table-column label="跟踪状态" align="center" prop="state"></el-table-column>
-                    <el-table-column label="是否试听" align="center" prop="islisten"></el-table-column>
+                    <el-table-column label="是否试听" align="center" prop="islisten">
+                      <template slot-scope="scope">
+                        <el-tag :type="scope.row.islisten === '是' ? 'success' : 'danger'" effect="dark">
+                          {{scope.row.islisten}}</el-tag>
+                      </template>
+                    </el-table-column>
                     <el-table-column label="操作" align="center" width="300px">
                       <template slot-scope="scope">
                         <el-button size="mini" type="success" @click="handleChange(scope.$index, scope.row)">报名
@@ -114,9 +124,9 @@
                     </el-table-column>
                   </el-table>
                 </div>
-                <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total"
-                  :current-page="current" @current-change="currentChange" @prev-click="prevClick"
-                  @next-click="nextClick"></el-pagination>
+                <el-pagination class="pagination" background layout="total, sizes, prev, pager, next, jumper"
+                  :total="total" :page-sizes="[10, 20, 50, 100]" :current-page="current" @current-change="currentChange"
+                  @size-change="sizeChange" @prev-click="prevClick" @next-click="nextClick"></el-pagination>
               </div>
             </div>
           </div>
@@ -334,6 +344,10 @@
         this.getBStuNumber();
         this.getBStuRange();
       },
+      size() {
+        this.getBStuNumber();
+        this.getBStuRange();
+      }
     },
     methods: {
       async getBStuNumber() {
@@ -439,6 +453,9 @@
       },
       currentChange(page) {
         this.current = page;
+      },
+      sizeChange(size) {
+        this.size = size
       },
       prevClick(page) {
         this.current = page;

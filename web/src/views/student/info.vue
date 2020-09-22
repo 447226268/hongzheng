@@ -90,128 +90,134 @@
 
     <!-- 学生具体信息 -->
     <div class="show3">
-      <el-row :gutter="20" justify="space-between">
-        <el-col :span="24">
-          <div class="show-table">
-            <el-table :data="tableData" style="width: 100%" :current-page.sync="current"
-              :row-class-name="tableRowClassName">
-              <el-table-column type="expand">
-                <template slot-scope="props">
-                  <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="学号">
-                      <span>{{ props.row.id }}</span>
-                    </el-form-item>
-                    <el-form-item label="姓名">
-                      <span>{{ props.row.name }}</span>
-                    </el-form-item>
-                    <el-form-item label="年龄">
-                      <span>{{ props.row.age }}</span>
-                    </el-form-item>
-                    <el-form-item label="性别">
-                      <span>{{ props.row.gender }}</span>
-                    </el-form-item>
-                    <!-- <el-form-item label="所在道馆">
+      <div class="show-table">
+        <div class="statechosed">
+          <span>状态选择：</span>
+          <el-select v-model="stateChosed" placeholder="请选择">
+            <el-option label="全部" value="全部"></el-option>
+            <el-option label="正常" value="正常"></el-option>
+            <el-option label="失效" value="失效"></el-option>
+            <el-option label="快过期" value="快过期"></el-option>
+            <el-option label="已过期" value="已过期"></el-option>
+          </el-select>
+        </div>
+        <el-table :data="tableData" style="width: 100%" :current-page.sync="current"
+          :row-class-name="tableRowClassName">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="学号">
+                  <span>{{ props.row.id }}</span>
+                </el-form-item>
+                <el-form-item label="姓名">
+                  <span>{{ props.row.name }}</span>
+                </el-form-item>
+                <el-form-item label="年龄">
+                  <span>{{ props.row.age }}</span>
+                </el-form-item>
+                <el-form-item label="性别">
+                  <span>{{ props.row.gender }}</span>
+                </el-form-item>
+                <!-- <el-form-item label="所在道馆">
                       <span>{{ props.row.room.name }}</span>
                     </el-form-item>-->
-                    <el-form-item label="教练">
-                      <span>{{ props.row.coach }}</span>
-                    </el-form-item>
-                    <el-form-item label="状态">
-                      <span>{{ props.row.state }}</span>
-                    </el-form-item>
-                    <el-form-item label="生日">
-                      <span>{{ props.row.birthday }}</span>
-                    </el-form-item>
-                    <el-form-item label="身份证号">
-                      <span>{{ props.row.idnum }}</span>
-                    </el-form-item>
-                    <el-form-item label="办卡类型">
-                      <span>{{ props.row.cardtype }}</span>
-                    </el-form-item>
-                    <el-form-item label="延期日期">
-                      <span>{{ props.row.delaytime }}</span>
-                    </el-form-item>
-                    <el-form-item label="录入人">
-                      <span>{{ props.row.handler }}</span>
-                    </el-form-item>
-                    <el-form-item label="办卡时间">
-                      <span>{{ props.row.indate }}</span>
-                    </el-form-item>
-                    <el-form-item label="段位">
-                      <span>{{ props.row.level }}</span>
-                    </el-form-item>
-                    <el-form-item label="金额">
-                      <span>{{ props.row.money }}</span>
-                    </el-form-item>
-                    <el-form-item label="缴费方式">
-                      <span>{{ props.row.way }}</span>
-                    </el-form-item>
-                    <el-form-item label="上课次数">
-                      <span>{{ props.row.num }}</span>
-                    </el-form-item>
-                    <el-form-item label="结课日期">
-                      <span>{{ props.row.outdate }}</span>
-                    </el-form-item>
-                    <el-form-item label="家长电话">
-                      <span>{{ props.row.phone }}</span>
-                    </el-form-item>
-                    <el-form-item label="家长姓名">
-                      <span>{{ props.row.pname }}</span>
-                    </el-form-item>
-                    <el-form-item label="剩余时间">
-                      <span>{{ props.row.reday }}</span>
-                    </el-form-item>
-                    <el-form-item label="联系电话">
-                      <span>{{ props.row.telephone }}</span>
-                    </el-form-item>
-                    <el-form-item label="学员类型">
-                      <span>{{ props.row.type }}</span>
-                    </el-form-item>
-                    <br />
-                    <el-form-item label="备注">
-                      <span v-html="props.row.info"></span>
-                    </el-form-item>
-                  </el-form>
-                </template>
-              </el-table-column>
-              <el-table-column label="头像" align="center" width="100px">
-                <template slot-scope="scope">
-                  <el-image style="width: 60px; height: 60px; border-radius: 100px;" :src="scope.row.image" fit="cover">
-                  </el-image>
-                </template>
-              </el-table-column>
-              <el-table-column label="学号" prop="id" align="center"></el-table-column>
-              <el-table-column label="姓名" prop="name" align="center"></el-table-column>
-              <el-table-column label="年龄" prop="age" align="center"></el-table-column>
-              <el-table-column label="性别" prop="gender" align="center"></el-table-column>
-              <el-table-column label="剩余时间" prop="reday" align="center"></el-table-column>
-              <el-table-column label="教练" prop="coach" align="center"></el-table-column>
-              <el-table-column label="状态" align="center">
-                <template slot-scope="scope">
-                  <el-tag :type="scope.row.state === '正常' ? 'success' : 'danger'" effect="dark">{{scope.row.state}}
-                  </el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column label="操作" align="center" width="250px">
-                <template slot-scope="scope">
-                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                  <el-button size="mini" type="success" @click="handleConfirm(scope.$index, scope.row)">确认</el-button>
-                  <el-popconfirm style="margin-left:10px;" title="请确定是否删除？"
-                    @onConfirm="handleDelete(scope.$index, scope.row)">
-                    <el-button slot="reference" size="mini" type="danger">删除</el-button>
-                  </el-popconfirm>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-        </el-col>
-
-        <el-col style="text-align:center">
-          <el-pagination class="pagination" background layout="total, prev, pager, next" :total="total"
-            :current-page="current" @current-change="currentChange" @prev-click="prevClick" @next-click="nextClick">
+                <el-form-item label="教练">
+                  <span>{{ props.row.coach }}</span>
+                </el-form-item>
+                <el-form-item label="状态">
+                  <span>{{ props.row.state }}</span>
+                </el-form-item>
+                <el-form-item label="生日">
+                  <span>{{ props.row.birthday }}</span>
+                </el-form-item>
+                <el-form-item label="身份证号">
+                  <span>{{ props.row.idnum }}</span>
+                </el-form-item>
+                <el-form-item label="办卡类型">
+                  <span>{{ props.row.cardtype }}</span>
+                </el-form-item>
+                <el-form-item label="延期日期">
+                  <span>{{ props.row.delaytime }}</span>
+                </el-form-item>
+                <el-form-item label="录入人">
+                  <span>{{ props.row.handler }}</span>
+                </el-form-item>
+                <el-form-item label="办卡时间">
+                  <span>{{ props.row.indate }}</span>
+                </el-form-item>
+                <el-form-item label="段位">
+                  <span>{{ props.row.level }}</span>
+                </el-form-item>
+                <el-form-item label="金额">
+                  <span>{{ props.row.money }}</span>
+                </el-form-item>
+                <el-form-item label="缴费方式">
+                  <span>{{ props.row.way }}</span>
+                </el-form-item>
+                <el-form-item label="上课次数">
+                  <span>{{ props.row.num }}</span>
+                </el-form-item>
+                <el-form-item label="结课日期">
+                  <span>{{ props.row.outdate }}</span>
+                </el-form-item>
+                <el-form-item label="家长电话">
+                  <span>{{ props.row.phone }}</span>
+                </el-form-item>
+                <el-form-item label="家长姓名">
+                  <span>{{ props.row.pname }}</span>
+                </el-form-item>
+                <el-form-item label="剩余时间">
+                  <span>{{ props.row.reday }}</span>
+                </el-form-item>
+                <el-form-item label="联系电话">
+                  <span>{{ props.row.telephone }}</span>
+                </el-form-item>
+                <el-form-item label="学员类型">
+                  <span>{{ props.row.type }}</span>
+                </el-form-item>
+                <br />
+                <el-form-item label="备注">
+                  <span v-html="props.row.info"></span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column label="头像" align="center" width="100px">
+            <template slot-scope="scope">
+              <el-image style="width: 60px; height: 60px; border-radius: 100px;" :src="scope.row.image" fit="cover">
+              </el-image>
+            </template>
+          </el-table-column>
+          <el-table-column label="学号" prop="id" align="center"></el-table-column>
+          <el-table-column label="姓名" prop="name" align="center"></el-table-column>
+          <el-table-column label="年龄" prop="age" align="center"></el-table-column>
+          <el-table-column label="性别" prop="gender" align="center"></el-table-column>
+          <el-table-column label="剩余时间" prop="reday" align="center"></el-table-column>
+          <el-table-column label="教练" prop="coach" align="center"></el-table-column>
+          <el-table-column label="状态" align="center">
+            <template slot-scope="scope">
+              <el-tag :type="scope.row.state === '正常' ? 'success' : 'danger'" effect="dark">{{scope.row.state}}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center" width="250px">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" type="success" @click="handleConfirm(scope.$index, scope.row)">确认</el-button>
+              <el-popconfirm style="margin-left:10px;" title="请确定是否删除？"
+                @onConfirm="handleDelete(scope.$index, scope.row)">
+                <el-button slot="reference" size="mini" type="danger">删除</el-button>
+              </el-popconfirm>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div style="text-align:center;margin:20px 0 10px 0">
+          <el-pagination class="pagination" background layout="total, sizes, prev, pager, next, jumper" :total="total"
+            @size-change="sizeChange" :page-sizes="[10, 20, 50, 100]" :current-page="current"
+            @current-change="currentChange" @prev-click="prevClick" @next-click="nextClick">
           </el-pagination>
-        </el-col>
-      </el-row>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -220,6 +226,7 @@
   import {
     getStudentNum,
     getStudentData,
+    getStudentData1,
     deleteStudent,
     getRoomList,
     queren
@@ -241,7 +248,6 @@
           right: 30,
         },
       };
-
       return {
         current: 1,
         currentroomid: 1,
@@ -249,6 +255,7 @@
         size: 10,
         value: "",
         tableData: [],
+        stateChosed: '全部',
         newStudentsAddedToday: -1,
         numberOfStudents: -1,
         birthdayThisMonth: -1,
@@ -304,9 +311,33 @@
     },
     watch: {
       current() {
-        this.getStuNumber();
-        this.getStuRange();
+        if (this.stateChosed === '全部') {
+          this.getStuNumber();
+          this.getStuRange();
+        } else {
+          this.getStuNumber();
+          this.getStuRange1();
+        }
       },
+      size() {
+        if (this.stateChosed === '全部') {
+          this.getStuNumber();
+          this.getStuRange();
+        } else {
+          this.getStuNumber();
+          this.getStuRange1();
+        }
+      },
+      stateChosed() {
+        this.current = 1
+        if (this.stateChosed === '全部') {
+          this.getStuNumber();
+          this.getStuRange();
+        } else {
+          this.getStuNumber();
+          this.getStuRange1();
+        }
+      }
     },
     methods: {
       async getStuNumber() {
@@ -319,6 +350,16 @@
       async getStuRange() {
         this.tableData = (
           await getStudentData({
+            number1: this.size * (this.current - 1),
+            number2: this.size * this.current,
+            number3: this.currentroomid,
+          })
+        ).result;
+      },
+      async getStuRange1() {
+        this.tableData = (
+          await getStudentData1({
+            state: this.stateChosed,
             number1: this.size * (this.current - 1),
             number2: this.size * this.current,
             number3: this.currentroomid,
@@ -358,6 +399,9 @@
       currentChange(page) {
         this.current = page;
       },
+      sizeChange(size) {
+        this.size = size
+      },
       prevClick(page) {
         this.current = page;
       },
@@ -388,8 +432,8 @@
 
 <style>
   .el-table .warning-row {
-    /* color: #f54e40; */
-    background-color: #fdf5e6;
+    color: #f54e40;
+    /* background-color: #fdf5e6; */
   }
 </style>
 
@@ -478,7 +522,17 @@
     }
 
     .show3 {
+      margin-right: 20px;
+
       .show-table {
+        padding: 40px 24px 24px 24px;
+        background-color: #ffffff;
+
+        .statechosed {
+          float: right;
+          margin-bottom: 20px;
+        }
+
         .demo-table-expand {
           font-size: 0;
         }

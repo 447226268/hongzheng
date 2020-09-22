@@ -9,7 +9,9 @@
           <hzheader></hzheader>
         </el-header>
         <el-main>
-          <router-view />
+          <transition name="el-fade-in-linear">
+            <router-view />
+          </transition>
         </el-main>
       </el-container>
     </el-container>
@@ -23,7 +25,7 @@
     name: 'layout',
     data() {
       return {
-        
+
       }
     },
     components: {

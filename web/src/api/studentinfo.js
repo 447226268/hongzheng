@@ -19,6 +19,8 @@ export const getStudentNum = data => ajax("/student/number", data, "get")
 
 export const getStudentData = data => ajax("/student/getRange", data, "get")
 
+export const getStudentData1 = data => ajax("/student/statesearch", data, "get")
+
 export const getRoomList = () => ajax("/room/getall", {}, "get")
 
 export const getStudentInsert = () => ajax("/student/insert", {}, "post")
