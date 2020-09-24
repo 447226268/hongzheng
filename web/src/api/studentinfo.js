@@ -29,3 +29,6 @@ export const deleteStudent = data => ajax("/student/delete", data, "get")
 
 export const queren = data => ajax("/student/queren", data, "get")
 
+export const gettable = data => ajax("/home/table1", data, "get")
+
+
