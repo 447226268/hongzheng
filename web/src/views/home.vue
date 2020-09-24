@@ -69,11 +69,33 @@
           <!-- 学员趋势 -->
           <div class="info-change">
             <div class="normal-box">
-              <i class="el-icon-s-marketing"></i>
-              <span class="info-change-title">学员趋势</span>
+              <div class="title-inline">
+                <div>
+                  <i class="el-icon-s-marketing"></i>
+                  <span class="info-change-title">学员趋势</span>
+                </div>
+
+                <div>
+                  <el-button
+                    plain
+                    icon="el-icon-caret-left"
+                    @click="lineChartBtn(1)"
+                  ></el-button>
+                  <el-button
+                    plain
+                    icon="el-icon-caret-right"
+                    @click="lineChartBtn(2)"
+                  ></el-button>
+                  <el-button plain @click="lineChartBtn(3)">日</el-button>
+                  <el-button plain @click="lineChartBtn(4)">月</el-button>
+                  <el-button plain @click="lineChartBtn(5)">年</el-button>
+                </div>
+              </div>
+
               <div class="show-line1">
                 <ve-line
                   :data="chartData"
+                  :settings="chartSettings"
                   height="300px"
                   width="100%"
                 ></ve-line>
@@ -421,6 +443,10 @@ import {
 export default {
   name: "home",
   data() {
+    this.chartSettings = {
+      stack: { 趋势: ["金额", "人数"] },
+      area: true,
+    };
     return {
       numberOfAddBStudents: null,
       numberOfAddStudents: null,
@@ -465,32 +491,14 @@ export default {
         ],
       },
       chartData: {
-        columns: ["日期", "人数"],
+        columns: ["日期", "金额", "人数",],
         rows: [
-          {
-            日期: "1/1",
-            人数: 1393,
-          },
-          {
-            日期: "1/2",
-            人数: 3530,
-          },
-          {
-            日期: "1/3",
-            人数: 2923,
-          },
-          {
-            日期: "1/4",
-            人数: 1723,
-          },
-          {
-            日期: "1/5",
-            人数: 3792,
-          },
-          {
-            日期: "1/6",
-            人数: 4593,
-          },
+          { 日期: "1/1", 金额: 1393, 人数: 1093 },
+          { 日期: "1/2", 金额: 3530, 人数: 3230 },
+          { 日期: "1/3", 金额: 2923, 人数: 2623 },
+          { 日期: "1/4", 金额: 1723, 人数: 1423 },
+          { 日期: "1/5", 金额: 3792, 人数: 3492 },
+          { 日期: "1/6", 金额: 4593, 人数: 4293 },
         ],
       },
     };
@@ -553,6 +561,12 @@ export default {
     btnClick() {
       this.showTable = !this.showTable;
     },
+
+    //LINECHART按钮
+    lineChartBtn(Val) {
+      console.log(Val);
+    },
+
     back() {
       this.showTable = !this.showTable;
     },
@@ -656,6 +670,12 @@ export default {
     padding: 16px 20px;
     background-color: #fff;
     height: 270px;
+
+    .title-inline {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   .normal-box2 {
