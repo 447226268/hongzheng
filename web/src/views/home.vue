@@ -34,13 +34,13 @@
                   </p>
                 </div>
                 <div class="info-singelChange">
-                  <p class="changetitle">待续费学员(人)</p>
+                  <p class="changetitle">今日续费订单(条)</p>
                   <p class="changeNum">
                     <span>{{numberOfStudents}}</span>
                   </p>
                 </div>
                 <div class="info-singelChange">
-                  <p class="changetitle">今日续费订单(条)</p>
+                  <p class="changetitle">待续费学员(人)</p>
                   <p class="changeNum">
                     <span>{{birthdayThisMonth}}</span>
                   </p>
