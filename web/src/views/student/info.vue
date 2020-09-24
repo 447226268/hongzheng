@@ -268,32 +268,8 @@
           id: null,
         }, ],
         chartData: {
-          columns: ["日期", "访问用户"],
-          rows: [{
-              日期: "1/1",
-              访问用户: 1393
-            },
-            {
-              日期: "1/2",
-              访问用户: 3530
-            },
-            {
-              日期: "1/3",
-              访问用户: 2923
-            },
-            {
-              日期: "1/4",
-              访问用户: 1723
-            },
-            {
-              日期: "1/5",
-              访问用户: 3792
-            },
-            {
-              日期: "1/6",
-              访问用户: 4593
-            },
-          ],
+          columns: ["name", "num"],
+          rows: [],
         },
         birthdayStudent: [],
       };
@@ -344,6 +320,7 @@
         this.birthdayThisMonth = showList.birthdayThisMonth
         this.graduateStudent = showList.zhuxiao
         this.birthdayStudent = showList.birthdayStudent
+        this.chartData.rows = showList.studentlist
       },
       async getStuNumber() {
         this.total = (

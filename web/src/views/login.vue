@@ -13,7 +13,8 @@
               <el-input v-model="form.username" placeholder="用户名" prefix-icon="el-icon-user"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input v-model="form.password" placeholder="密码" prefix-icon="el-icon-lock"></el-input>
+              <el-input v-model="form.password" placeholder="密码" prefix-icon="el-icon-lock">
+              </el-input>
             </el-form-item>
           </el-form>
           <el-button type="primary" @click="onSubmit">登 陆</el-button>
@@ -35,6 +36,16 @@
         form: {
           username: '',
           password: '',
+        }
+      }
+    },
+    created() {
+      var _self = this;
+      document.onkeydown = function (e) {
+        console.log(e)
+        var key = window.event.keyCode;
+        if (key == 13) {
+          _self.onSubmit();
         }
       }
     },
