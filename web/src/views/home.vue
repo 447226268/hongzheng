@@ -33,7 +33,7 @@
           <!-- 今日数据变动 -->
           <div class="info-change">
             <div class="normal-box">
-              <i class="el-icon-s-marketing"></i>
+              <i class="el-icon-user"></i>
               <span class="info-change-title">今日数据变动</span>
               <div class="info-allChange">
                 <div class="info-singelChange">
@@ -72,23 +72,20 @@
               <div class="title-inline">
                 <div>
                   <i class="el-icon-s-marketing"></i>
-                  <span class="info-change-title">学员趋势</span>
+                  <span class="info-change-title">流水&人数</span>
                 </div>
 
                 <div>
-                  <el-button
-                    plain
-                    icon="el-icon-caret-left"
-                    @click="lineChartBtn(1)"
-                  ></el-button>
-                  <el-button
-                    plain
-                    icon="el-icon-caret-right"
-                    @click="lineChartBtn(2)"
-                  ></el-button>
-                  <el-button plain @click="lineChartBtn(3)">日</el-button>
-                  <el-button plain @click="lineChartBtn(4)">月</el-button>
-                  <el-button plain @click="lineChartBtn(5)">年</el-button>
+                  <div class="block">
+                    <el-date-picker
+                      v-model="dateValue"
+                      type="month"
+                      placeholder="选择月"
+                      value-format="yyyy-MM"
+                      @change="chooseMonth(dateValue)"
+                    >
+                    </el-date-picker>
+                  </div>
                 </div>
               </div>
 
@@ -207,7 +204,11 @@
                         >
                       </template>
                     </el-table-column>
-                    <el-table-column label="操作" align="center" min-width="200">
+                    <el-table-column
+                      label="操作"
+                      align="center"
+                      min-width="200"
+                    >
                       <template slot-scope="scope">
                         <el-button
                           size="mini"
@@ -439,15 +440,20 @@ import {
   update,
   getbyid,
   getTable1,
+  getall,
 } from "@/api/home.js";
 export default {
   name: "home",
   data() {
     this.chartSettings = {
-      stack: { 趋势: ["金额", "人数"] },
+      axisSite: { right: ["money"] },
+      yAxisName: ["人数", "金额"],
       area: true,
     };
     return {
+      year: null,
+      month: null,
+      dateValue: new Date(),
       numberOfAddBStudents: null,
       numberOfAddStudents: null,
       xufei: null,
@@ -491,15 +497,8 @@ export default {
         ],
       },
       chartData: {
-        columns: ["日期", "金额", "人数",],
-        rows: [
-          { 日期: "1/1", 金额: 1393, 人数: 1093 },
-          { 日期: "1/2", 金额: 3530, 人数: 3230 },
-          { 日期: "1/3", 金额: 2923, 人数: 2623 },
-          { 日期: "1/4", 金额: 1723, 人数: 1423 },
-          { 日期: "1/5", 金额: 3792, 人数: 3492 },
-          { 日期: "1/6", 金额: 4593, 人数: 4293 },
-        ],
+        columns: ["day", "people", "money"],
+        rows: [],
       },
     };
   },
@@ -508,6 +507,7 @@ export default {
     this.getBStuNumber();
     this.getBStuRange();
     this.getinfochange();
+    this.chooseMonth()
   },
   watch: {
     current() {
@@ -563,8 +563,21 @@ export default {
     },
 
     //LINECHART按钮
-    lineChartBtn(Val) {
-      console.log(Val);
+    chooseMonth(dateValue) {
+      this.year = this.$moment(dateValue).format("YYYY");
+      this.month = this.$moment(dateValue).format("MM");
+      console.log(this.year);
+      console.log(this.month);
+      this.getLineChartData();
+    },
+    async getLineChartData() {
+      this.chartData.rows = (
+        await await getall({
+          rid: this.currentroomid,
+          year: this.year,
+          month: this.month,
+        })
+      ).result;
     },
 
     back() {
@@ -637,6 +650,7 @@ export default {
       await this.getBStuNumber();
       this.getBStuRange();
     },
+
     currentChange(page) {
       this.current = page;
     },

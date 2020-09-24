@@ -24,5 +24,9 @@ export const getbyid = data => ajax("/bstudent/getbyid", data, "get")
 
 export const getTable1 = data => ajax("/home/table1", data, "get")
 
+export const getall = data => ajax("/chart/getall", data, "get")
+
+
+
 
 
