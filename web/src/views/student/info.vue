@@ -74,14 +74,15 @@
                   <i class="el-icon-date"></i>
                   <span class="info-change-title">生日学员</span>
                 </div>
-                <span style="font-weight: 800; margin-right: 20px">{{birthdayNum}}</span>
+                <span style="font-weight: 600; margin-right: 20px">{{birthdayStudent.length}}</span>
               </div>
-              <el-table :data="birthTable" height="250px" border style="width: 100%">
-                <el-table-column prop="name" label="姓名"></el-table-column>
-                <el-table-column prop="birthday" label="生日"></el-table-column>
-                <el-table-column prop="room.name" label="所属校区"></el-table-column>
-                <el-table-column prop="telephone" label="电话"></el-table-column>
-              </el-table>
+              <div>
+                <el-table :data="birthdayStudent" height="220px" style="width: 100%; margin-top:25px;">
+                  <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+                  <el-table-column prop="birthday" label="生日" align="center"></el-table-column>
+                  <el-table-column prop="telephone" label="电话" align="center"></el-table-column>
+                </el-table>
+              </div>
             </div>
           </div>
         </el-col>
@@ -229,7 +230,8 @@
     getStudentData1,
     deleteStudent,
     getRoomList,
-    queren
+    queren,
+    gettable
   } from "@/api/studentinfo.js";
   export default {
     name: "sutdentinfo",
@@ -255,7 +257,7 @@
         size: 10,
         value: "",
         tableData: [],
-        stateChosed: '全部',
+        stateChosed: '正常',
         newStudentsAddedToday: -1,
         numberOfStudents: -1,
         birthdayThisMonth: -1,
@@ -293,21 +295,14 @@
             },
           ],
         },
-        birthTable: [{
-          name: "王小虎",
-          birthday: "2016-05-03",
-          room: {
-            name: "校区1",
-          },
-          telephone: 123213,
-        }, ],
+        birthdayStudent: [],
       };
     },
     async mounted() {
       await this.getRoom();
       this.getStuNumber();
-      this.getStuRange();
-
+      this.getStuRange1();
+      this.getTable();
     },
     watch: {
       current() {
@@ -340,10 +335,21 @@
       }
     },
     methods: {
+      async getTable() {
+        let showList = (await gettable({
+          rid: this.currentroomid
+        })).result
+        this.newStudentsAddedToday = showList.numberOfAddStudents
+        this.numberOfStudents = showList.numberOfStudents
+        this.birthdayThisMonth = showList.birthdayThisMonth
+        this.graduateStudent = showList.zhuxiao
+        this.birthdayStudent = showList.birthdayStudent
+      },
       async getStuNumber() {
         this.total = (
           await getStudentNum({
             rid: this.currentroomid,
+            state: this.stateChosed
           })
         ).result;
       },

@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import {
   Message,
-  MessageBox
+  // MessageBox
 } from 'element-ui'
 
 const service = axios.create({
@@ -32,13 +32,14 @@ service.interceptors.response.use(
       return Promise.resolve(response.data);
     }
     if (code == -100) {
-      MessageBox.alert('用户信息错误，请重新登陆。', '提示', {
-        confirmButtonText: '知道了',
-        showClose: false,
-        callback: () => {
-          window.location.href = '/login';
-        }
-      });
+      // MessageBox.alert('用户信息错误，请重新登陆。', '提示', {
+      //   confirmButtonText: '知道了',
+      //   showClose: false,
+      //   callback: () => {
+      //     window.location.href = '/login';
+      //   }
+      // });
+      window.location.href = '/login';
     } else {
       Message.error(response.data.msg);
     }
