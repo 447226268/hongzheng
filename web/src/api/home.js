@@ -22,5 +22,7 @@ export const deleteBStudent = data => ajax("/bstudent/delete", data, "get")
 
 export const getbyid = data => ajax("/bstudent/getbyid", data, "get")
 
+export const getTable1 = data => ajax("/home/table1", data, "get")
+
 
 
