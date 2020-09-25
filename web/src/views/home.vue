@@ -507,7 +507,7 @@ export default {
     this.getBStuNumber();
     this.getBStuRange();
     this.getinfochange();
-    this.chooseMonth()
+    this.chooseMonth();
   },
   watch: {
     current() {
@@ -557,6 +557,8 @@ export default {
       console.log(this.currentroomid);
       this.getBStuNumber();
       this.getBStuRange();
+      this.getinfochange();
+      this.chooseMonth();
     },
     btnClick() {
       this.showTable = !this.showTable;
