@@ -8,8 +8,8 @@ import {
 } from 'element-ui'
 
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API //默认所有请求地址添加baseurl
-  baseURL: "/front",
+  baseURL: process.env.VUE_APP_BASE_API //默认所有请求地址添加baseurl
+  // baseURL: "/front",
 })
 
 
