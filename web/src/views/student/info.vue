@@ -468,7 +468,7 @@ export default {
     },
     changeRoomId(id) {
       this.currentroomid = id;
-      console.log(this.currentroomid);
+      this.stateChosed = '全部';
       this.getStuNumber();
       this.getStuRange();
       this.getTable();
