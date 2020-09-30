@@ -56,7 +56,6 @@ public class OrderController {
     }
     @PostMapping("/update")
     public CommonResponse update(@RequestBody Order order ){
-        System.out.println(order);
         orderService.update(order);
         return  ResponseUtil.success();
     }
@@ -109,6 +108,8 @@ public class OrderController {
         Order room=orderService.getById(id);
         if(room.getState().equals("失效")||room.getState().equals("冻结")){
             return  ResponseUtil.success("修改成功");
+        }else if(room.getState().equals("正常")){
+
         }
         room.setState("正常");
         orderDao.update(room);

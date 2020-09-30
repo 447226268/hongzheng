@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class OutDateUtil {
-    public static String add(String date1,String type) throws ParseException {
+    public static String add(String date1,String type,Integer delaytile) throws ParseException {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(date1);
         Calendar rightNow = Calendar.getInstance();

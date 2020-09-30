@@ -32,14 +32,12 @@ public class AdminController {
     }
     @PostMapping("/insert")
     public CommonResponse insert(@RequestBody Admin admin ){
-        System.out.println(admin);
         admin.setState("正常");
         adminService.insert(admin);
         return  ResponseUtil.success();
     }
     @PostMapping("/update")
     public CommonResponse update(@RequestBody Admin admin ){
-        System.out.println(admin);
         admin.setState("正常");
         adminService.update(admin);
         return  ResponseUtil.success();
@@ -47,30 +45,28 @@ public class AdminController {
     @GetMapping("/updatestate")
     public CommonResponse updatestate(@RequestParam("id") Integer id){
         Admin admin=adminService.findById(id);
-        System.out.println(admin);
         if(admin.getState().equals("正常")){
             admin.setState("冻结");
         }else{
             admin.setState("正常");
         }
-        System.out.println(admin);
         adminService.update(admin);
         return  ResponseUtil.success();
     }
     @PostMapping("/login")
     public CommonResponse<PUser> login(@RequestBody Admin admin , HttpServletRequest request){
-        System.out.println(admin);
         PUser puser=new PUser();
         HttpSession session = request.getSession();
         Admin admin1=adminService.findByUsername(admin.getUsername());
-        puser.setLevel(admin1.getLevel());
-        puser.setName(admin1.getName());
+
         if(admin1!=null){
             if(admin.getPassword().equals(admin1.getPassword())){
                 if(admin1.getState().equals("冻结")){
                     return ResponseUtil.error("用户被冻结，请联系管理员");
                 }else{
                     session.setAttribute("admin",admin1);
+                    puser.setName(admin1.getName());
+                    puser.setLevel(admin1.getLevel());
                     return ResponseUtil.success(puser,"登陆成功");
                 }
             }else{

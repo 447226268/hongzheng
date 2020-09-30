@@ -1,0 +1,60 @@
+2020-09-25 00:01:00.662  WARN 3467 --- [http-nio-8887-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:04:02.469  WARN 3467 --- [http-nio-8887-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:04:33.105  WARN 3467 --- [http-nio-8887-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:05:33.478  WARN 3467 --- [http-nio-8887-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:05:50.604  WARN 3467 --- [http-nio-8887-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:05:58.778  WARN 3467 --- [http-nio-8887-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:07:54.033  WARN 3467 --- [http-nio-8887-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:09:28.588  WARN 3467 --- [http-nio-8887-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:09:33.843  WARN 3467 --- [http-nio-8887-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required Integer parameter 'year' is not present]
+2020-09-25 00:13:45.830  WARN 3467 --- [http-nio-8887-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'state' is not present]
+2020-09-25 00:27:43.675  INFO 3467 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:27:43.676  INFO 3467 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-09-25 00:27:43.681  INFO 3467 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-09-25 00:27:47.634  INFO 3810 --- [main] com.yxr.hz.HongzhengApplication          : Starting HongzhengApplication on xrdeMacBook-Pro.local with PID 3810 (/Users/xr/Desktop/hongzheng/hongzheng/target/classes started by xr in /Users/xr/Desktop/hongzheng/hongzheng)
+2020-09-25 00:27:47.636  INFO 3810 --- [main] com.yxr.hz.HongzhengApplication          : No active profile set, falling back to default profiles: default
+2020-09-25 00:27:48.321  INFO 3810 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2020-09-25 00:27:48.328  INFO 3810 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-25 00:27:48.328  INFO 3810 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-09-25 00:27:48.376  INFO 3810 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-25 00:27:48.376  INFO 3810 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 705 ms
+2020-09-25 00:27:48.749  INFO 3810 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:27:48.990  INFO 3810 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2020-09-25 00:27:49.000  INFO 3810 --- [main] com.yxr.hz.HongzhengApplication          : Started HongzhengApplication in 1.608 seconds (JVM running for 2.027)
+2020-09-25 00:29:31.090  INFO 3810 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:29:33.113  INFO 3843 --- [main] com.yxr.hz.HongzhengApplication          : Starting HongzhengApplication on xrdeMacBook-Pro.local with PID 3843 (/Users/xr/Desktop/hongzheng/hongzheng/target/classes started by xr in /Users/xr/Desktop/hongzheng/hongzheng)
+2020-09-25 00:29:33.114  INFO 3843 --- [main] com.yxr.hz.HongzhengApplication          : No active profile set, falling back to default profiles: default
+2020-09-25 00:29:33.710  INFO 3843 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2020-09-25 00:29:33.716  INFO 3843 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-25 00:29:33.716  INFO 3843 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-09-25 00:29:33.760  INFO 3843 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-25 00:29:33.760  INFO 3843 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 614 ms
+2020-09-25 00:29:34.078  INFO 3843 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:29:34.216  INFO 3843 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2020-09-25 00:29:34.225  INFO 3843 --- [main] com.yxr.hz.HongzhengApplication          : Started HongzhengApplication in 1.317 seconds (JVM running for 1.67)
+2020-09-25 00:31:36.690  INFO 3843 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-09-25 00:31:36.691  INFO 3843 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-09-25 00:31:36.696  INFO 3843 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-09-25 00:31:42.079  INFO 3843 --- [http-nio-8887-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-25 00:31:42.341  INFO 3843 --- [http-nio-8887-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-25 00:42:17.299  INFO 3843 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:42:17.300  INFO 3843 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-09-25 00:42:17.304  INFO 3843 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-09-25 00:43:19.139  INFO 4055 --- [main] com.yxr.hz.HongzhengApplication          : Starting HongzhengApplication on xrdeMacBook-Pro.local with PID 4055 (/Users/xr/Desktop/hongzheng/hongzheng/target/classes started by xr in /Users/xr/Desktop/hongzheng/hongzheng)
+2020-09-25 00:43:19.142  INFO 4055 --- [main] com.yxr.hz.HongzhengApplication          : No active profile set, falling back to default profiles: default
+2020-09-25 00:43:19.887  INFO 4055 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2020-09-25 00:43:19.895  INFO 4055 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-25 00:43:19.895  INFO 4055 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-09-25 00:43:19.942  INFO 4055 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-25 00:43:19.943  INFO 4055 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 763 ms
+2020-09-25 00:43:20.255  INFO 4055 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:43:20.414  INFO 4055 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2020-09-25 00:43:20.425  INFO 4055 --- [main] com.yxr.hz.HongzhengApplication          : Started HongzhengApplication in 1.567 seconds (JVM running for 2.113)
+2020-09-25 00:43:45.933  INFO 4055 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-09-25 00:43:45.933  INFO 4055 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-09-25 00:43:45.937  INFO 4055 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2020-09-25 00:43:53.002  INFO 4055 --- [http-nio-8887-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-09-25 00:43:53.240  INFO 4055 --- [http-nio-8887-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-09-25 00:44:30.947  INFO 4055 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-09-25 00:44:30.948  INFO 4055 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-09-25 00:44:30.952  INFO 4055 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

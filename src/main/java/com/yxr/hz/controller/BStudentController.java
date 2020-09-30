@@ -44,7 +44,6 @@ public class BStudentController {
         if(number1==-1){
             List<BStudent> list=new ArrayList<>();
             for(Room room:rooms){
-                System.out.println(room.getId());
                 List<BStudent> list1=bStudentService.selectByRid(room.getId());
                 for(BStudent bStudent:list1){
                     bStudent.setRoom(roomService.findById(bStudent.getRid()));
