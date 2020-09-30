@@ -110,11 +110,6 @@ public class HomeController {
             }else {
 
             }
-
-
-
-
-
         }
         hahas.add(haha);
         hahas.add(haha1);
