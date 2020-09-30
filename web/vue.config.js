@@ -21,15 +21,15 @@ module.exports = {
   },
   devServer: {
     disableHostCheck: true,
-    proxy: {
-      '/front': {
-        target: process.env.VUE_APP_BASE_API,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          '^/front': ''
-        }
-      }
-    }
+    // proxy: {
+    //   '/front': {
+    //     target: process.env.VUE_APP_BASE_API,
+    //     changeOrigin: true,
+    //     ws: true,
+    //     pathRewrite: {
+    //       '^/front': ''
+    //     }
+    //   }
+    // }
   }
 }
