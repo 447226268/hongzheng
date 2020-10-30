@@ -591,8 +591,8 @@ export default {
         data[i] = this.ruleForm[i];
       }
       if (data.birthday !== null) {
-        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
-        data.date = this.$moment(data.date).format("YYYY-DD-MM");
+        data.birthday = this.$moment(data.birthday).format("YYYY-MM-DD");
+        data.date = this.$moment(data.date).format("YYYY-MM-DD");
       }
       await insert(data);
       this.$message({
@@ -624,8 +624,8 @@ export default {
         data[i] = this.ruleForm[i];
       }
       if (data.birthday !== null) {
-        data.birthday = this.$moment(data.birthday).format("YYYY-DD-MM");
-        data.indate = this.$moment(data.indate).format("YYYY-DD-MM");
+        data.birthday = this.$moment(data.birthday).format("YYYY-MM-DD");
+        data.indate = this.$moment(data.indate).format("YYYY-MM-DD");
       }
       await update(data);
       this.$message({
