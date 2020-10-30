@@ -56,8 +56,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void update(Student student) {
+    public void update(Student student) throws ParseException {
         student.setState("修改待确认");
+        System.out.println();
+        student.setOutdate(OutDateUtil.add(student.getIndate(), student.getCardtype(),student.getDelaytime()));
         studentDao.update(student);
     }
 
@@ -66,10 +68,12 @@ public class StudentServiceImpl implements StudentService {
         List<Student> list = studentDao.findAll();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
+
         Room room;
         List<Order> list1 = new ArrayList<>();
         for (Student s : list) {
             Integer reday = 0;
+            s.setOutdate(OutDateUtil.add(s.getIndate(), s.getCardtype(),s.getDelaytime()));
             list1 = orderDao.getBySId(s.getId());
             Integer money = 0;
             for (Order order : list1) {
@@ -79,9 +83,8 @@ public class StudentServiceImpl implements StudentService {
                 s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
             room = roomDao.getById(s.getRid());
-            if (s.getOutdate() != null) {
-                reday = TimeReverse.surplus(now, s.getOutdate());
-            }
+            reday = TimeReverse.surplus(now, s.getOutdate());
+
             s.setRoom(room);
             s.setReday(reday);
             s.setMoney(money);
@@ -117,12 +120,14 @@ public class StudentServiceImpl implements StudentService {
         }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String now = df.format(new Date());
+
         Integer reday = 0;
         Room room;
         List<Order> list1 = new ArrayList<>();
         for (Student s : list) {
             list1 = orderDao.getBySId(s.getId());
             Integer money = 0;
+            s.setOutdate(OutDateUtil.add(s.getIndate(), s.getCardtype(),s.getDelaytime()));
             for (Order order : list1) {
                 money += order.getMoney();
             }
@@ -130,10 +135,7 @@ public class StudentServiceImpl implements StudentService {
                 s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
             room = roomDao.getById(s.getRid());
-            if (s.getOutdate() != null) {
-
-                reday = TimeReverse.surplus(now, s.getOutdate());
-            }
+            reday = TimeReverse.surplus(now, s.getOutdate());
             s.setRoom(room);
             s.setReday(reday);
 
@@ -163,9 +165,9 @@ public class StudentServiceImpl implements StudentService {
         }
         Room room = roomDao.getById(s.getRid());
         Integer reday = 0;
-        if (s.getOutdate() != null) {
-            reday = TimeReverse.surplus(now, s.getOutdate());
-        }
+        s.setOutdate(OutDateUtil.add(s.getIndate(), s.getCardtype(),s.getDelaytime()));
+        reday = TimeReverse.surplus(now, s.getOutdate());
+
         s.setRoom(room);
         s.setReday(reday);
         s.setMoney(money);
@@ -181,6 +183,7 @@ public class StudentServiceImpl implements StudentService {
         for (Student s : list) {
             List<Order> list2 = orderDao.getBySId(s.getId());
             Integer money = 0;
+            s.setOutdate(OutDateUtil.add(s.getIndate(), s.getCardtype(),s.getDelaytime()));
             Integer reday = 0;
             for (Order order : list2) {
                 money += order.getMoney();
@@ -188,10 +191,9 @@ public class StudentServiceImpl implements StudentService {
             if (s.getBirthday() != null) {
                 s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
-            if (s.getOutdate() != null) {
-                reday = TimeReverse.surplus(now, s.getOutdate());
+            reday = TimeReverse.surplus(now, s.getOutdate());
 
-            }
+
             Room room = roomDao.getById(s.getRid());
             s.setRoom(room);
             s.setReday(reday);
@@ -213,9 +215,7 @@ public class StudentServiceImpl implements StudentService {
         if (level == 1) {
             s.setState("失效待确认");
         } else {
-
             s.setState("删除待确认");
-
         }
         studentDao.update(s);
     }

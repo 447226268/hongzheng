@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentService {
     void insert(Student student) throws ParseException;
-    void update(Student student);
+    void update(Student student) throws ParseException;
     List<Student> findAll() throws ParseException;
     void delete(Integer id);
     List<Student> selectByName(String name) throws ParseException;

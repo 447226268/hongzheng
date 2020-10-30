@@ -45,8 +45,7 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public CommonResponse update(@RequestBody Student student) {
-        student.setState("修改待确认");
+    public CommonResponse update(@RequestBody Student student) throws ParseException {
         studentService.update(student);
         return ResponseUtil.success("修改成功");
     }

@@ -12,21 +12,25 @@ public class OutDateUtil {
         Calendar rightNow = Calendar.getInstance();
         rightNow.setTime(date);
         if(type.equals("月卡")){
-            rightNow.add(Calendar.MONTH,1);//日期加10天
+            rightNow.add(Calendar.DATE,delaytile);//日期加10天
+            rightNow.add(Calendar.MONTH,1);
             Date dt1=rightNow.getTime();
             String reStr = sdf.format(dt1);
             return reStr;
         }else if(type.equals("季卡")){
+            rightNow.add(Calendar.DATE,delaytile);
             rightNow.add(Calendar.MONTH,3);//日期加10天
             Date dt1=rightNow.getTime();
             String reStr = sdf.format(dt1);
             return reStr;
         }else if(type.equals("半年卡")){
+            rightNow.add(Calendar.DATE,delaytile);
             rightNow.add(Calendar.MONTH,6);//日期加10天
             Date dt1=rightNow.getTime();
             String reStr = sdf.format(dt1);
             return reStr;
         }else if(type.equals("年卡")){
+            rightNow.add(Calendar.DATE,delaytile);
             rightNow.add(Calendar.YEAR,1);
             Date dt1=rightNow.getTime();
             String reStr = sdf.format(dt1);
