@@ -28,30 +28,30 @@ public class StudentServiceImpl implements StudentService {
     private RoomDao roomDao;
     @Autowired
     private OrderDao orderDao;
+
     @Override
     public void insert(Student student) throws ParseException {
         student.setState("添加待确认");
-        if(student.getCardtype()!=null) {
-            student.setOutdate(OutDateUtil.add(student.getIndate(), student.getCardtype()));
-        studentDao.insert(student);
-        List<Student> list=studentDao.findAll();
-        Order order=new Order();
-        order.setSid(list.get(list.size()-1).getId());
-        order.setRoom(student.getRoom());
-        order.setState("添加待确认");
-        order.setMoney(student.getMoney());
-        order.setType("开课");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String now = df.format(new Date());
-        order.setDate(now);
-        order.setCardtype(student.getCardtype());
-        order.setRid(student.getRid());
-        order.setHandler(student.getHandler());
-        order.setWay(student.getWay());
-        order.setReason(student.getInfo());
-        orderDao.insert(order);
-        System.out.println(student);
-        System.out.println(order);
+        if (student.getCardtype() != null) {
+            student.setOutdate(OutDateUtil.add(student.getIndate(), student.getCardtype(),student.getDelaytime()));
+            studentDao.insert(student);
+            List<Student> list = studentDao.findAll();
+            Order order = new Order();
+            order.setSid(list.get(list.size() - 1).getId());
+            order.setRoom(student.getRoom());
+            order.setState("添加待确认");
+            order.setMoney(student.getMoney());
+            order.setType("开课");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String now = df.format(new Date());
+            order.setDate(now);
+            order.setCardtype(student.getCardtype());
+            order.setRid(student.getRid());
+            order.setHandler(student.getHandler());
+            order.setWay(student.getWay());
+            order.setReason(student.getInfo());
+            orderDao.insert(order);
+
         }
     }
 
@@ -63,23 +63,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAll() throws ParseException {
-        List<Student> list=studentDao.findAll();
+        List<Student> list = studentDao.findAll();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String now=df.format(new Date());
+        String now = df.format(new Date());
         Room room;
-        List<Order> list1=new ArrayList<>();
-        for(Student s:list){
-            Integer reday=0;
-            list1=orderDao.getBySId(s.getId());
-            Integer money=0;
-            for(Order order:list1){
-                money+=order.getMoney();
+        List<Order> list1 = new ArrayList<>();
+        for (Student s : list) {
+            Integer reday = 0;
+            list1 = orderDao.getBySId(s.getId());
+            Integer money = 0;
+            for (Order order : list1) {
+                money += order.getMoney();
             }
-            if(s.getBirthday()!=null) {
-                s.setAge((TimeReverse.surplus(s.getBirthday(), now)/365));
+            if (s.getBirthday() != null) {
+                s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
-            room=roomDao.getById(s.getRid());
-            if(s.getOutdate()!=null) {
+            room = roomDao.getById(s.getRid());
+            if (s.getOutdate() != null) {
                 reday = TimeReverse.surplus(now, s.getOutdate());
             }
             s.setRoom(room);
@@ -102,40 +102,44 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> selectByName(String name) throws ParseException {
-        List<Student> list=studentDao.findByName(name);
+        List<Student> list = studentDao.findByName(name);
 
 
-        if(list.size()==1) {
+        if (list.size() == 1) {
             for (Student s : list) {
-                if ( s.getState().equals("冻结")) {
+                if (s.getState().equals("冻结")) {
                     list.remove(s);
                     return null;
                 }
             }
-        }else if(list.size()==0){
+        } else if (list.size() == 0) {
             return null;
         }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String now=df.format(new Date());
-        Integer reday=0;
+        String now = df.format(new Date());
+        Integer reday = 0;
         Room room;
-        List<Order> list1=new ArrayList<>();
-        for(Student s:list){
-            list1=orderDao.getBySId(s.getId());
-            Integer money=0;
-            for(Order order:list1){
-                money+=order.getMoney();
+        List<Order> list1 = new ArrayList<>();
+        for (Student s : list) {
+            list1 = orderDao.getBySId(s.getId());
+            Integer money = 0;
+            for (Order order : list1) {
+                money += order.getMoney();
             }
-            if(s.getBirthday()!=null) {
-                s.setAge((TimeReverse.surplus(s.getBirthday(), now)/365));
+            if (s.getBirthday() != null) {
+                s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
-            room=roomDao.getById(s.getRid());
-            if(s.getOutdate()!=null) {
+            room = roomDao.getById(s.getRid());
+            if (s.getOutdate() != null) {
 
-                reday = TimeReverse.surplus(now,s.getOutdate());
+                reday = TimeReverse.surplus(now, s.getOutdate());
             }
             s.setRoom(room);
             s.setReday(reday);
+
+
+
+
             s.setMoney(money);
         }
         return list;
@@ -144,23 +148,23 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student selectById(Integer id) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String now=df.format(new Date());
-        Student s=studentDao.findById(id);
-        if(s.getState().equals("冻结")){
+        String now = df.format(new Date());
+        Student s = studentDao.findById(id);
+        if (s.getState().equals("冻结")) {
             return null;
         }
-        List<Order> list1=orderDao.getBySId(s.getId());
-        Integer money=0;
-        for(Order order:list1){
-            money+=order.getMoney();
+        List<Order> list1 = orderDao.getBySId(s.getId());
+        Integer money = 0;
+        for (Order order : list1) {
+            money += order.getMoney();
         }
-        if(s.getBirthday()!=null) {
-            s.setAge((TimeReverse.surplus(s.getBirthday(), now)/365));
+        if (s.getBirthday() != null) {
+            s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
         }
-        Room room=roomDao.getById(s.getRid());
-        Integer reday=0;
-        if(s.getOutdate()!=null) {
-             reday = TimeReverse.surplus( now,s.getOutdate());
+        Room room = roomDao.getById(s.getRid());
+        Integer reday = 0;
+        if (s.getOutdate() != null) {
+            reday = TimeReverse.surplus(now, s.getOutdate());
         }
         s.setRoom(room);
         s.setReday(reday);
@@ -169,47 +173,46 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> selectByRid(Integer rid,Integer level) throws ParseException {
+    public List<Student> selectByRid(Integer rid, Integer level) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String now=df.format(new Date());
-        List<Student> list=studentDao.findByRid(rid);
-        System.out.println(list);
-        List<Student> list1=new ArrayList<>();
-        for(Student s:list){
-            List<Order> list2=orderDao.getBySId(s.getId());
-            Integer money=0;
-            Integer reday=0;
-            for(Order order:list2){
-                money+=order.getMoney();
+        String now = df.format(new Date());
+        List<Student> list = studentDao.findByRid(rid);
+        List<Student> list1 = new ArrayList<>();
+        for (Student s : list) {
+            List<Order> list2 = orderDao.getBySId(s.getId());
+            Integer money = 0;
+            Integer reday = 0;
+            for (Order order : list2) {
+                money += order.getMoney();
             }
-            if(s.getBirthday()!=null) {
-                s.setAge((TimeReverse.surplus(s.getBirthday(), now)/365));
+            if (s.getBirthday() != null) {
+                s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
-            if(s.getOutdate()!=null) {
-                 reday = TimeReverse.surplus(now,s.getOutdate() );
+            if (s.getOutdate() != null) {
+                reday = TimeReverse.surplus(now, s.getOutdate());
 
             }
-            Room room=roomDao.getById(s.getRid());
+            Room room = roomDao.getById(s.getRid());
             s.setRoom(room);
             s.setReday(reday);
             s.setMoney(money);
-            if(!s.getState().equals("冻结")){
+            if (!s.getState().equals("冻结")) {
                 list1.add(s);
             }
         }
-        if(level==1){
+        if (level == 1) {
             return list;
-        }else{
+        } else {
             return list1;
         }
     }
 
     @Override
-    public void updateState(Integer id,Integer level) {
-        Student s=studentDao.findById(id);
-        if(level==1){
+    public void updateState(Integer id, Integer level) {
+        Student s = studentDao.findById(id);
+        if (level == 1) {
             s.setState("失效待确认");
-        }else{
+        } else {
 
             s.setState("删除待确认");
 

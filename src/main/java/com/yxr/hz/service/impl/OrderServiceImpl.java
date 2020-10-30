@@ -4,6 +4,7 @@ import com.yxr.hz.dao.OrderDao;
 import com.yxr.hz.dao.RoomDao;
 import com.yxr.hz.dao.StudentDao;
 import com.yxr.hz.entity.Order;
+import com.yxr.hz.entity.Room;
 import com.yxr.hz.entity.Student;
 import com.yxr.hz.service.OrderService;
 import com.yxr.hz.util.OutDateUtil;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -40,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDate(now);
         if(order.getType().equals("续费")) {
             Student s = studentDao.findById(order.getSid());
-            String date = OutDateUtil.add(s.getOutdate(), order.getCardtype());
+            String date = OutDateUtil.add(s.getOutdate(), order.getCardtype(),s.getDelaytime());
             s.setCardtype(order.getCardtype());
             s.setOutdate(date);
             studentDao.update(s);
@@ -58,7 +57,6 @@ public class OrderServiceImpl implements OrderService {
             orderDao.delete(order.getId());
             return ;
         }
-        System.out.println(123);
         if(order.getType().equals("续费")){
             String date = OutDateUtil.back(s.getOutdate(), order.getCardtype());
             s.setCardtype(order.getCardtype());
@@ -82,6 +80,12 @@ public class OrderServiceImpl implements OrderService {
             order.setStudent(studentDao.findById(order.getSid()));
             order.setRoom(roomDao.getById(order.getRid()));
         }
+        Collections.sort(list, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return Integer.parseInt(o1.getDate().replace("-",""))-(Integer.parseInt((o2.getDate().replace("-",""))));
+            }
+        });
         return list;
     }
 
@@ -95,7 +99,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getBySId(Integer sid) {
-        return orderDao.getBySId(sid);
+        List<Order> list=orderDao.getBySId(sid);
+        Collections.sort(list, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return Integer.parseInt(o1.getDate().replace("-",""))-(Integer.parseInt((o2.getDate().replace("-",""))));
+            }
+        });
+        return list;
     }
 
     @Override
@@ -105,6 +116,14 @@ public class OrderServiceImpl implements OrderService {
             order.setStudent(studentDao.findById(order.getSid()));
             order.setRoom(roomDao.getById(order.getRid()));
         }
+
+        Collections.sort(list, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return Integer.parseInt(o1.getDate().replace("-",""))-(Integer.parseInt((o2.getDate().replace("-",""))));
+            }
+        });
+
         return list;
     }
 }

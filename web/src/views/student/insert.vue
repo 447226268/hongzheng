@@ -65,7 +65,7 @@
         <el-form v-if="active===2" :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px"
           class="demo-ruleForm">
           <el-form-item label="办卡类型" prop="cardtype">
-            <el-select v-model="ruleForm2.cardtype" placeholder="请选择活动区域">
+            <el-select v-model="ruleForm2.cardtype">
               <el-option label="日卡" value="日卡"></el-option>
               <el-option label="月卡" value="月卡"></el-option>
               <el-option label="季卡" value="季卡"></el-option>
@@ -81,7 +81,7 @@
             <el-input v-model="ruleForm2.delaytime"></el-input>
           </el-form-item>
           <el-form-item label="道馆选择" prop="rid">
-            <el-select v-model="ruleForm2.rid" placeholder="请选择活动区域">
+            <el-select v-model="ruleForm2.rid">
               <el-option v-for="item in room" :label="item.name" :value="item.id" :key="item.id"></el-option>
             </el-select>
           </el-form-item>

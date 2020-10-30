@@ -77,7 +77,7 @@
           class="demo-ruleForm"
         >
           <el-form-item label="办卡类型" prop="cardtype">
-            <el-select v-model="ruleForm2.cardtype" placeholder="请选择活动区域">
+            <el-select v-model="ruleForm2.cardtype">
               <el-option label="日卡" value="日卡"></el-option>
               <el-option label="月卡" value="月卡"></el-option>
               <el-option label="季卡" value="季卡"></el-option>
@@ -89,8 +89,11 @@
           <el-form-item prop="indate" label="办卡日期">
             <el-date-picker type="date" v-model="ruleForm2.indate" style="width: 100%;"></el-date-picker>
           </el-form-item>
+          <el-form-item label="延期时长" prop="delaytime">
+            <el-input v-model="ruleForm2.delaytime"></el-input>
+          </el-form-item>
           <el-form-item label="道馆选择" prop="rid">
-            <el-select v-model="ruleForm2.rid" placeholder="请选择活动区域">
+            <el-select v-model="ruleForm2.rid">
               <el-option v-for="item in room" :label="item.name" :value="item.id" :key="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -181,6 +184,7 @@ export default {
       ruleForm2: {
         cardtype: null,
         indate: null,
+        delaytime: null,
         rid: null,
         money: null,
         way: null,
