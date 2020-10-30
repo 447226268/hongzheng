@@ -29,9 +29,9 @@
         </template>
       </el-table-column>
       <el-table-column label="编号" align="center" prop="id"></el-table-column>
-      <el-table-column label="学生姓名" align="center" prop="student.name"></el-table-column>
-      <el-table-column label="订单金额" align="center" prop="money"></el-table-column>
-      <el-table-column label="订单类型" align="center" prop="type"></el-table-column>
+      <el-table-column label="学生姓名" align="center" prop="student.name" min-width="100"></el-table-column>
+      <el-table-column label="订单金额" align="center" prop="money" min-width="100"></el-table-column>
+      <el-table-column label="订单类型" align="center" prop="type" min-width="100"></el-table-column>
       <el-table-column label="录入人" align="center" prop="handler"></el-table-column>
       <el-table-column label="方式" align="center" prop="way"></el-table-column>
       <el-table-column label="状态" align="center">

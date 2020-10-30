@@ -46,7 +46,7 @@
   }
 
   .el-main {
-    background-color: #f0f2f5;
+    background-color: #f5f7f8;
   }
 
   .el-container {

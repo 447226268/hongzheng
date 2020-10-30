@@ -252,6 +252,7 @@
             label="剩余时间"
             prop="reday"
             align="center"
+            min-width="100"
           ></el-table-column>
           <el-table-column
             label="教练"

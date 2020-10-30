@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <dvi class="form">
+    <div class="form">
       <div class="first">
       </div>
       <div class="seconed">
@@ -13,7 +13,7 @@
               <el-input v-model="form.username" placeholder="用户名" prefix-icon="el-icon-user"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input v-model="form.password" placeholder="密码" prefix-icon="el-icon-lock">
+              <el-input v-model="form.password" placeholder="密码" prefix-icon="el-icon-lock" show-password>
               </el-input>
             </el-form-item>
           </el-form>
@@ -21,7 +21,7 @@
         </div>
       </div>
 
-    </dvi>
+    </div>
   </div>
 </template>
 

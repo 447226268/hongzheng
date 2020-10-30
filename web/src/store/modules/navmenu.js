@@ -1,10 +1,11 @@
 const navmenu = {
   state: {
-    flag: 'false'
+    flag: localStorage.getItem("flag") || "false",
   },
   mutations: {
     FLAG: (state, String) => {
       state.flag = String;
+      localStorage.setItem("flag", state.flag)
     },
   },
   actions: {

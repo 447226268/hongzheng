@@ -7,7 +7,7 @@
             <el-form-item label="id">
               <span>{{ props.row.id }}</span>
             </el-form-item>
-            <el-form-item label="学生姓名">
+            <el-form-item label="学生姓名" >
               <span>{{ props.row.student.name }}</span>
             </el-form-item>
             <el-form-item label="订单金额">

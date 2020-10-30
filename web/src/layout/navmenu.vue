@@ -8,7 +8,7 @@
 -->
 <template>
   <div id="layout">
-    <el-menu router :default-active="isActived" class="el-menu-vertical-demo"
+    <el-menu router unique-opened="true" :default-active="isActived" class="el-menu-vertical-demo"
       :collapse="$store.getters.flag === 'false' ? false : true">
       <el-image class="logo" v-if="$store.getters.flag === 'false' ? true : false" :src="url" fit="fit"></el-image>
 

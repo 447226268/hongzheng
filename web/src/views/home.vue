@@ -161,6 +161,7 @@
                       label="咨询校区"
                       align="center"
                       prop="room.name"
+                      min-width="100"
                     ></el-table-column>
                     <el-table-column
                       label="录入人"
@@ -171,6 +172,7 @@
                       label="意向程度"
                       align="center"
                       prop="degree"
+                      min-width="100"
                     >
                       <template slot-scope="scope">
                         <el-tag
@@ -187,11 +189,13 @@
                       label="跟踪状态"
                       align="center"
                       prop="state"
+                      min-width="100"
                     ></el-table-column>
                     <el-table-column
                       label="是否试听"
                       align="center"
                       prop="islisten"
+                      min-width="100"
                     >
                       <template slot-scope="scope">
                         <el-tag
