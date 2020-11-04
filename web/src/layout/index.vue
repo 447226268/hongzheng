@@ -42,7 +42,7 @@
   }
 
   .el-aside {
-    height: 100%;
+    min-height: 100%;
   }
 
   .el-main {
@@ -51,6 +51,6 @@
 
   .el-container {
     min-width: 1200px;
-    height: 100vh;
+    min-height: 100vh;
   }
 </style>

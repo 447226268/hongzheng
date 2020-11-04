@@ -19,7 +19,7 @@
           class="demo-ruleForm"
         >
           <div class="avatarimg">
-            <avataruploader ref="avataruploader" v-bind:image="ruleForm1.image" v-on:get="getImgae"></avataruploader>
+            <avataruploader ref="avataruploader" v-bind:image="ruleForm1.image" v-on:getUrl="getUrl"></avataruploader>
           </div>
 
           <el-form-item label="姓名" prop="name">
@@ -246,12 +246,12 @@ export default {
         }
       }
     },
-    getImgae() {
-      this.ruleForm1["image"] = this.$refs["avataruploader"].imageUrl;
-    },
     async getAllRoom() {
       let result = (await getall()).result;
       this.room = result;
+    },
+    getUrl(url){
+      this.ruleForm1.image = url
     },
     async insertStudent() {
       let data = {};

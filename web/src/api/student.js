@@ -18,4 +18,5 @@ export const change = data => ajax("/bstudent/change", data, "get")
 
 export const update = data => ajax("/student/update", data, "post")
 
+export const updatePic = process.env.VUE_APP_BASE_API + "/student/popo"
 

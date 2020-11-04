@@ -10,15 +10,15 @@
           <div>
             <span>校区：</span>
             <el-select
-              v-model="value"
-              :placeholder="roomList[0].name"
-              @change="changeRoomId"
+                v-model="value"
+                :placeholder="roomList[0].name"
+                @change="changeRoomId"
             >
               <el-option
-                v-for="item in roomList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
+                  v-for="item in roomList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
               ></el-option>
             </el-select>
           </div>
@@ -70,9 +70,9 @@
             <div class="normal-box">
               <span class="info-change-title">学员招生占比</span>
               <ve-ring
-                :data="chartData"
-                :settings="chartSettings"
-                :extend="barExtend"
+                  :data="chartData"
+                  :settings="chartSettings"
+                  :extend="barExtend"
               ></ve-ring>
             </div>
           </div>
@@ -88,29 +88,29 @@
                   <span class="info-change-title">生日学员</span>
                 </div>
                 <span style="font-weight: 600; margin-right: 20px">{{
-                  birthdayStudent.length
-                }}</span>
+                    birthdayStudent.length
+                  }}</span>
               </div>
               <div>
                 <el-table
-                  :data="birthdayStudent"
-                  height="220px"
-                  style="width: 100%; margin-top: 25px"
+                    :data="birthdayStudent"
+                    height="220px"
+                    style="width: 100%; margin-top: 25px"
                 >
                   <el-table-column
-                    prop="name"
-                    label="姓名"
-                    align="center"
+                      prop="name"
+                      label="姓名"
+                      align="center"
                   ></el-table-column>
                   <el-table-column
-                    prop="birthday"
-                    label="生日"
-                    align="center"
+                      prop="birthday"
+                      label="生日"
+                      align="center"
                   ></el-table-column>
                   <el-table-column
-                    prop="telephone"
-                    label="电话"
-                    align="center"
+                      prop="telephone"
+                      label="电话"
+                      align="center"
                   ></el-table-column>
                 </el-table>
               </div>
@@ -134,10 +134,10 @@
           </el-select>
         </div>
         <el-table
-          :data="tableData"
-          style="width: 100%"
-          :current-page.sync="current"
-          :row-class-name="tableRowClassName"
+            :data="tableData"
+            style="width: 100%"
+            :current-page.sync="current"
+            :row-class-name="tableRowClassName"
         >
           <el-table-column type="expand">
             <template slot-scope="props">
@@ -211,7 +211,7 @@
                 <el-form-item label="学员类型">
                   <span>{{ props.row.type }}</span>
                 </el-form-item>
-                <br />
+                <br/>
                 <el-form-item label="备注">
                   <span v-html="props.row.info"></span>
                 </el-form-item>
@@ -221,73 +221,76 @@
           <el-table-column label="头像" align="center" width="100px">
             <template slot-scope="scope">
               <el-image
-                style="width: 60px; height: 60px; border-radius: 100px"
-                :src="scope.row.image"
-                fit="cover"
+                  style="width: 60px; height: 60px; border-radius: 100px"
+                  :src="showurl + scope.row.image"
+                  fit="cover"
               >
               </el-image>
             </template>
           </el-table-column>
           <el-table-column
-            label="学号"
-            prop="id"
-            align="center"
+              label="学号"
+              prop="id"
+              align="center"
           ></el-table-column>
           <el-table-column
-            label="姓名"
-            prop="name"
-            align="center"
+              label="姓名"
+              prop="name"
+              align="center"
           ></el-table-column>
           <el-table-column
-            label="年龄"
-            prop="age"
-            align="center"
+              label="年龄"
+              prop="age"
+              align="center"
           ></el-table-column>
           <el-table-column
-            label="性别"
-            prop="gender"
-            align="center"
+              label="性别"
+              prop="gender"
+              align="center"
           ></el-table-column>
           <el-table-column
-            label="剩余时间"
-            prop="reday"
-            align="center"
-            min-width="100"
+              label="剩余时间"
+              prop="reday"
+              align="center"
+              min-width="100"
           ></el-table-column>
           <el-table-column
-            label="教练"
-            prop="coach"
-            align="center"
+              label="教练"
+              prop="coach"
+              align="center"
           ></el-table-column>
           <el-table-column label="状态" align="center">
             <template slot-scope="scope">
               <el-tag
-                :type="scope.row.state === '正常' ? 'success' : 'danger'"
-                effect="dark"
-                >{{ scope.row.state }}
+                  :type="scope.row.state === '正常' ? 'success' : 'danger'"
+                  effect="dark"
+              >{{ scope.row.state }}
               </el-tag>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="250px">
             <template slot-scope="scope">
               <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)"
-                >编辑</el-button
+                  size="mini"
+                  @click="handleEdit(scope.$index, scope.row)"
+              >编辑
+              </el-button
               >
               <el-button
-                size="mini"
-                type="success"
-                @click="handleConfirm(scope.$index, scope.row)"
-                >确认</el-button
+                  size="mini"
+                  type="success"
+                  @click="handleConfirm(scope.$index, scope.row)"
+              >确认
+              </el-button
               >
               <el-popconfirm
-                style="margin-left: 10px"
-                title="请确定是否删除？"
-                @onConfirm="handleDelete(scope.$index, scope.row)"
+                  style="margin-left: 10px"
+                  title="请确定是否删除？"
+                  @onConfirm="handleDelete(scope.$index, scope.row)"
               >
                 <el-button slot="reference" size="mini" type="danger"
-                  >删除</el-button
+                >删除
+                </el-button
                 >
               </el-popconfirm>
             </template>
@@ -295,16 +298,16 @@
         </el-table>
         <div style="text-align: center; margin: 20px 0 10px 0">
           <el-pagination
-            class="pagination"
-            background
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
-            @size-change="sizeChange"
-            :page-sizes="[10, 20, 50, 100]"
-            :current-page="current"
-            @current-change="currentChange"
-            @prev-click="prevClick"
-            @next-click="nextClick"
+              class="pagination"
+              background
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="total"
+              @size-change="sizeChange"
+              :page-sizes="[10, 20, 50, 100]"
+              :current-page="current"
+              @current-change="currentChange"
+              @prev-click="prevClick"
+              @next-click="nextClick"
           >
           </el-pagination>
         </div>
@@ -323,6 +326,7 @@ import {
   queren,
   gettable,
 } from "@/api/studentinfo.js";
+
 export default {
   name: "sutdentinfo",
   data() {
@@ -341,6 +345,7 @@ export default {
       },
     };
     return {
+      showurl: process.env.VUE_APP_SHOW_PIC,
       current: 1,
       currentroomid: 1,
       total: null,
@@ -405,9 +410,9 @@ export default {
   methods: {
     async getTable() {
       let showList = (
-        await gettable({
-          rid: this.currentroomid,
-        })
+          await gettable({
+            rid: this.currentroomid,
+          })
       ).result;
       this.newStudentsAddedToday = showList.numberOfAddStudents;
       this.numberOfStudents = showList.numberOfStudents;
@@ -418,36 +423,36 @@ export default {
     },
     async getStuNumber() {
       this.total = (
-        await getStudentNum({
-          rid: this.currentroomid,
-          state: this.stateChosed,
-        })
+          await getStudentNum({
+            rid: this.currentroomid,
+            state: this.stateChosed,
+          })
       ).result;
     },
     async getStuRange() {
       this.tableData = (
-        await getStudentData({
-          number1: this.size * (this.current - 1),
-          number2: this.size * this.current,
-          number3: this.currentroomid,
-        })
+          await getStudentData({
+            number1: this.size * (this.current - 1),
+            number2: this.size * this.current,
+            number3: this.currentroomid,
+          })
       ).result;
     },
     async getStuRange1() {
       this.tableData = (
-        await getStudentData1({
-          state: this.stateChosed,
-          number1: this.size * (this.current - 1),
-          number2: this.size * this.current,
-          number3: this.currentroomid,
-        })
+          await getStudentData1({
+            state: this.stateChosed,
+            number1: this.size * (this.current - 1),
+            number2: this.size * this.current,
+            number3: this.currentroomid,
+          })
       ).result;
     },
     async getRoom() {
       let result = (
-        await getRoomList({
-          number1: this.currentroomid,
-        })
+          await getRoomList({
+            number1: this.currentroomid,
+          })
       ).result;
       this.roomList = result;
       this.currentroomid = result[0].id;
@@ -486,7 +491,7 @@ export default {
     nextClick(page) {
       this.current = page;
     },
-    tableRowClassName({ row, rowIndex }) {
+    tableRowClassName({row, rowIndex}) {
       if (row.reday < 30) {
         console.log(row.reday, rowIndex);
         return "warning-row";
