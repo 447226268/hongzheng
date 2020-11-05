@@ -39,16 +39,6 @@
         }
       }
     },
-    created() {
-      var _self = this;
-      document.onkeydown = function (e) {
-        console.log(e)
-        var key = window.event.keyCode;
-        if (key == 13) {
-          _self.onSubmit();
-        }
-      }
-    },
     methods: {
       async Login() {
         let result = (await login(this.form)).result

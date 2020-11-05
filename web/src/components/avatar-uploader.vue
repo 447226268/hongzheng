@@ -18,7 +18,7 @@ export default {
   watch: {
     image: {
       handler(newVal) {
-        this.imageUrl = newVal
+        this.imageUrl = process.env.VUE_APP_SHOW_PIC + newVal
       },
       deep: true
     }
