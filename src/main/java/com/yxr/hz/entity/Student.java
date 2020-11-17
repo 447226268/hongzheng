@@ -32,6 +32,7 @@ public class Student {
     private Integer delaytime;//延期天数
     private String handler;//录入人
     private String info;
+    private Integer xufei;
     private Room room;
     private List<Order> orders;
     private Admin admin;

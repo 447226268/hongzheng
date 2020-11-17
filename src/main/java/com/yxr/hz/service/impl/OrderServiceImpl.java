@@ -42,11 +42,19 @@ public class OrderServiceImpl implements OrderService {
             String date = OutDateUtil.add(s.getOutdate(), order.getCardtype(),s.getDelaytime());
             s.setCardtype(order.getCardtype());
             s.setOutdate(date);
+            if(s.getXufei()!=null){
+                s.setXufei(s.getXufei()+OutDateUtil.xufei(order.getCardtype()));
+                System.out.println(OutDateUtil.xufei(order.getCardtype()));
+            }else{
+                s.setXufei(OutDateUtil.xufei(order.getCardtype()));
+                System.out.println(OutDateUtil.xufei(order.getCardtype()));
+            }
+            System.out.println(s.getXufei());
+
             studentDao.update(s);
             order.setState("续费待确认");
         }
         orderDao.insert(order);
-
     }
 
     @Override

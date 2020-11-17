@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yxr</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>web</artifactId>
     <version>1.0</version>
     <name>hongzheng</name>
     <description>Demo project for Spring Boot</description>

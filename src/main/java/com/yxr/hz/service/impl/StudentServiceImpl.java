@@ -84,7 +84,9 @@ public class StudentServiceImpl implements StudentService {
             }
             room = roomDao.getById(s.getRid());
             reday = TimeReverse.surplus(now, s.getOutdate());
-
+            if(s.getXufei()!=null){
+                reday+=s.getXufei();
+            }
             s.setRoom(room);
             s.setReday(reday);
             s.setMoney(money);
@@ -136,12 +138,11 @@ public class StudentServiceImpl implements StudentService {
             }
             room = roomDao.getById(s.getRid());
             reday = TimeReverse.surplus(now, s.getOutdate());
+            if(s.getXufei()!=null){
+                reday+=s.getXufei();
+            }
             s.setRoom(room);
             s.setReday(reday);
-
-
-
-
             s.setMoney(money);
         }
         return list;
@@ -167,7 +168,9 @@ public class StudentServiceImpl implements StudentService {
         Integer reday = 0;
         s.setOutdate(OutDateUtil.add(s.getIndate(), s.getCardtype(),s.getDelaytime()));
         reday = TimeReverse.surplus(now, s.getOutdate());
-
+        if(s.getXufei()!=null){
+            reday+=s.getXufei();
+        }
         s.setRoom(room);
         s.setReday(reday);
         s.setMoney(money);
@@ -192,12 +195,15 @@ public class StudentServiceImpl implements StudentService {
                 s.setAge((TimeReverse.surplus(s.getBirthday(), now) / 365));
             }
             reday = TimeReverse.surplus(now, s.getOutdate());
-
+            if(s.getXufei()!=null){
+                reday+=s.getXufei();
+            }
 
             Room room = roomDao.getById(s.getRid());
             s.setRoom(room);
             s.setReday(reday);
             s.setMoney(money);
+
             if (!s.getState().equals("冻结")) {
                 list1.add(s);
             }

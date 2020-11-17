@@ -39,6 +39,37 @@ public class OutDateUtil {
             return date1;
         }
         }
+
+
+    public static Integer xufei(String type) throws ParseException {
+        if(type.equals("月卡")){
+            return 30;
+        }else if(type.equals("季卡")){
+
+            return 90;
+        }else if(type.equals("半年卡")){
+
+            return 180;
+        }else if(type.equals("年卡")){
+            return 365;
+        }else {
+            return 0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public static String back(String date1,String type) throws ParseException {
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(date1);
