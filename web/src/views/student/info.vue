@@ -124,14 +124,22 @@
     <div class="show3">
       <div class="show-table">
         <div class="statechosed">
-          <span>状态选择：</span>
-          <el-select v-model="stateChosed" placeholder="请选择">
-            <el-option label="全部" value="全部"></el-option>
-            <el-option label="正常" value="正常"></el-option>
-            <el-option label="失效" value="失效"></el-option>
-            <el-option label="快过期" value="快过期"></el-option>
-            <el-option label="已过期" value="已过期"></el-option>
-          </el-select>
+          <el-input
+              style="width: 300px"
+              prefix-icon="el-icon-search"
+              v-model="search"
+              v-on:keyup.enter.native="getSearch">
+          </el-input>
+          <div>
+            <span>状态选择：</span>
+            <el-select v-model="stateChosed" placeholder="请选择">
+              <el-option label="全部" value="全部"></el-option>
+              <el-option label="正常" value="正常"></el-option>
+              <el-option label="失效" value="失效"></el-option>
+              <el-option label="快过期" value="快过期"></el-option>
+              <el-option label="已过期" value="已过期"></el-option>
+            </el-select>
+          </div>
         </div>
         <el-table
             :data="tableData"
@@ -325,6 +333,7 @@ import {
   getRoomList,
   queren,
   gettable,
+  getbyname,
 } from "@/api/studentinfo.js";
 
 export default {
@@ -346,6 +355,7 @@ export default {
     };
     return {
       showurl: process.env.VUE_APP_SHOW_PIC,
+      search: '',
       current: 1,
       currentroomid: 1,
       total: null,
@@ -506,6 +516,19 @@ export default {
       await this.getStuNumber();
       this.getStuRange();
     },
+    async getSearch() {
+      if (this.search === null || this.search.length === 0) {
+        this.current = 1;
+        this.stateChosed = "正常"
+        await this.getStuNumber();
+        await this.getStuRange1();
+        return
+      }
+      let result = (await (getbyname({name: this.search}))).result
+      this.tableData = result
+      this.total = result.length
+      this.current = 1
+    }
   },
 };
 </script>
@@ -609,8 +632,9 @@ export default {
       background-color: #ffffff;
 
       .statechosed {
-        float: right;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
       }
 
       .demo-table-expand {

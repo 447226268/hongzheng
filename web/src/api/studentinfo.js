@@ -31,4 +31,7 @@ export const queren = data => ajax("/student/queren", data, "get")
 
 export const gettable = data => ajax("/home/table1", data, "get")
 
+export const getbyname = data => ajax("/student/getbyname", data, "get")
+
+
 
