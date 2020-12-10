@@ -4,7 +4,8 @@
       <div class="first">
       </div>
       <div class="seconed">
-        <div class="title">后台登录<div>Welcome!</div>
+        <div class="title">后台登录
+          <div>Welcome!</div>
         </div>
 
         <div class="main">
@@ -20,97 +21,120 @@
           <el-button type="primary" @click="onSubmit">登 陆</el-button>
         </div>
       </div>
-
+    </div>
+    <div class="footer">
+      <span>@2020 HZWD</span>
+      <div>
+        <el-link href="https://beian.miit.gov.cn" target="_blank" :underline="false">豫ICP备2020030532号-1</el-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    login
-  } from "@/api/user.js"
-  export default {
-    name: 'login',
-    data() {
-      return {
-        form: {
-          username: '',
-          password: '',
-        }
-      }
-    },
-    methods: {
-      async Login() {
-        let result = (await login(this.form)).result
-        this.$store.dispatch('userName', result.name)
-        this.$store.dispatch('token', result.level)
-        this.$router.push('/')
-      },
-      onSubmit() {
-        this.Login()
+import {
+  login
+} from "@/api/user.js"
+
+export default {
+  name: 'login',
+  data() {
+    return {
+      form: {
+        username: '',
+        password: '',
       }
     }
+  },
+  methods: {
+    async Login() {
+      let result = (await login(this.form)).result
+      this.$store.dispatch('userName', result.name)
+      this.$store.dispatch('token', result.level)
+      this.$router.push('/')
+    },
+    onSubmit() {
+      this.Login()
+    }
   }
+}
 </script>
 
 <style scoped lang="scss">
-  .login {
-    width: 100vw;
-    height: 100vh;
-    background: url('../assets/images/login.jpg') no-repeat 100%;
-    background-size: cover;
+.login {
+  width: 100vw;
+  height: 100vh;
+  background: url('../assets/images/login.jpg') no-repeat 100%;
+  background-size: cover;
 
-    .form {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-      width: 900px;
-      height: 600px;
-      display: flex;
+  .form {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 600px;
+    display: flex;
 
-      .first {
-        height: 100%;
-        width: 50%;
-        background: url('../assets/images/login_1.jpg') no-repeat 50%;
-        opacity: 0.7;
-        background-size: cover;
+    .first {
+      height: 100%;
+      width: 50%;
+      background: url('../assets/images/login_1.jpg') no-repeat 50%;
+      opacity: 0.7;
+      background-size: cover;
+    }
+
+    .seconed {
+      height: 100%;
+      width: 50%;
+      background-color: #fff;
+
+      .title {
+        width: 100%;
+        margin-top: 80px;
+        margin-bottom: 80px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #f54e40;
+
+        div {
+          margin-top: 10px;
+          font-size: 18px;
+          color: #999;
+          font-weight: 100;
+        }
       }
 
-      .seconed {
-        height: 100%;
-        width: 50%;
-        background-color: #fff;
+      .main {
+        padding: 10px 76px 76px;
 
-        .title {
-          width: 100%;
-          margin-top: 80px;
-          margin-bottom: 80px;
-          text-align: center;
-          font-size: 40px;
-          font-weight: 800;
-          color: #f54e40;
+        .el-button {
+          margin-top: 50px;
+          width: 300px;
 
-          div {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #999;
-            font-weight: 100;
-          }
-        }
-
-        .main {
-          padding: 10px 76px 76px;
-
-          .el-button {
-            margin-top: 50px;
-            width: 300px;
-
-          }
         }
       }
     }
-
   }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    color: black;
+    font-size: 15px;
+    display: flex;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+
+    .el-link {
+      display: block;
+      color: black;
+      margin-left: 10px;
+      font-size: 15px;
+    }
+  }
+}
 </style>
